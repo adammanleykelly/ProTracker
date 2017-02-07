@@ -1,6 +1,9 @@
 package ie.cit.architect.protracker.gui;
 
-import ie.cit.architect.protracker.helpers.Const;
+import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.model.User;
+import ie.cit.architect.protracker.model.UserArchitect;
+import ie.cit.architect.protracker.model.UserClient;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -27,13 +30,16 @@ public class MainApp extends Application {
 
     public void start(Stage primaryStage) throws Exception {
 
+        testModel();
+
         Scene homePageScene = new Scene(createHomeMenu(), 800, 500);
         homePageScene.getStylesheets().add("/stylesheet.css");
         primaryStage.setScene(homePageScene);
-        primaryStage.setTitle(Const.APPLICATION_TITLE);
+        primaryStage.setTitle(Consts.APPLICATION_TITLE);
         primaryStage.show();
 
     }
+
 
 
     private GridPane createHomeMenu() {
@@ -43,7 +49,7 @@ public class MainApp extends Application {
         gridPaneHomeMenu.setPadding(new Insets(20, 0, 20, 20));
         gridPaneHomeMenu.setVgap(20);
 
-        Label labelTitle = new Label(Const.APPLICATION_TITLE.toUpperCase());
+        Label labelTitle = new Label(Consts.APPLICATION_TITLE.toUpperCase());
         labelTitle.getStyleClass().add("label_title");
 
         Label labelSubTitle = new Label("Welcome");
@@ -75,8 +81,8 @@ public class MainApp extends Application {
 
         // Create the custom dialog.
         Dialog<Pair<String, String>> dialog = new Dialog<>();
-        dialog.setTitle("Login Dialog");
-        dialog.setHeaderText("Look, a Custom Login Dialog");
+        dialog.setTitle("Login Client");
+        dialog.setHeaderText("Please Sign In");
 
         // Set the icon (must be included in the project).
         dialog.setGraphic(new ImageView(this.getClass().getResource("/login_icon_architect.png").toString()));
@@ -104,11 +110,11 @@ public class MainApp extends Application {
 
         // Label width
         ColumnConstraints col1 = new ColumnConstraints();
-        col1.setPercentWidth(20);
+        col1.setPercentWidth(30);
 
         // TextField width
         ColumnConstraints col2 = new ColumnConstraints();
-        col2.setPercentWidth(80);
+        col2.setPercentWidth(70);
         grid.getColumnConstraints().addAll(col1,col2);
 
 
@@ -138,6 +144,14 @@ public class MainApp extends Application {
 
         result.ifPresent(emailPassword -> {
             System.out.println("Email=" + emailPassword.getKey() + ", Password=" + emailPassword.getValue());
+
+            String mEmail = emailPassword.getKey();
+            String mPass = emailPassword.getValue();
+
+            User userClient = UserClient.createClient(mEmail, mPass);
+
+            System.out.println(userClient.toString());
+
         });
 
 
@@ -146,10 +160,18 @@ public class MainApp extends Application {
     }
 
 
-    public int dummyTest() {
-        int x = 2 + 2;
+    private void testModel() {
 
-        return x;
+        User userClient = UserClient.createClient("john@aol.ie", "john");
+        System.out.println(userClient.speak());
+        System.out.println(userClient.toString());
+
+        User userArchitect = new UserArchitect("Joe", "mary", "mary@aol.ie");
+        System.out.println(userArchitect.speak());
+        System.out.println(userArchitect.toString());
+
+
+
     }
 
 }

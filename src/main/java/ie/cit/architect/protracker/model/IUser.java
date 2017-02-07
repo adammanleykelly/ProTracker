@@ -5,6 +5,6 @@ package ie.cit.architect.protracker.model;
  */
 public interface IUser {
 
-
+    String speak();
 
 }

@@ -1,2 +1,8 @@
-/home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/MainApp.java
-/home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/helpers/Const.java
+/home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/helpers/Consts.java
+/home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/model/UserEmployee.java
+/home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/model/IUser.java
+/home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/model/UserBuilder.java
+/home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/model/UserArchitect.java
+/home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/model/UserClient.java
+/home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/gui/MainApp.java
+/home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/model/User.java
