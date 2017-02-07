@@ -9,44 +9,16 @@ public class UserClient extends User {
     private String password;
     private String emailAddress;
 
-    public UserClient(String password, String emailAddress) {
+    private UserClient(String emailAddress, String password) {
         super(password, emailAddress);
+        this.emailAddress = emailAddress;
+        this.password = password;
     }
 
     public static UserClient createClient(String emailAddress, String password) {
         return new UserClient(emailAddress, password);
     }
 
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    @Override
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
 
     @Override
     public String speak() {

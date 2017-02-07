@@ -10,42 +10,16 @@ public class UserBuilder extends User {
     private String emailAddress;
 
 
-    public UserBuilder(String name, String userName, String emailAddress) {
-        super(name, userName, emailAddress);
-        this.name = name;
+    private UserBuilder(String emailAddress, String userName) {
+        super(emailAddress, userName);
+        this.emailAddress = emailAddress;
         this.password = userName;
-        this.emailAddress = emailAddress;
     }
 
-    @Override
-    public String getName() {
-        return name;
+    public static UserBuilder createUserBuilder(String emailAddress, String password) {
+        return new UserBuilder(emailAddress, password);
     }
 
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    @Override
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
 
     @Override
     public String speak() {
@@ -54,10 +28,9 @@ public class UserBuilder extends User {
 
     @Override
     public String toString() {
-        return "UserClient{" +
-                "name='" + this.name + '\'' +
-                ", password='" + this.password + '\'' +
+        return "UserBuilder{" +
                 ", emailAddress='" + this.emailAddress + '\'' +
+                ", password='" + this.password + '\'' +
                 '}';
     }
 }

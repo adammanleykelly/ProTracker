@@ -19,12 +19,6 @@ public abstract class User implements IUser{
     }
 
 
-    public User(String name, String password, String emailAddress) {
-        this.name = name;
-        this.password = password;
-        this.emailAddress = emailAddress;
-    }
-
     public String getName() {
         return name;
     }

@@ -5,15 +5,17 @@ package ie.cit.architect.protracker.model;
  */
 public class UserEmployee extends User {
 
-    private String name;
     private String password;
     private String emailAddress;
 
-    public UserEmployee(String name, String password, String emailAddress) {
-        super(name, password, emailAddress);
-        this.name = name;
+    public UserEmployee(String password, String emailAddress) {
+        super(password, emailAddress);
         this.password = password;
         this.emailAddress = emailAddress;
+    }
+
+    public static UserEmployee createUserEmployee(String emailAddress, String password) {
+        return new UserEmployee(emailAddress, password);
     }
 
     @Override
@@ -23,41 +25,10 @@ public class UserEmployee extends User {
 
 
     @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    @Override
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-    @Override
     public String toString() {
-        return "UserClient{" +
-                "name='" + this.name + '\'' +
-                ", password='" + this.password + '\'' +
-                ", emailAddress='" + this.emailAddress + '\'' +
+        return "UserEmployee{" +
+                ", password='" + password + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
                 '}';
     }
 }

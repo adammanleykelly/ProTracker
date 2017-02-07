@@ -3,7 +3,7 @@ package ie.cit.architect.protracker.gui;
 import ie.cit.architect.protracker.helpers.Consts;
 import ie.cit.architect.protracker.model.User;
 import ie.cit.architect.protracker.model.UserArchitect;
-import ie.cit.architect.protracker.model.UserClient;
+import ie.cit.architect.protracker.model.UserBuilder;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -148,9 +148,9 @@ public class MainApp extends Application {
             String mEmail = emailPassword.getKey();
             String mPass = emailPassword.getValue();
 
-            User userClient = UserClient.createClient(mEmail, mPass);
+            User user = UserArchitect.createUserArchitect(mEmail, mPass);
 
-            System.out.println(userClient.toString());
+            System.out.println(user.toString());
 
         });
 
@@ -162,11 +162,11 @@ public class MainApp extends Application {
 
     private void testModel() {
 
-        User userClient = UserClient.createClient("john@aol.ie", "john");
+        User userClient = UserBuilder.createUserBuilder("john@aol.ie", "pass");
         System.out.println(userClient.speak());
         System.out.println(userClient.toString());
 
-        User userArchitect = new UserArchitect("Joe", "mary", "mary@aol.ie");
+        User userArchitect = new UserArchitect("mary@aol.ie", "pass");
         System.out.println(userArchitect.speak());
         System.out.println(userArchitect.toString());
 
