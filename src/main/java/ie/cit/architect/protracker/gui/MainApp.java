@@ -2,37 +2,32 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.helpers.Const;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.util.Optional;
 
 
-public class MainApp extends Application
-{
-
-    private Scene homePageScene;
-    private GridPane gridPaneHomeMenu;
-    private Label labelTitle, labelSubTitle;
-    private Button buttonClientSignIn, buttonArchitectSignIn;
-    private TextInputDialog dialogInput;
+public class MainApp extends Application {
 
 
-    public static void main( String[] args )
-    {
+    public static void main(String[] args) {
         launch(args);
     }
 
     public void start(Stage primaryStage) throws Exception {
 
-        homePageScene = new Scene(createHomeMenu(),800, 500);
+        Scene homePageScene = new Scene(createHomeMenu(), 800, 500);
         homePageScene.getStylesheets().add("/stylesheet.css");
         primaryStage.setScene(homePageScene);
         primaryStage.setTitle(Const.APPLICATION_TITLE);
@@ -43,23 +38,23 @@ public class MainApp extends Application
 
     private GridPane createHomeMenu() {
 
-        gridPaneHomeMenu = new GridPane();
+        GridPane gridPaneHomeMenu = new GridPane();
         gridPaneHomeMenu.setAlignment(Pos.CENTER);
         gridPaneHomeMenu.setPadding(new Insets(20, 0, 20, 20));
         gridPaneHomeMenu.setVgap(20);
 
-        labelTitle = new Label(Const.APPLICATION_TITLE.toUpperCase());
+        Label labelTitle = new Label(Const.APPLICATION_TITLE.toUpperCase());
         labelTitle.getStyleClass().add("label_title");
 
-        labelSubTitle = new Label("Welcome");
+        Label labelSubTitle = new Label("Welcome");
         labelSubTitle.getStyleClass().add("label_subtitle");
 
-        buttonClientSignIn = new Button("Sign in Client");
+        Button buttonClientSignIn = new Button("Sign in Client");
         buttonClientSignIn.setOnAction(event -> signInClientDialog());
 
-        buttonArchitectSignIn = new Button("Sign in Architect");
+        Button buttonArchitectSignIn = new Button("Sign in Architect");
 
-        gridPaneHomeMenu.add(labelTitle, 0 ,1);
+        gridPaneHomeMenu.add(labelTitle, 0, 1);
         GridPane.setHalignment(labelTitle, HPos.CENTER);
 
         gridPaneHomeMenu.add(labelSubTitle, 0, 2);
@@ -75,19 +70,78 @@ public class MainApp extends Application
     }
 
 
-    public TextInputDialog signInClientDialog() {
+    // Custom Dialog ref: http://code.makery.ch/blog/javafx-dialogs-official/
+    public Dialog<Pair<String, String>> signInClientDialog() {
 
-        dialogInput = new TextInputDialog();
-        dialogInput.setTitle("Sign In Client");
-        dialogInput.setHeaderText("Please Sign In");
-        dialogInput.setContentText("Your email address:");
+        // Create the custom dialog.
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.setTitle("Login Dialog");
+        dialog.setHeaderText("Look, a Custom Login Dialog");
 
-        Optional<String> result = dialogInput.showAndWait();
-        if (result.isPresent()){
-            System.out.println("Your name: " + result.get());
-        }
+        // Set the icon (must be included in the project).
+        dialog.setGraphic(new ImageView(this.getClass().getResource("/login_icon_architect.png").toString()));
 
-        return dialogInput;
+        // Set the button types.
+        ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+        // Create the username and password labels and fields.
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField email = new TextField();
+        email.setPromptText("Email");
+        PasswordField password = new PasswordField();
+        password.setPromptText("Password");
+
+
+        grid.add(new Label("Email:"), 0, 0);
+        grid.add(email, 1, 0);
+        grid.add(new Label("Password:"), 0, 1);
+        grid.add(password, 1, 1 );
+
+        // Label width
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(20);
+
+        // TextField width
+        ColumnConstraints col2 = new ColumnConstraints();
+        col2.setPercentWidth(80);
+        grid.getColumnConstraints().addAll(col1,col2);
+
+
+        // Enable/Disable login button depending on whether a username was entered.
+        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+        loginButton.setDisable(true);
+
+        // Do some validation (using the Java 8 lambda syntax).
+        email.textProperty().addListener((observable, oldValue, newValue) -> {
+            loginButton.setDisable(newValue.trim().isEmpty());
+        });
+
+        dialog.getDialogPane().setContent(grid);
+
+        // Request focus on the username field by default.
+        Platform.runLater(() -> email.requestFocus());
+
+        // Convert the result to a username-password-pair when the login button is clicked.
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == loginButtonType) {
+                return new Pair<>(email.getText(), password.getText());
+            }
+            return null;
+        });
+
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+
+        result.ifPresent(emailPassword -> {
+            System.out.println("Email=" + emailPassword.getKey() + ", Password=" + emailPassword.getValue());
+        });
+
+
+        return dialog;
 
     }
 
