@@ -10,12 +10,12 @@ public class UserClient extends User {
     private String emailAddress;
 
     private UserClient(String emailAddress, String password) {
-        super(password, emailAddress);
+        super(emailAddress, password);
         this.emailAddress = emailAddress;
         this.password = password;
     }
 
-    public static UserClient createClient(String emailAddress, String password) {
+    public static UserClient getInstance(String emailAddress, String password) {
         return new UserClient(emailAddress, password);
     }
 

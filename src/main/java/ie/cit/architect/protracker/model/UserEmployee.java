@@ -14,7 +14,7 @@ public class UserEmployee extends User {
         this.emailAddress = emailAddress;
     }
 
-    public static UserEmployee createUserEmployee(String emailAddress, String password) {
+    public static UserEmployee getInstance(String emailAddress, String password) {
         return new UserEmployee(emailAddress, password);
     }
 

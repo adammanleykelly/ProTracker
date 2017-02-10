@@ -16,7 +16,7 @@ public class UserBuilder extends User {
         this.password = userName;
     }
 
-    public static UserBuilder createUserBuilder(String emailAddress, String password) {
+    public static UserBuilder getInstance(String emailAddress, String password) {
         return new UserBuilder(emailAddress, password);
     }
 

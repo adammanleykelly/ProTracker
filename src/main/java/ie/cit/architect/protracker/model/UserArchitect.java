@@ -16,7 +16,7 @@ public class UserArchitect extends User {
         this.password = password;
     }
 
-    public static UserArchitect createUserArchitect(String emailAddress, String password) {
+    public static UserArchitect getInstance(String emailAddress, String password) {
         return new UserArchitect(emailAddress, password);
     }
 
