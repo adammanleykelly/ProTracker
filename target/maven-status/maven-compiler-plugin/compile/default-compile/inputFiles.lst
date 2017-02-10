@@ -1,7 +1,7 @@
 /home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/helpers/Consts.java
 /home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/gui/ArchitectMenuScene.java
 /home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/model/IUser.java
-/home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/gui/Mediator.java
+/home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/gui/MainAppMediator.java
 /home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/model/UserBuilder.java
 /home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/model/UserArchitect.java
 /home/brian/workspace/protracker/src/main/java/ie/cit/architect/protracker/gui/HomeMenu.java
