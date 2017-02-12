@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -35,6 +36,7 @@ public class HomeScene {
     private Button buttonSignInArchitect;
     private Button buttonSignInClient;
     private Button buttonBuilderScene;
+    private Node loginButton;
 
 
 
@@ -125,14 +127,16 @@ public class HomeScene {
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
-        TextField email = new TextField();
-        email.setPromptText("Email");
+        TextField textFieldEmail = new TextField();
+        textFieldEmail.setPromptText("Email");
         PasswordField password = new PasswordField();
         password.setPromptText("Password");
 
+        Label labelCheckEmail = new Label();
 
         grid.add(new Label("Email:"), 0, 0);
-        grid.add(email, 1, 0);
+        grid.add( labelCheckEmail,3, 0);
+        grid.add(textFieldEmail, 1, 0);
         grid.add(new Label("Password:"), 0, 1);
         grid.add(password, 1, 1 );
 
@@ -147,23 +151,32 @@ public class HomeScene {
 
 
         // Enable/Disable login button depending on whether a username was entered.
-        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+        loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
         loginButton.setDisable(true);
 
-        // Do some validation (using the Java 8 lambda syntax).
-        email.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.trim().isEmpty());
+
+        // disable the Login button and set prompt, if user enters incorrect email address
+        textFieldEmail.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!(newValue.trim().matches(Consts.VALID_EMAIL_REGEX))) {
+                loginButton.setDisable(true);
+                labelCheckEmail.setText("enter a valid email");
+                labelCheckEmail.setTextFill(Color.RED);
+            } else {
+                loginButton.setDisable(false);
+                labelCheckEmail.setText("");
+            }
         });
+
 
         dialog.getDialogPane().setContent(grid);
 
         // Request focus on the username field by default.
-        Platform.runLater(() -> email.requestFocus());
+        Platform.runLater(() -> textFieldEmail.requestFocus());
 
         // Convert the result to a username-password-pair when the login button is clicked.
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == loginButtonType) {
-                return new Pair<>(email.getText(), password.getText());
+                return new Pair<>(textFieldEmail.getText(), password.getText());
             }
             return null;
         });
@@ -176,15 +189,9 @@ public class HomeScene {
             String userPass = emailPassword.getValue();
 
             User user = UserEmployee.getInstance(userEmail, userPass);
-
             System.out.println(user.toString());
 
-
-            if(user.isEmailValid(userEmail)) {
-                mainMediator.changeToClientMenuScene(); // open new scene
-            } else {
-                System.out.println("Email input error!");
-            }
+            mainMediator.changeToClientMenuScene(); // open new scene
 
         });
 

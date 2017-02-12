@@ -53,6 +53,8 @@ public abstract class User implements IUser{
         this.emailAddress = emailAddress;
     }
 
+    public ArrayList<User> getUsers() { return this.users; }
+
     public boolean isEmailValid(String eMail) {
 
         if(eMail != null) {
@@ -62,8 +64,6 @@ public abstract class User implements IUser{
         }
         return false;
     }
-
-
 
 
     public boolean isNameValid(String fName) {

@@ -18,3 +18,8 @@
     -fx-font-style: italic;
 }
 
+.client_menu_buttons {
+    -fx-pref-width: 200px;
+}
+
+
