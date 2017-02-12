@@ -22,12 +22,13 @@ import java.util.Optional;
 /**
  * Created by brian on 10/02/17.
  */
-public class HomeMenu {
+public class HomeScene {
 
-   private MainAppMediator mainAppMediator;
+    private MainMediator mainMediator;
 
-    public HomeMenu(MainAppMediator mainAppMediator) {
-        this.mainAppMediator = mainAppMediator;
+    // Composition - passing a reference of MainMediator to HomeScene's constructor. Now HomeScene 'has-a' MainMediator
+    public HomeScene(MainMediator mediator) {
+        this.mainMediator = mediator;
     }
 
 
@@ -38,11 +39,8 @@ public class HomeMenu {
 
 
     public void start(Stage stage) throws Exception {
-
-
         Scene scene = new Scene(
                 createHomeMenu(), 800, 500);
-        signInClient();
         scene.getStylesheets().add("/stylesheet.css");
         stage.setScene(scene);
         stage.setTitle(Consts.APPLICATION_TITLE);
@@ -68,6 +66,7 @@ public class HomeMenu {
         buttonSignInClient.setOnAction(event -> signInClientDialog());
 
         buttonBuilderScene = new Button("Builder Menu");
+        buttonBuilderScene.setOnAction(event -> createBuilderMenu());
 
         buttonSignInArchitect = new Button("Sign in Architect");
 
@@ -91,19 +90,15 @@ public class HomeMenu {
     }
 
 
-    public void signInClient() {
-
+    public void createBuilderMenu() {
         // Components are individual classes:
         // https://stackoverflow.com/questions/32464698/java-how-do-i-start-a-standalone-application-from-the-current-one-when-both-are
-        buttonBuilderScene.setOnAction(event -> {
-            Parent view = new BuilderMenuScene().getView();
-            Scene scene = new Scene(view);
-            Stage stage = new Stage();
-            stage.initOwner(buttonBuilderScene.getScene().getWindow());
-            stage.setScene(scene);
-            stage.show();
-        });
-
+        Parent view = new BuilderMenuScene().getView();
+        Scene scene = new Scene(view);
+        Stage stage = new Stage();
+        stage.initOwner(buttonBuilderScene.getScene().getWindow());
+        stage.setScene(scene);
+        stage.show();
     }
 
     // Custom Dialog ref: http://code.makery.ch/blog/javafx-dialogs-official/
@@ -117,9 +112,12 @@ public class HomeMenu {
         // Set the icon (must be included in the project).
         dialog.setGraphic(new ImageView(this.getClass().getResource("/login_icon_architect.png").toString()));
 
+
         // Set the button types.
         ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+
 
         // Create the username and password labels and fields.
         GridPane grid = new GridPane();
@@ -181,7 +179,15 @@ public class HomeMenu {
 
             System.out.println(user.toString());
 
+
+            if(user.isEmailValid(userEmail)) {
+                mainMediator.changeToClientMenuScene(); // open new scene
+            } else {
+                System.out.println("Email input error!");
+            }
+
         });
+
 
 
         return dialog;

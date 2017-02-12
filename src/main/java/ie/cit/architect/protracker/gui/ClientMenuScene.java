@@ -12,10 +12,10 @@ import javafx.stage.Stage;
 public class ClientMenuScene {
 
     private BorderPane view;
-    private MainAppMediator mainAppMediator;
+    private MainMediator mainMediator;
 
-    public ClientMenuScene(MainAppMediator mainAppMediator) {
-        this.mainAppMediator = mainAppMediator;
+    public ClientMenuScene(MainMediator mainMediator) {
+        this.mainMediator = mainMediator;
     }
 
 

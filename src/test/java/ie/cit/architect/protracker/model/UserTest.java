@@ -26,7 +26,7 @@ public class UserTest {
     @Test
     public void testValidateName() throws Exception {
 
-        assertThat(architectUser.validateName(validName), is(true));
+        assertThat(architectUser.isNameValid(validName), is(true));
 
     }
 

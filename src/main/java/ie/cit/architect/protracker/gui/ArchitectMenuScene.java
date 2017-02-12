@@ -11,12 +11,11 @@ import javafx.stage.Stage;
 public class ArchitectMenuScene {
 
     private GridPane view;
-    private MainAppMediator mainAppMediator;
+    private MainMediator mainMediator;
 
-    public ArchitectMenuScene(MainAppMediator mainAppMediator) {
-        this.mainAppMediator = mainAppMediator;
+    public ArchitectMenuScene(MainMediator mainMediator) {
+        this.mainMediator = mainMediator;
     }
-
 
 
     public void start(Stage stage) {

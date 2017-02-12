@@ -2,6 +2,10 @@ package ie.cit.architect.protracker.model;
 
 import ie.cit.architect.protracker.helpers.Consts;
 
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by brian on 06/02/17.
  */
@@ -10,8 +14,14 @@ public abstract class User implements IUser{
     private String name;
     private String password;
     private String emailAddress;
+    private ArrayList<User> users;
 
-    public User() {}
+
+
+    public User() {
+        this.users = new ArrayList<User>();
+    }
+
 
     public User(String password, String emailAddress) {
         this.password = password;
@@ -43,8 +53,20 @@ public abstract class User implements IUser{
         this.emailAddress = emailAddress;
     }
 
+    public boolean isEmailValid(String eMail) {
 
-    public boolean validateName(String fName) {
+        if(eMail != null) {
+            Pattern pattern = Pattern.compile(Consts.VALID_EMAIL_REGEX);
+            Matcher matcher = pattern.matcher(eMail);
+            return matcher.matches();
+        }
+        return false;
+    }
+
+
+
+
+    public boolean isNameValid(String fName) {
         if (getName().matches(Consts.VALID_NAME)) {
             return true;
         }

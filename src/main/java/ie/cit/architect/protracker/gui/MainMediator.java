@@ -3,34 +3,33 @@ package ie.cit.architect.protracker.gui;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class MainAppMediator extends Application {
+public class MainMediator extends Application {
 
     private ArchitectMenuScene architectMenuScene;
     private ClientMenuScene clientMenuScene;
-    private HomeMenu homeMenuScene;
+    private HomeScene homeMenuScene;
     private Stage primaryStage;
 
-//  Swapping scenes, ref:
-//    http://stackoverflow.com/a/14168529/5942254
+    public static void main(String[] args){ launch(args); }
 
-    public MainAppMediator(){
+
+    //  Swapping scenes. Ref: http://stackoverflow.com/a/14168529/5942254
+    public MainMediator(){
         architectMenuScene = new ArchitectMenuScene(this);
         clientMenuScene = new ClientMenuScene(this);
-        homeMenuScene = new HomeMenu(this);
+        homeMenuScene = new HomeScene(this);
 
+        // TODO:
+        // - add new scenes
+        // - add methods below for those scenes to be opened
     }
-    public static void main(String[] args){
-        launch(args);
-    }
+
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
-
-//        changeToClientMenuScene();
-//        changeToArchitectMenuScene();
-        changeToHomeMenu();
-
+        homeMenuScene.start(primaryStage); // default
     }
+
 
     public void changeToArchitectMenuScene(){
         architectMenuScene.start(primaryStage);
@@ -40,7 +39,5 @@ public class MainAppMediator extends Application {
         clientMenuScene.start(primaryStage);
     }
 
-    public void changeToHomeMenu() throws Exception {
-        homeMenuScene.start(primaryStage);
-    }
+
 }
