@@ -14,9 +14,16 @@ public class UserEmployee extends User {
         this.emailAddress = emailAddress;
     }
 
+    public UserEmployee(String emailAddress) {
+        super(emailAddress);
+        this.emailAddress = emailAddress;
+    }
+
     public static UserEmployee getInstance(String emailAddress, String password) {
         return new UserEmployee(emailAddress, password);
     }
+
+
 
     @Override
     public String speak() {

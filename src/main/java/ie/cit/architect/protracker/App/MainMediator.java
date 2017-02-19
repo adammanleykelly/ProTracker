@@ -1,13 +1,19 @@
-package ie.cit.architect.protracker.gui;
+package ie.cit.architect.protracker.App;
 
+import ie.cit.architect.protracker.gui.ArchitectMenuScene;
+import ie.cit.architect.protracker.gui.CreateNewProjScene;
+import ie.cit.architect.protracker.gui.ClientMenuScene;
+import ie.cit.architect.protracker.gui.HomeScene;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class MainMediator extends Application {
 
+    private HomeScene homeMenuScene;
     private ArchitectMenuScene architectMenuScene;
     private ClientMenuScene clientMenuScene;
-    private HomeScene homeMenuScene;
+    private CreateNewProjScene createNewProjScene;
+
     private Stage primaryStage;
 
     public static void main(String[] args){ launch(args); }
@@ -15,9 +21,10 @@ public class MainMediator extends Application {
 
     //  Swapping scenes. Ref: http://stackoverflow.com/a/14168529/5942254
     public MainMediator(){
+        homeMenuScene = new HomeScene(this);
         architectMenuScene = new ArchitectMenuScene(this);
         clientMenuScene = new ClientMenuScene(this);
-        homeMenuScene = new HomeScene(this);
+        createNewProjScene = new CreateNewProjScene(this);
 
         // TODO:
         // - add new scenes
@@ -31,6 +38,7 @@ public class MainMediator extends Application {
     }
 
 
+    // methods to change scene
     public void changeToArchitectMenuScene(){
         architectMenuScene.start(primaryStage);
     }
@@ -39,5 +47,7 @@ public class MainMediator extends Application {
         clientMenuScene.start(primaryStage);
     }
 
+    public void changeToCreateProjScene() { createNewProjScene.start(primaryStage); }
 
+    public void changeToHomeScene() throws Exception { homeMenuScene.start(primaryStage); }
 }

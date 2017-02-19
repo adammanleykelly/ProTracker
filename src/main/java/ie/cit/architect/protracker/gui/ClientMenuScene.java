@@ -1,10 +1,12 @@
 package ie.cit.architect.protracker.gui;
 
+import ie.cit.architect.protracker.App.MainMediator;
 import ie.cit.architect.protracker.helpers.Consts;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -26,8 +28,11 @@ public class ClientMenuScene {
 
 
     public void start(Stage stage) {
-        Scene scene = new Scene(
-                createClientMenu(), 800, 500);
+        BorderPane pane = new BorderPane();
+        pane.setTop(homeButtonContainer());
+        pane.setCenter(createClientMenu());
+
+        Scene scene = new Scene(pane, 800, 500);
         scene.getStylesheets().add("/stylesheet.css");
         stage.setScene(scene);
         stage.setTitle(Consts.APPLICATION_TITLE);
@@ -61,5 +66,28 @@ public class ClientMenuScene {
 
         return gridPane;
     }
+
+
+    public AnchorPane homeButtonContainer() {
+
+        AnchorPane anchorPane = new AnchorPane();
+
+        Button buttonHome = new Button("Home");
+        buttonHome.setOnAction(event -> {
+            try {
+                mainMediator.changeToHomeScene();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        AnchorPane.setTopAnchor(buttonHome, 10.0);
+        AnchorPane.setLeftAnchor(buttonHome, 10.0);
+        anchorPane.getChildren().add(buttonHome);
+
+        return anchorPane;
+    }
+
+
 
 }

@@ -8,7 +8,6 @@ public class UserArchitect extends User {
     private String password;
     private String emailAddress;
 
-    public UserArchitect() {}
 
     public UserArchitect(String emailAddress, String password) {
         super(emailAddress, password);

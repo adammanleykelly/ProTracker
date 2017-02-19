@@ -14,22 +14,19 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class UserTest {
 
 
-    private User architectUser, clientUser;
-    private String validName = "Joe";
-
+    private User user;
+    private String name = "Joe";
+    private String email = "joe@aol.ie";
 
     @Before
     public void setUp() throws Exception {
-
-        architectUser = new UserArchitect();
-        architectUser.setName("Joe");
-
-
+        user = new User(email, name);
+        user.setName("Joe");
     }
 
     @Test
     public void testValidateName() throws Exception {
-        assertThat(architectUser.isNameValid(validName), is(true));
+        assertThat(user.isNameValid(name), is(true));
     }
 
 
@@ -45,7 +42,7 @@ public class UserTest {
         validEmails.add("username@yahoo.corporate.uk");
 
         for(int i = 0; i < validEmails.size(); i++) {
-            assertThat(architectUser.isEmailValid(
+            assertThat(user.isEmailValid(
                     validEmails.get(i).toString()), is(true));
         }
 
@@ -61,9 +58,11 @@ public class UserTest {
 
 
         for(int i = 0; i < invalidEmails.size(); i++) {
-            assertThat(architectUser.isEmailValid(
+            assertThat(user.isEmailValid(
                     invalidEmails.get(i).toString()), is(false));
         }
+
+
     }
 
 }

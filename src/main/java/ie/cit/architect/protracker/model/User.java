@@ -9,23 +9,27 @@ import java.util.regex.Pattern;
 /**
  * Created by brian on 06/02/17.
  */
-public abstract class User implements IUser{
+public class User implements IUser{
 
     private String name;
     private String password;
     private String emailAddress;
     private ArrayList<User> users;
 
+    public User(String emailAddress) { this.emailAddress = emailAddress; }
 
+    public User(String emailAddress, String password) {
+        this.emailAddress = emailAddress;
+        this.password = password;
 
-    public User() {
-        this.users = new ArrayList<User>();
     }
 
+    public static User getInstance(String emailAddress, String password) {
+        return new User(emailAddress, password);
+    }
 
-    public User(String password, String emailAddress) {
-        this.password = password;
-        this.emailAddress = emailAddress;
+    public static User getInstance(String emailAddress) {
+        return new User(emailAddress);
     }
 
 
@@ -71,6 +75,19 @@ public abstract class User implements IUser{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEmployee{" +
+                ", password='" + password + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                '}';
+    }
+
+    @Override
+    public String speak() {
+        return "I'm a user";
     }
 
 
