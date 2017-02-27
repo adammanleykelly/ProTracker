@@ -66,7 +66,7 @@ public class ArchitectMenuScene {
                 if (event.getSource().equals(btn1)) {
                     mainMediator.changeToCreateProjScene();
                 } else if (event.getSource().equals(btn2)) {
-                    System.out.println("Manage");
+                    mainMediator.changeToManageProjcetScene();
                 } else if (event.getSource().equals(btn3)) {
                     System.out.println("Billing");
                 } else if (event.getSource().equals(btn4)) {

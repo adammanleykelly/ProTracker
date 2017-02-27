@@ -38,10 +38,11 @@
     -fx-background-color: #E7E7E7;
 }
 
-.lable_padding, .checkbox_padding {
+.lable_padding, .checkbox_padding{
     -fx-padding: 20, 0, 20, 0;
 }
 
 .checkbox_padding {
     -fx-padding: 10, 0, 10, 0;
 }
+

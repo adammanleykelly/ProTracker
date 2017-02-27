@@ -36,7 +36,7 @@ public class CreateNewProjScene {
 
     public void start(Stage stage) {
 
-        createButtonArray();
+        createCheckboxArray();
 
         Scene scene = new Scene(
                 Utility.createContainer(createLeftPane(), createMiddlePane(), createRightPane()),
@@ -108,7 +108,7 @@ public class CreateNewProjScene {
 
         for(CheckBox checkBox :
                 checkBoxes) {
-            checkBox.setOnAction(event -> System.out.println(checkBox.getText()));
+            checkBox.setOnAction(event -> System.out.println(checkBox.selectedProperty().getValue()));
             checkBox.getStyleClass().add("checkbox_padding");
             vBox.getChildren().add(checkBox);
         }
@@ -120,7 +120,7 @@ public class CreateNewProjScene {
 
 
     // Ref: http://stackoverflow.com/a/23512831/5942254
-    private void createButtonArray() {
+    private void createCheckboxArray() {
 
         List<String> text = Arrays.asList(
                 "Site Maps", "Proposed Drawings", "Structural Drawings", "Supplier Details",

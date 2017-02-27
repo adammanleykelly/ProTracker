@@ -1,6 +1,7 @@
 package ie.cit.architect.protracker.helpers;
 
 import ie.cit.architect.protracker.gui.NavigationPane;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -17,6 +18,21 @@ public final class Utility {
         BorderPane borderPane = new BorderPane();
         borderPane.setLeft(vb1);
         borderPane.setCenter(vb2);
+        borderPane.setRight(vb3);
+
+        NavigationPane navigationPane = new NavigationPane();
+        AnchorPane nav = navigationPane.createNavButtons();
+
+        borderPane.setBottom(nav);
+
+        return borderPane;
+    }
+
+
+    public static BorderPane createContainer(VBox vb1, ScrollPane scrollPane, VBox vb3) {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setLeft(vb1);
+        borderPane.setCenter(scrollPane);
         borderPane.setRight(vb3);
 
         NavigationPane navigationPane = new NavigationPane();

@@ -66,6 +66,10 @@ public class HomeScene {
 
         buttonSignInClient = new Button("Sign in Client");
         buttonSignInArchitect = new Button("Sign in Architect");
+        buttonSignInClient.setMinWidth(150);
+        buttonSignInArchitect.setMinWidth(150);
+
+
         List<Button> buttonList = Arrays.asList(buttonSignInClient, buttonSignInArchitect);
 
         for (Button button : buttonList) {
