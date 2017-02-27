@@ -32,7 +32,7 @@ public class ClientMenuScene {
         pane.setTop(homeButtonContainer());
         pane.setCenter(createClientMenu());
 
-        Scene scene = new Scene(pane, 800, 500);
+        Scene scene = new Scene(pane, Consts.APP_WIDTH, Consts.APP_HEIGHT);
         scene.getStylesheets().add("/stylesheet.css");
         stage.setScene(scene);
         stage.setTitle(Consts.APPLICATION_TITLE);

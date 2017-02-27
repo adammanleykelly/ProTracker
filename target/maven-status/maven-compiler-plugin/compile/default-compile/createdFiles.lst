@@ -1,7 +1,6 @@
 ie/cit/architect/protracker/helpers/Consts.class
 ie/cit/architect/protracker/model/UserArchitect.class
 ie/cit/architect/protracker/model/IUser.class
-ie/cit/architect/protracker/gui/BuilderMenuScene.class
 ie/cit/architect/protracker/model/UserClient.class
 ie/cit/architect/protracker/gui/ClientMenuScene.class
 ie/cit/architect/protracker/model/UserEmployee.class

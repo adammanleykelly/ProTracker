@@ -21,3 +21,23 @@
 .client_menu_buttons {
     -fx-pref-width: 200px;
 }
+
+.hbox_left {
+    -fx-background-color: red;
+}
+
+.hbox_middle {
+    -fx-background-color: blue;
+}
+
+.hbox_right {
+    -fx-background-color: yellow;
+}
+
+.anchorpane_color {
+    -fx-background-color: orange;
+}
+
+.lable_padding {
+    -fx-padding: 20, 0, 20, 0;
+}

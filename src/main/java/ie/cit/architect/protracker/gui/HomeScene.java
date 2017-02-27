@@ -13,9 +13,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +43,7 @@ public class HomeScene {
 
     public void start(Stage stage) throws Exception {
         Scene scene = new Scene(
-                createHomeMenu(), 800, 500);
+                createHomeMenu(), Consts.APP_WIDTH, Consts.APP_HEIGHT);
         scene.getStylesheets().add("/stylesheet.css");
         stage.setScene(scene);
         stage.setTitle(Consts.APPLICATION_TITLE);
@@ -141,21 +141,22 @@ public class HomeScene {
 
         // Enable/Disable login button depending on whether a username was entered.
         Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
-        loginButton.setDisable(true);
 
-
+        //TODO : change to true and uncomment code after testing
+        loginButton.setDisable(false);
         // disable the Login button and set prompt, if user enters incorrect email address
-        textFieldEmail.textProperty().addListener((observable, oldValue, newValue) -> {
-
-            if (!(newValue.trim().matches(Consts.VALID_EMAIL_REGEX))) {
-                loginButton.setDisable(true);
-                labelCheckEmail.setText("enter a valid email"); // display error message
-                labelCheckEmail.setTextFill(Color.RED);
-            } else {
-                loginButton.setDisable(false);
-                labelCheckEmail.setText("");
-            }
-        });
+        //Off for testing
+//        textFieldEmail.textProperty().addListener((observable, oldValue, newValue) -> {
+//
+//            if (!(newValue.trim().matches(Consts.VALID_EMAIL_REGEX))) {
+//                loginButton.setDisable(true);
+//                labelCheckEmail.setText("enter a valid email"); // display error message
+//                labelCheckEmail.setTextFill(Color.RED);
+//            } else {
+//                loginButton.setDisable(false);
+//                labelCheckEmail.setText("");
+//            }
+//        });
 
 
         dialog.getDialogPane().setContent(gridPane);
