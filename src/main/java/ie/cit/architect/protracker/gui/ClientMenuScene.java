@@ -19,7 +19,6 @@ import java.util.List;
  */
 public class ClientMenuScene {
 
-    private BorderPane view;
     private MainMediator mainMediator;
 
     public ClientMenuScene(MainMediator mainMediator) {

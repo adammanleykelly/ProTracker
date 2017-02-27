@@ -2,13 +2,15 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.MainMediator;
 import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.helpers.Utility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -22,7 +24,6 @@ import java.util.List;
 public class CreateNewProjScene {
 
 
-    private final int PANEL_WIDTH = 275;
     private ArrayList<TextField> TextFieldArrayList;
     CheckBox[] checkBoxes = new CheckBox[10];
 
@@ -36,8 +37,11 @@ public class CreateNewProjScene {
     public void start(Stage stage) {
 
         createButtonArray();
+
         Scene scene = new Scene(
-                createContainer(), Consts.APP_WIDTH, Consts.APP_HEIGHT);
+                Utility.createContainer(createLeftPane(), createMiddlePane(), createRightPane()),
+                Consts.APP_WIDTH, Consts.APP_HEIGHT);
+
         scene.getStylesheets().add("/stylesheet.css");
         stage.setScene(scene);
         stage.setTitle(Consts.APPLICATION_TITLE + " Create New");
@@ -45,20 +49,12 @@ public class CreateNewProjScene {
     }
 
 
-    private BorderPane createContainer() {
-        BorderPane borderPane = new BorderPane();
-        borderPane.setLeft(createLeftPane());
-        borderPane.setCenter(createMiddlePane());
-        borderPane.setRight(createRightPane());
-        borderPane.setBottom(createNavButtons());
 
-        return borderPane;
-    }
 
     private VBox createLeftPane() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_left");
-        vBox.setMinWidth(PANEL_WIDTH);
+        vBox.setMinWidth(Consts.PANEL_WIDTH);
 
 
         // TextFields
@@ -103,14 +99,15 @@ public class CreateNewProjScene {
     private VBox createMiddlePane() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_middle");
-        vBox.setMinWidth(PANEL_WIDTH);
+        vBox.setMinWidth(Consts.PANEL_WIDTH);
 
         Label label = new Label("Select folders to create:");
 
         vBox.getChildren().add(label);
 
 
-        for(CheckBox checkBox : checkBoxes) {
+        for(CheckBox checkBox :
+                checkBoxes) {
             checkBox.setOnAction(event -> System.out.println(checkBox.getText()));
             checkBox.getStyleClass().add("checkbox_padding");
             vBox.getChildren().add(checkBox);
@@ -138,7 +135,7 @@ public class CreateNewProjScene {
     private VBox createRightPane() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_right");
-        vBox.setMinWidth(PANEL_WIDTH);
+        vBox.setMinWidth(Consts.PANEL_WIDTH);
 
         Label label = new Label("Description:");
 
@@ -152,30 +149,5 @@ public class CreateNewProjScene {
         return vBox;
     }
 
-
-    public AnchorPane createNavButtons() {
-
-        AnchorPane anchorPane = new AnchorPane();
-        anchorPane.getStyleClass().add("anchorpane_color");
-
-        Button buttonCancel = new Button("Cancel");
-        buttonCancel.setOnAction(event -> System.exit(0));
-        Button buttonContinue = new Button("Continue");
-        buttonContinue.setOnAction(event -> {
-            try {
-                mainMediator.changeToArchitectMenuScene();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
-        AnchorPane.setBottomAnchor(buttonCancel, 10.0);
-        AnchorPane.setRightAnchor(buttonCancel, 150.0);
-        AnchorPane.setBottomAnchor(buttonContinue, 10.0);
-        AnchorPane.setRightAnchor(buttonContinue, 10.0);
-        anchorPane.getChildren().addAll(buttonCancel, buttonContinue);
-
-        return anchorPane;
-    }
 
 }

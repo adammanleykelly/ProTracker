@@ -53,7 +53,7 @@ public class ArchitectMenuScene {
         Button btn3 = new Button();
         Button btn4 = new Button();
 
-        List<String> buttonText = Arrays.asList("Create New", "Manage Existing", "Billing / Invoice", "Check In / Out");
+        List<String> buttonText = Arrays.asList("Create New", "Manage Existing", "Billing / Invoice", "View Messages");
         List<Button> buttonList = Arrays.asList(btn1, btn2, btn3, btn4);
 
         for (int i = 0; i < buttonList.size(); i++) {
@@ -70,7 +70,7 @@ public class ArchitectMenuScene {
                 } else if (event.getSource().equals(btn3)) {
                     System.out.println("Billing");
                 } else if (event.getSource().equals(btn4)) {
-                    System.out.println("CheckIn");
+                    mainMediator.changeToViewMessagesScene();
                 }
             });
         }

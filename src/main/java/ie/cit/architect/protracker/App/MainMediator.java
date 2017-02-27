@@ -1,9 +1,6 @@
 package ie.cit.architect.protracker.App;
 
-import ie.cit.architect.protracker.gui.ArchitectMenuScene;
-import ie.cit.architect.protracker.gui.CreateNewProjScene;
-import ie.cit.architect.protracker.gui.ClientMenuScene;
-import ie.cit.architect.protracker.gui.HomeScene;
+import ie.cit.architect.protracker.gui.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -13,6 +10,7 @@ public class MainMediator extends Application {
     private ArchitectMenuScene architectMenuScene;
     private ClientMenuScene clientMenuScene;
     private CreateNewProjScene createNewProjScene;
+    private ViewMessagesScene viewMessagesScene;
 
     private Stage primaryStage;
 
@@ -25,6 +23,7 @@ public class MainMediator extends Application {
         architectMenuScene = new ArchitectMenuScene(this);
         clientMenuScene = new ClientMenuScene(this);
         createNewProjScene = new CreateNewProjScene(this);
+        viewMessagesScene = new ViewMessagesScene(this);
 
         // TODO:
         // - add new scenes
@@ -49,5 +48,8 @@ public class MainMediator extends Application {
 
     public void changeToCreateProjScene() { createNewProjScene.start(primaryStage); }
 
+    public void changeToViewMessagesScene() { viewMessagesScene.start(primaryStage); }
+
     public void changeToHomeScene() throws Exception { homeMenuScene.start(primaryStage); }
+
 }
