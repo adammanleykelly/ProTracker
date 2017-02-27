@@ -6,10 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -95,6 +92,8 @@ public class CreateNewProjScene {
             label.getStyleClass().add("lable_padding");
         }
 
+        VBox.setMargin(lbProjName, new Insets(10,0,0,0));
+
         // add controls to VBox
         vBox.getChildren().addAll(lbProjName, tfProjName, lbProjAuthor, tfProjAuthor, lbProjClient, tfProjClient, lbProjLocation, tfProjLocation);
 
@@ -106,11 +105,18 @@ public class CreateNewProjScene {
         vBox.getStyleClass().add("hbox_middle");
         vBox.setMinWidth(PANEL_WIDTH);
 
+        Label label = new Label("Select folders to create:");
+
+        vBox.getChildren().add(label);
+
 
         for(CheckBox checkBox : checkBoxes) {
+            checkBox.setOnAction(event -> System.out.println(checkBox.getText()));
+            checkBox.getStyleClass().add("checkbox_padding");
             vBox.getChildren().add(checkBox);
         }
 
+        VBox.setMargin(label, new Insets(30,0,10,0));
 
         return vBox;
     }
@@ -118,8 +124,13 @@ public class CreateNewProjScene {
 
     // Ref: http://stackoverflow.com/a/23512831/5942254
     private void createButtonArray() {
+
+        List<String> text = Arrays.asList(
+                "Site Maps", "Proposed Drawings", "Structural Drawings", "Supplier Details",
+                "Fire Drawings", "Images", "Exports", "Imports", "Documents", "Emails");
+
         for(int i = 0; i < checkBoxes.length; i++) {
-            checkBoxes[i] = new CheckBox("Checkbox-"+i);
+            checkBoxes[i] = new CheckBox((i+1) + " " + text.get(i));
         }
     }
 
@@ -128,6 +139,16 @@ public class CreateNewProjScene {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_right");
         vBox.setMinWidth(PANEL_WIDTH);
+
+        Label label = new Label("Description:");
+
+        TextArea textArea = new TextArea();
+        textArea.setPrefWidth(200);
+
+        VBox.setMargin(label, new Insets(30,0,0,0));
+
+        vBox.getChildren().addAll(label, textArea);
+
         return vBox;
     }
 

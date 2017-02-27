@@ -23,21 +23,25 @@
 }
 
 .hbox_left {
-    -fx-background-color: red;
+    -fx-background-color: white;
 }
 
 .hbox_middle {
-    -fx-background-color: blue;
+    /*-fx-background-color: blue;*/
 }
 
 .hbox_right {
-    -fx-background-color: yellow;
+    -fx-background-color: #E7E7E7;
 }
 
 .anchorpane_color {
-    -fx-background-color: orange;
+    -fx-background-color: #E7E7E7;
 }
 
-.lable_padding {
+.lable_padding, .checkbox_padding {
     -fx-padding: 20, 0, 20, 0;
+}
+
+.checkbox_padding {
+    -fx-padding: 10, 0, 10, 0;
 }
