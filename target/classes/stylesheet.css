@@ -27,15 +27,15 @@
 }
 
 .hbox_middle {
-    /*-fx-background-color: blue;*/
+
 }
 
 .hbox_right {
-    -fx-background-color: #E7E7E7;
+    -fx-background-color: white;
 }
 
 .anchorpane_color {
-    -fx-background-color: #E7E7E7;
+    -fx-background-color: #e8e8e8;
 }
 
 .lable_padding, .checkbox_padding{
@@ -46,3 +46,6 @@
     -fx-padding: 10, 0, 10, 0;
 }
 
+#text-area *.text {
+    -fx-text-alignment: center;
+}

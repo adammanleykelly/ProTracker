@@ -45,6 +45,9 @@ public class ViewMessagesScene {
         TextArea textArea = new TextArea();
         textArea.setMaxWidth(200);
         textArea.setPrefHeight(200);
+        textArea.setWrapText(true);
+        textArea.setText("@Joe - Hello Joe, how can I help");
+        textArea.appendText("you today?");
 
         VBox.setMargin(label, new Insets(30,0,0,40));
         VBox.setMargin(textArea, new Insets(0,0,0,40));
@@ -64,6 +67,11 @@ public class ViewMessagesScene {
         TextArea textArea = new TextArea();
         textArea.setMaxWidth(200);
         textArea.setPrefHeight(200);
+        textArea.setWrapText(true);
+        textArea.setText("@Georgia - Hi Georgia, I'm looking");
+        textArea.appendText("to make an appointm to discuss ");
+        textArea.appendText("the next stage of the project.");
+
 
         VBox.setMargin(label, new Insets(30,0,0,40));
         VBox.setMargin(textArea, new Insets(0,0,0,40));
@@ -84,6 +92,9 @@ public class ViewMessagesScene {
         TextArea textArea = new TextArea();
         textArea.setMaxWidth(200);
         textArea.setPrefHeight(200);
+        textArea.setWrapText(true);
+        textArea.setText("@Joe - Let me have a quick look to see");
+        textArea.appendText("what days we have available.");
 
         VBox.setMargin(label, new Insets(30,0,0,40));
         VBox.setMargin(textArea, new Insets(0,0,0,40));

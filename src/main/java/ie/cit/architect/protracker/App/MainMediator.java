@@ -12,6 +12,7 @@ public class MainMediator extends Application {
     private CreateNewProjScene createNewProjScene;
     private ViewMessagesScene viewMessagesScene;
     private ManageProjectScene manageProjectScene;
+    private NavigationPane navigationPane;
 
     private Stage primaryStage;
 
@@ -26,6 +27,7 @@ public class MainMediator extends Application {
         createNewProjScene = new CreateNewProjScene(this);
         viewMessagesScene = new ViewMessagesScene(this);
         manageProjectScene = new ManageProjectScene(this);
+        navigationPane = new NavigationPane(this);
 
         // TODO:
         // - add new scenes
@@ -53,6 +55,8 @@ public class MainMediator extends Application {
     public void changeToViewMessagesScene() { viewMessagesScene.start(primaryStage); }
 
     public void changeToManageProjcetScene() { manageProjectScene.start(primaryStage); }
+
+    public void changeToNavScene() { navigationPane.start(primaryStage); }
 
     public void changeToHomeScene() throws Exception { homeMenuScene.start(primaryStage); }
 
