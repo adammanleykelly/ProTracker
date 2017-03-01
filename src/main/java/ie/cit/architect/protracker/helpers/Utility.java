@@ -29,6 +29,21 @@ public final class Utility {
     }
 
 
+    public static BorderPane createContainer(VBox vb1, VBox vb2, VBox vb3, AnchorPane ap) {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setLeft(vb1);
+        borderPane.setCenter(vb2);
+        borderPane.setRight(vb3);
+        borderPane.setBottom(ap);
+
+        NavigationPane navigationPane = new NavigationPane();
+        AnchorPane nav = navigationPane.createNavButtons();
+
+        borderPane.setBottom(nav);
+
+        return borderPane;
+    }
+
     public static BorderPane createContainer(VBox vb1, ScrollPane scrollPane, VBox vb3) {
         BorderPane borderPane = new BorderPane();
         borderPane.setLeft(vb1);

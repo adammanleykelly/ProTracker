@@ -2,18 +2,20 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.MainMediator;
 import ie.cit.architect.protracker.helpers.Consts;
-import ie.cit.architect.protracker.helpers.Utility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,11 +26,16 @@ import java.util.List;
 public class CreateNewProjScene {
 
 
-    private ArrayList<TextField> TextFieldArrayList;
-    CheckBox[] checkBoxes = new CheckBox[10];
+    private ArrayList<String> directoryList = new ArrayList<>();
+    private CheckBox[] checkBoxes = new CheckBox[10];
+    private String checkboxText;
+    private String numberRemoved;
+    private TextField tfProjectName = new TextField();
+    private TextField tfProjectAuthor = new TextField();
+    private TextField tfProjectClient = new TextField();
+    private TextField tfProjectLocation = new TextField();
 
     private MainMediator mainMediator;
-
     public CreateNewProjScene(MainMediator mainMediator) {
         this.mainMediator = mainMediator;
     }
@@ -38,8 +45,8 @@ public class CreateNewProjScene {
 
         createCheckboxArray();
 
-        Scene scene = new Scene(
-                Utility.createContainer(createLeftPane(), createMiddlePane(), createRightPane()),
+        Scene scene= new Scene(
+                createContainer(createLeftPane(), createMiddlePane(), createRightPane(), createNavigationButtons()),
                 Consts.APP_WIDTH, Consts.APP_HEIGHT);
 
         scene.getStylesheets().add("/stylesheet.css");
@@ -50,20 +57,24 @@ public class CreateNewProjScene {
 
 
 
+    public static BorderPane createContainer(VBox vb1, VBox vb2, VBox vb3, AnchorPane ap) {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setLeft(vb1);
+        borderPane.setCenter(vb2);
+        borderPane.setRight(vb3);
+        borderPane.setBottom(ap);
+        return borderPane;
+    }
+
+
 
     private VBox createLeftPane() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_left");
         vBox.setMinWidth(Consts.PANEL_WIDTH);
 
-
-        // TextFields
-        TextField tfProjName = new TextField();
-        TextField tfProjAuthor = new TextField();
-        TextField tfProjClient = new TextField();
-        TextField tfProjLocation = new TextField();
         ObservableList<TextField> textFieldList =
-                FXCollections.observableArrayList(tfProjName, tfProjAuthor, tfProjClient, tfProjLocation);
+                FXCollections.observableArrayList(tfProjectName, tfProjectAuthor, tfProjectClient, tfProjectLocation);
         List<String> text = Arrays.asList("Project Name", "Name of Author", "Name of Client", "Project Location");
 
         for(int i = 0; i < textFieldList.size(); i++ ) {
@@ -71,30 +82,31 @@ public class CreateNewProjScene {
         }
 
         for (TextField textField : textFieldList) {
-            textField.setOnAction(event -> System.out.println(textField.getText()));
             textField.setFocusTraversable(false);
             VBox.setMargin(textField, new Insets(0, 37.5, 0, 37.5));
         }
 
         // Labels
-        Label lbProjName = new Label("Name of project");
-        Label lbProjAuthor = new Label("Name of author");
-        Label lbProjClient = new Label("Name of client");
-        Label lbProjLocation = new Label("Location");
+        Label lbProjectName = new Label("Name of project");
+        Label lbProjectAuthor = new Label("Name of author");
+        Label lbProjectClient = new Label("Name of client");
+        Label lbProjectLocation = new Label("Location");
 
-        List<Label> labelList = Arrays.asList(lbProjName, lbProjAuthor, lbProjClient, lbProjLocation);
+        List<Label> labelList = Arrays.asList(lbProjectName, lbProjectAuthor, lbProjectClient, lbProjectLocation);
 
         for(Label label : labelList) {
             label.getStyleClass().add("lable_padding");
         }
 
-        VBox.setMargin(lbProjName, new Insets(10,0,0,0));
+        VBox.setMargin(lbProjectName, new Insets(10,0,0,0));
 
         // add controls to VBox
-        vBox.getChildren().addAll(lbProjName, tfProjName, lbProjAuthor, tfProjAuthor, lbProjClient, tfProjClient, lbProjLocation, tfProjLocation);
+        vBox.getChildren().addAll(lbProjectName, tfProjectName, lbProjectAuthor, tfProjectAuthor, lbProjectClient, tfProjectClient, lbProjectLocation, tfProjectLocation);
 
         return vBox;
     }
+
+
 
     private VBox createMiddlePane() {
         VBox vBox = new VBox();
@@ -106,11 +118,11 @@ public class CreateNewProjScene {
         vBox.getChildren().add(label);
 
 
-        for(CheckBox checkBox :
-                checkBoxes) {
-            checkBox.setOnAction(event -> System.out.println(checkBox.selectedProperty().getValue()));
+        for(CheckBox checkBox : checkBoxes) {
+            checkBox.setOnAction(event -> removeDigits(event));
             checkBox.getStyleClass().add("checkbox_padding");
             vBox.getChildren().add(checkBox);
+
         }
 
         VBox.setMargin(label, new Insets(30,0,10,0));
@@ -119,17 +131,51 @@ public class CreateNewProjScene {
     }
 
 
+
+    private void createDirectories() {
+        String projectName = tfProjectName.getText();
+        try {
+            Path path1 = Paths.get("/home/brian/Desktop/" + projectName + "//");
+            Files.createDirectories(path1);
+
+            for(int i = 0; i < directoryList.size(); i++) {
+                Path path2 = Paths.get("/home/brian/Desktop/" + projectName + "//" + (i+1) + directoryList.get(i));
+                Files.createDirectories(path2);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private String removeDigits(ActionEvent event) {
+        for (CheckBox checkBox : checkBoxes) {
+            if (event.getSource().equals(checkBox) && checkBox.isSelected()) {
+                checkboxText = checkBox.getText();
+                numberRemoved = checkboxText.replaceAll("\\d", "");
+
+                //add to ArrayList
+                directoryList.add(numberRemoved);
+            }
+        }
+        return numberRemoved;
+    }
+
+
+
     // Ref: http://stackoverflow.com/a/23512831/5942254
     private void createCheckboxArray() {
 
         List<String> text = Arrays.asList(
-                "Site Maps", "Proposed Drawings", "Structural Drawings", "Supplier Details",
-                "Fire Drawings", "Images", "Exports", "Imports", "Documents", "Emails");
+                "_SiteMaps", "_ProposedDrawings", "_StructuralDrawings", "_SupplierDetails",
+                "_FireDrawings", "_Images", "_Exports", "_Imports", "_Documents", "_Emails");
 
         for(int i = 0; i < checkBoxes.length; i++) {
-            checkBoxes[i] = new CheckBox((i+1) + " " + text.get(i));
+            checkBoxes[i] = new CheckBox((i+1) + text.get(i));
         }
     }
+
 
 
     private VBox createRightPane() {
@@ -150,4 +196,58 @@ public class CreateNewProjScene {
     }
 
 
+
+    private AnchorPane createNavigationButtons() {
+
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getStyleClass().add("anchorpane_color");
+
+        Button buttonCancel = new Button("Cancel");
+        buttonCancel.setOnAction(event -> System.exit(0));
+        Button buttonContinue = new Button("Continue");
+        buttonContinue.setOnAction(event -> {
+            try {
+                createDirectories();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        AnchorPane.setTopAnchor(buttonCancel, 10.0);
+        AnchorPane.setBottomAnchor(buttonCancel, 10.0);
+        AnchorPane.setRightAnchor(buttonCancel, 150.0);
+        AnchorPane.setBottomAnchor(buttonContinue, 10.0);
+        AnchorPane.setRightAnchor(buttonContinue, 10.0);
+        anchorPane.getChildren().addAll(buttonCancel, buttonContinue);
+
+        return anchorPane;
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -22,8 +22,6 @@ public class NavigationPane {
 
 
     public void start(Stage stage) {
-
-
         Scene scene = new Scene(createNavButtons(),
                 Consts.APP_WIDTH, Consts.APP_HEIGHT);
 

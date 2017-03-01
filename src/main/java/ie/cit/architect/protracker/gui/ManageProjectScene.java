@@ -130,7 +130,7 @@ public class ManageProjectScene {
     private VBox createLeftPane() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_right");
-        vBox.setMinWidth(Consts.PANEL_WIDTH);
+        vBox.setMinWidth(225);
 
         Label label = new Label("Search Projects:");
         VBox.setMargin(label, new Insets(30, 0, 20, 10));
