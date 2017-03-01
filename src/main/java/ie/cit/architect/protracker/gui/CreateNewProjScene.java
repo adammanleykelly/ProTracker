@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,9 +26,11 @@ import java.util.List;
  */
 public class CreateNewProjScene {
 
+    private static final String ROOT_DIR = "/home/brian/Desktop/";
+    private static final String DOUBLE_FILE_SEP = File.separator + File.separator;
 
-    private ArrayList<String> directoryList = new ArrayList<>();
-    private CheckBox[] checkBoxes = new CheckBox[10];
+    private ArrayList<String> directoryArrayList = new ArrayList<>();
+    private CheckBox[] checkboxList = new CheckBox[10];
     private String checkboxText;
     private String numberRemoved;
     private TextField tfProjectName = new TextField();
@@ -36,6 +39,7 @@ public class CreateNewProjScene {
     private TextField tfProjectLocation = new TextField();
 
     private MainMediator mainMediator;
+
     public CreateNewProjScene(MainMediator mainMediator) {
         this.mainMediator = mainMediator;
     }
@@ -45,7 +49,9 @@ public class CreateNewProjScene {
 
         createCheckboxArray();
 
-        Scene scene= new Scene(
+
+
+        Scene scene = new Scene(
                 createContainer(createLeftPane(), createMiddlePane(), createRightPane(), createNavigationButtons()),
                 Consts.APP_WIDTH, Consts.APP_HEIGHT);
 
@@ -54,7 +60,6 @@ public class CreateNewProjScene {
         stage.setTitle(Consts.APPLICATION_TITLE + " Create New");
         stage.show();
     }
-
 
 
     public static BorderPane createContainer(VBox vb1, VBox vb2, VBox vb3, AnchorPane ap) {
@@ -67,7 +72,6 @@ public class CreateNewProjScene {
     }
 
 
-
     private VBox createLeftPane() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_left");
@@ -77,7 +81,7 @@ public class CreateNewProjScene {
                 FXCollections.observableArrayList(tfProjectName, tfProjectAuthor, tfProjectClient, tfProjectLocation);
         List<String> text = Arrays.asList("Project Name", "Name of Author", "Name of Client", "Project Location");
 
-        for(int i = 0; i < textFieldList.size(); i++ ) {
+        for (int i = 0; i < textFieldList.size(); i++) {
             textFieldList.get(i).setPromptText(text.get(i));
         }
 
@@ -94,18 +98,18 @@ public class CreateNewProjScene {
 
         List<Label> labelList = Arrays.asList(lbProjectName, lbProjectAuthor, lbProjectClient, lbProjectLocation);
 
-        for(Label label : labelList) {
+        for (Label label : labelList) {
             label.getStyleClass().add("lable_padding");
         }
 
-        VBox.setMargin(lbProjectName, new Insets(10,0,0,0));
+        VBox.setMargin(lbProjectName, new Insets(10, 0, 0, 0));
 
         // add controls to VBox
-        vBox.getChildren().addAll(lbProjectName, tfProjectName, lbProjectAuthor, tfProjectAuthor, lbProjectClient, tfProjectClient, lbProjectLocation, tfProjectLocation);
+        vBox.getChildren().addAll(lbProjectName, tfProjectName, lbProjectAuthor, tfProjectAuthor,
+                lbProjectClient, tfProjectClient, lbProjectLocation, tfProjectLocation);
 
         return vBox;
     }
-
 
 
     private VBox createMiddlePane() {
@@ -118,64 +122,73 @@ public class CreateNewProjScene {
         vBox.getChildren().add(label);
 
 
-        for(CheckBox checkBox : checkBoxes) {
+        for (CheckBox checkBox : checkboxList) {
             checkBox.setOnAction(event -> removeDigits(event));
             checkBox.getStyleClass().add("checkbox_padding");
             vBox.getChildren().add(checkBox);
-
+//            checkBox.setDisable(true);
         }
 
-        VBox.setMargin(label, new Insets(30,0,10,0));
+
+//        tfProjectName.textProperty().addListener((observable, oldValue, newValue) -> {
+//            for (CheckBox checkBox : checkboxList) {
+//                if (newValue.isEmpty()) {
+//                    checkBox.setDisable(true);
+//                } else {
+//                    checkBox.setDisable(false);
+//                }
+//            }
+//        });
+
+
+        VBox.setMargin(label, new Insets(30, 0, 10, 0));
 
         return vBox;
     }
 
 
-
     private void createDirectories() {
         String projectName = tfProjectName.getText();
         try {
-            Path path1 = Paths.get("/home/brian/Desktop/" + projectName + "//");
+            Path path1 = Paths.get(ROOT_DIR + projectName + DOUBLE_FILE_SEP);
             Files.createDirectories(path1);
 
-            for(int i = 0; i < directoryList.size(); i++) {
-                Path path2 = Paths.get("/home/brian/Desktop/" + projectName + "//" + (i+1) + directoryList.get(i));
-                Files.createDirectories(path2);
+            if (!projectName.isEmpty()) {
+                for (int i = 0; i < directoryArrayList.size(); i++) {
+                    String subDirectory = directoryArrayList.get(i);
+                    Path path2 = Paths.get(ROOT_DIR + projectName + DOUBLE_FILE_SEP + subDirectory);
+                    Files.createDirectories(path2);
+                }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-
-    private String removeDigits(ActionEvent event) {
-        for (CheckBox checkBox : checkBoxes) {
+    private void removeDigits(ActionEvent event) {
+        for (CheckBox checkBox : checkboxList) {
             if (event.getSource().equals(checkBox) && checkBox.isSelected()) {
                 checkboxText = checkBox.getText();
                 numberRemoved = checkboxText.replaceAll("\\d", "");
 
-                //add to ArrayList
-                directoryList.add(numberRemoved);
+                directoryArrayList.add(numberRemoved);
             }
         }
-        return numberRemoved;
     }
-
 
 
     // Ref: http://stackoverflow.com/a/23512831/5942254
     private void createCheckboxArray() {
 
         List<String> text = Arrays.asList(
-                "_SiteMaps", "_ProposedDrawings", "_StructuralDrawings", "_SupplierDetails",
-                "_FireDrawings", "_Images", "_Exports", "_Imports", "_Documents", "_Emails");
+                "SiteMaps", "ProposedDrawings", "StructuralDrawings", "SupplierDetails",
+                "FireDrawings", "Images", "Exports", "Imports", "Documents", "Emails");
 
-        for(int i = 0; i < checkBoxes.length; i++) {
-            checkBoxes[i] = new CheckBox((i+1) + text.get(i));
+        for (int i = 0; i < checkboxList.length; i++) {
+            checkboxList[i] = new CheckBox((i + 1) + text.get(i));
         }
     }
-
 
 
     private VBox createRightPane() {
@@ -188,13 +201,12 @@ public class CreateNewProjScene {
         TextArea textArea = new TextArea();
         textArea.setPrefWidth(200);
 
-        VBox.setMargin(label, new Insets(30,0,0,0));
+        VBox.setMargin(label, new Insets(30, 0, 0, 0));
 
         vBox.getChildren().addAll(label, textArea);
 
         return vBox;
     }
-
 
 
     private AnchorPane createNavigationButtons() {
