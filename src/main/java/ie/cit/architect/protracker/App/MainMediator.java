@@ -13,6 +13,8 @@ public class MainMediator extends Application {
     private ViewMessagesScene viewMessagesScene;
     private ManageProjectScene manageProjectScene;
     private NavigationPane navigationPane;
+    private CustomArchitectDialog customArchitectDialog;
+    private CustomClientDialog customClientDialog;
 
     private Stage primaryStage;
 
@@ -28,6 +30,8 @@ public class MainMediator extends Application {
         viewMessagesScene = new ViewMessagesScene(this);
         manageProjectScene = new ManageProjectScene(this);
         navigationPane = new NavigationPane(this);
+        customArchitectDialog = new CustomArchitectDialog(this);
+        customClientDialog = new CustomClientDialog(this);
 
         // TODO:
         // - add new scenes
@@ -57,6 +61,10 @@ public class MainMediator extends Application {
     public void changeToManageProjcetScene() { manageProjectScene.start(primaryStage); }
 
     public void changeToNavScene() { navigationPane.start(primaryStage); }
+
+    public void changeToArchitectCustomDialog() { customArchitectDialog.signInArchitectDialog(); }
+
+    public void changeToClientCustomDialog() { customClientDialog.signInClientDialog(); }
 
     public void changeToHomeScene() throws Exception { homeMenuScene.start(primaryStage); }
 

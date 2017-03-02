@@ -25,9 +25,10 @@ import java.util.List;
  * Created by brian on 10/02/17.
  */
 public class CreateNewProjScene {
-
-    private static final String ROOT_DIR = "/home/brian/Desktop/";
-    private static final String DOUBLE_FILE_SEP = File.separator + File.separator;
+    
+    private static final String FILE_SEP = File.separator;
+    private static final String DOUBLE_FILE_SEP = FILE_SEP + FILE_SEP;
+    private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + FILE_SEP + "Desktop" + FILE_SEP;
 
     private ArrayList<String> directoryArrayList = new ArrayList<>();
     private CheckBox[] checkboxList = new CheckBox[10];
@@ -150,13 +151,13 @@ public class CreateNewProjScene {
     private void createDirectories() {
         String projectName = tfProjectName.getText();
         try {
-            Path path1 = Paths.get(ROOT_DIR + projectName + DOUBLE_FILE_SEP);
+            Path path1 = Paths.get(PATH_TO_DESKTOP + projectName + DOUBLE_FILE_SEP);
             Files.createDirectories(path1);
 
             if (!projectName.isEmpty()) {
                 for (int i = 0; i < directoryArrayList.size(); i++) {
                     String subDirectory = directoryArrayList.get(i);
-                    Path path2 = Paths.get(ROOT_DIR + projectName + DOUBLE_FILE_SEP + subDirectory);
+                    Path path2 = Paths.get(PATH_TO_DESKTOP + projectName + DOUBLE_FILE_SEP + subDirectory);
                     Files.createDirectories(path2);
                 }
             }
