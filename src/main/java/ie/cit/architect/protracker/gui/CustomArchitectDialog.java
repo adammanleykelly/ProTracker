@@ -1,7 +1,9 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.MainMediator;
+import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.model.User;
+import ie.cit.architect.protracker.model.UserArchitect;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -21,12 +23,10 @@ public class CustomArchitectDialog
 
     private MainMediator mainMediator;
 
-    // Composition - passing a reference of MainMediator to HomeScene's constructor. Now HomeScene 'has-a' MainMediator
+
     public CustomArchitectDialog(MainMediator mediator) {
         this.mainMediator = mediator;
     }
-
-    public CustomArchitectDialog() {}
 
 
     // Custom Dialog ref: http://code.makery.ch/blog/javafx-dialogs-official/
@@ -121,10 +121,16 @@ public class CustomArchitectDialog
             String userEmail = emailPass.getKey();
             String userPass = emailPass.getValue();
 
-            User user = User.getInstance(userEmail, userPass);
+            User user = UserArchitect.getInstance(userEmail, userPass);
 
 
             mainMediator.changeToArchitectMenuScene();
+
+            if(user != null) {
+                DBController.getInstance().addUser(user);
+            }
+
+            DBController.getInstance().saveUser();
 
 
 

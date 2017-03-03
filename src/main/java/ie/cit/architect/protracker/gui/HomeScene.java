@@ -28,8 +28,6 @@ public class HomeScene {
 
     public void start(Stage stage) throws Exception {
 
-        customArchitectDialog = new CustomArchitectDialog();
-
         // check the Operating System
         System.out.println(System.getProperty("os.name"));
 

@@ -24,8 +24,8 @@ import java.util.List;
 /**
  * Created by brian on 10/02/17.
  */
-public class CreateNewProjScene {
-    
+public class CreateNewProjectScene {
+
     private static final String FILE_SEP = File.separator;
     private static final String DOUBLE_FILE_SEP = FILE_SEP + FILE_SEP;
     private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + FILE_SEP + "Desktop" + FILE_SEP;
@@ -41,7 +41,7 @@ public class CreateNewProjScene {
 
     private MainMediator mainMediator;
 
-    public CreateNewProjScene(MainMediator mainMediator) {
+    public CreateNewProjectScene(MainMediator mainMediator) {
         this.mainMediator = mainMediator;
     }
 

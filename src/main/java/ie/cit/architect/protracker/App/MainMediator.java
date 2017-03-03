@@ -1,6 +1,8 @@
 package ie.cit.architect.protracker.App;
 
+import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.gui.*;
+import ie.cit.architect.protracker.persistors.DBPersistor;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -9,7 +11,7 @@ public class MainMediator extends Application {
     private HomeScene homeMenuScene;
     private ArchitectMenuScene architectMenuScene;
     private ClientMenuScene clientMenuScene;
-    private CreateNewProjScene createNewProjScene;
+    private CreateNewProjectScene createNewProjectScene;
     private ViewMessagesScene viewMessagesScene;
     private ManageProjectScene manageProjectScene;
     private NavigationPane navigationPane;
@@ -26,7 +28,7 @@ public class MainMediator extends Application {
         homeMenuScene = new HomeScene(this);
         architectMenuScene = new ArchitectMenuScene(this);
         clientMenuScene = new ClientMenuScene(this);
-        createNewProjScene = new CreateNewProjScene(this);
+        createNewProjectScene = new CreateNewProjectScene(this);
         viewMessagesScene = new ViewMessagesScene(this);
         manageProjectScene = new ManageProjectScene(this);
         navigationPane = new NavigationPane(this);
@@ -42,6 +44,8 @@ public class MainMediator extends Application {
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
         homeMenuScene.start(primaryStage); // default
+
+        DBController.getInstance().setPersistor(new DBPersistor());
     }
 
 
@@ -54,13 +58,11 @@ public class MainMediator extends Application {
         clientMenuScene.start(primaryStage);
     }
 
-    public void changeToCreateProjScene() { createNewProjScene.start(primaryStage); }
+    public void changeToCreateProjScene() { createNewProjectScene.start(primaryStage); }
 
     public void changeToViewMessagesScene() { viewMessagesScene.start(primaryStage); }
 
     public void changeToManageProjcetScene() { manageProjectScene.start(primaryStage); }
-
-    public void changeToNavScene() { navigationPane.start(primaryStage); }
 
     public void changeToArchitectCustomDialog() { customArchitectDialog.signInArchitectDialog(); }
 

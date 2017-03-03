@@ -2,6 +2,7 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.MainMediator;
 import ie.cit.architect.protracker.model.User;
+import ie.cit.architect.protracker.model.UserClient;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -18,10 +19,9 @@ import java.util.Optional;
  */
 public class CustomClientDialog
 {
-
     private MainMediator mainMediator;
 
-    // Composition - passing a reference of MainMediator to HomeScene's constructor. Now HomeScene 'has-a' MainMediator
+
     public CustomClientDialog(MainMediator mediator) {
         this.mainMediator = mediator;
     }
@@ -119,7 +119,7 @@ public class CustomClientDialog
             String userEmail = emailPass.getKey();
             String userPass = emailPass.getValue();
 
-            User user = User.getInstance(userEmail, userPass);
+            User user = UserClient.getInstance(userEmail, userPass);
 
 
             mainMediator.changeToClientMenuScene();
