@@ -4,6 +4,7 @@ import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.gui.*;
 import ie.cit.architect.protracker.persistors.DBPersistor;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 public class MainMediator extends Application {
@@ -45,7 +46,9 @@ public class MainMediator extends Application {
         primaryStage = stage;
         homeMenuScene.start(primaryStage); // default
 
-        DBController.getInstance().setPersistor(new DBPersistor());
+        Platform.runLater(() -> {
+            DBController.getInstance().setPersistor(new DBPersistor());
+        });
     }
 
 

@@ -32,6 +32,8 @@ public class CustomArchitectDialog
     // Custom Dialog ref: http://code.makery.ch/blog/javafx-dialogs-official/
     public Dialog<Pair<String, String>> signInArchitectDialog() {
 
+
+
         // Create the custom dialog.
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Login Architect");

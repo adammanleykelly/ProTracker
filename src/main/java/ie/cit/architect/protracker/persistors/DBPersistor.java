@@ -18,33 +18,30 @@ public class DBPersistor  implements IPersistor{
     private ArrayList<AutoCloseable> dbObjects;
 
 
+    private static final String DB_PASS = "<enter_pass_here>";
+
 
     public DBPersistor(){
 
-        dbObjects = new ArrayList<AutoCloseable>();
+        dbObjects = new ArrayList<>();
         try {
 
             String db_Driver = "com.mysql.cj.jdbc.Driver";
-            String db_URL = "jdbc:mysql://localhost:3308/";
-            String db_Name = "protracker?";
-            String db_DisableSSL = "autoReconnect=true&useSSL=false";
-            String db_User = "root";
-            String db_Pass = "bossdog12";
+            String db_URL = "jdbc:mysql://82.118.226.76:3306/protracker?user=root&password=" + DB_PASS;
 
             Class.forName(db_Driver);
 
-            this.dbConnection = DriverManager.getConnection(
-                    db_URL+db_Name+db_DisableSSL, db_User, db_Pass);
+            this.dbConnection = DriverManager.getConnection(db_URL);
 
             if(this.dbConnection != null) {
-                System.out.println("CONNECTED TO DATABASE!! :" + this.dbConnection);
+                System.out.println("Connected!");
             } else {
-                System.out.println("CONNECTION FAILED!!");
+                System.out.println("Connection Failed!");
             }
 
 
         }catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -79,8 +76,8 @@ public class DBPersistor  implements IPersistor{
             for(AutoCloseable curr : dbObjects) {
                 curr.close();
             }
-        }catch(Exception ex){
-            System.out.println("ERROR 3:"+ex.getMessage());
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
