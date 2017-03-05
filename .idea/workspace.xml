@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ded50f0a-9d31-471b-b803-c616a3f23c23" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/DBPersistorTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/App/MainMediator.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/App/MainMediator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/DBPersistor.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/DBPersistor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/DBPersistorTest.java" afterPath="$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/DBPersistorTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -70,11 +68,13 @@
           <file leaf-file-name="DBPersistor.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/DBPersistor.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="431">
-                  <caret line="40" column="35" lean-forward="false" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
+                <state relative-caret-position="391">
+                  <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <marker date="1488732518615" expanded="true" signature="2103:2240" ph="INSERT INTO users... " />
+                    <element signature="e#2866#2867#0" expanded="true" />
+                    <element signature="e#2893#2894#0" expanded="true" />
+                    <marker date="1488733339865" expanded="true" signature="2103:2240" ph="INSERT INTO users... " />
                   </folding>
                 </state>
               </provider>
@@ -117,9 +117,11 @@
           <file leaf-file-name="DBPersistorTest.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/DBPersistorTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="72">
-                  <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
-                  <folding />
+                <state relative-caret-position="459">
+                  <caret line="36" column="28" lean-forward="false" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -226,9 +228,9 @@
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/DBConnection.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/helpers/MySQLCredentials.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/User.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/DBPersistorTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/App/MainMediator.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/DBPersistor.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/DBPersistorTest.java" />
       </list>
     </option>
   </component>
@@ -640,7 +642,7 @@
       <recent name="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MainMediator">
+  <component name="RunManager" selected="JUnit.DBPersistorTest">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1234,8 +1236,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.MainMediator" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.DBPersistorTest" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.DBPersistorTest" />
+        <item index="1" class="java.lang.String" itemvalue="Application.MainMediator" />
         <item index="2" class="java.lang.String" itemvalue="JUnit.UserTest.testValidateName" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.UserTest" />
         <item index="4" class="java.lang.String" itemvalue="Application.Main" />
@@ -1293,26 +1295,11 @@
       <workItem from="1488653768069" duration="11518000" />
       <workItem from="1488667313880" duration="5000" />
       <workItem from="1488667364339" duration="8000" />
-      <workItem from="1488721442804" duration="6391000" />
+      <workItem from="1488721442804" duration="7245000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="DBPersistorTest - 2017.03.05 at 16h 23m 03s.xml">
-      <configuration name="DBPersistorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="DBPersistorTest - 2017.03.05 at 16h 24m 54s.xml">
-      <configuration name="DBPersistorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="DBPersistorTest - 2017.03.05 at 16h 25m 11s.xml">
-      <configuration name="DBPersistorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="DBPersistorTest - 2017.03.05 at 16h 25m 43s.xml">
-      <configuration name="DBPersistorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="DBPersistorTest - 2017.03.05 at 16h 26m 42s.xml">
-      <configuration name="DBPersistorTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="DBPersistorTest - 2017.03.05 at 16h 26m 52s.xml">
       <configuration name="DBPersistorTest" configurationId="JUnit" />
     </history-entry>
@@ -1328,9 +1315,24 @@
     <history-entry file="DBPersistorTest - 2017.03.05 at 16h 43m 05s.xml">
       <configuration name="DBPersistorTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="DBPersistorTest - 2017.03.05 at 16h 51m 43s.xml">
+      <configuration name="DBPersistorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="DBPersistorTest - 2017.03.05 at 17h 00m 02s.xml">
+      <configuration name="DBPersistorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="DBPersistorTest - 2017.03.05 at 17h 01m 42s.xml">
+      <configuration name="DBPersistorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="DBPersistorTest - 2017.03.05 at 17h 02m 22s.xml">
+      <configuration name="DBPersistorTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="DBPersistorTest - 2017.03.05 at 17h 02m 35s.xml">
+      <configuration name="DBPersistorTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="187389000" />
+    <option name="totallyTimeSpent" value="188243000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1353,9 +1355,9 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30370942" sideWeight="0.50477326" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29299363" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2927073" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33763653" sideWeight="0.49522674" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32770607" sideWeight="0.49522674" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28699106" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1675,14 +1677,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/DBController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
@@ -1709,21 +1703,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/DBPersistorTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
+        <state relative-caret-position="252">
+          <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/DBPersistor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="40" column="35" lean-forward="false" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
+        <state relative-caret-position="391">
+          <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1488732518615" expanded="true" signature="2103:2240" ph="INSERT INTO users... " />
+            <element signature="e#2866#2867#0" expanded="true" />
+            <element signature="e#2893#2894#0" expanded="true" />
+            <marker date="1488733339865" expanded="true" signature="2103:2240" ph="INSERT INTO users... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/DBPersistorTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="36" column="28" lean-forward="false" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

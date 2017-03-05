@@ -93,16 +93,12 @@ public class DBPersistor  implements IPersistor{
     }
 
 
-    public String getDbUserEmail(User user) {
-        String email = user.getEmailAddress();
-        return email;
+    public User getDbUser(User user) {
+        return user;
     }
 
 
-    public String getDbUserPass(User user) {
-        String pass = user.getPassword();
-        return pass;
-    }
+
 
 
 

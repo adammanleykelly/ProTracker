@@ -16,6 +16,7 @@ public class DBPersistorTest {
 
     private DBPersistor dbPersistor;
     private User user1, user2;
+    private User dbUser;
     private ObservableList<User> users = FXCollections.observableArrayList();
 
     @Before
@@ -26,13 +27,14 @@ public class DBPersistorTest {
 
         users.addAll(user1, user2);
         dbPersistor.writeUsers(users);
+        dbUser = dbPersistor.getDbUser(user1);
     }
 
     @Test
     public void writeUsers() throws Exception {
         assertTrue("Expected not null ", dbPersistor != null);
-        assertEquals("joe@moe.com", dbPersistor.getDbUserEmail(user1));
-        assertEquals("mypass", dbPersistor.getDbUserPass(user1));
+        assertEquals("joe@moe.com", dbUser.getEmailAddress());
+        assertEquals("mypass", dbUser.getPassword());
     }
 
 }
