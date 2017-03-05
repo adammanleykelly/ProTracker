@@ -19,10 +19,12 @@ public class DBPersistor  implements IPersistor{
     private ArrayList<AutoCloseable> dbObjects;
 
 
-    private static final String DB_HOST = "82.118.226.76";
+    private static final String DB_REMOTE_HOST = "82.118.226.76";
+    private static final String DB_LOCAL_HOST = "localhost";
     private static final String DB_NAME = "protracker";
     private static final String DB_PORT = "3306";
     private static final String DB_USER = "remoteUser";
+    private static final String DB_LOCALHOST_PASS = "bossdog12";
 
 
     public DBPersistor(){
@@ -32,12 +34,15 @@ public class DBPersistor  implements IPersistor{
 
             String db_Driver = "com.mysql.cj.jdbc.Driver";
 
-            String db_URL = "jdbc:mysql://"+ DB_HOST +":"+ DB_PORT +"/"+ DB_NAME +
+            String db_URL = "jdbc:mysql://"+ DB_REMOTE_HOST +":"+ DB_PORT +"/"+ DB_NAME +
                     "?user="+ DB_USER + "&password=" + MySQLCredentials.DB_PASS;
+
+            String db_TEST_URL = "jdbc:mysql://"+ DB_LOCAL_HOST +":"+ DB_PORT +"/"+ DB_NAME +
+                    "?user="+ "root" + "&password=" + DB_LOCALHOST_PASS;
 
             Class.forName(db_Driver);
 
-            this.dbConnection = DriverManager.getConnection(db_URL);
+            this.dbConnection = DriverManager.getConnection(db_TEST_URL);
 
             if(this.dbConnection != null) {
                 System.out.println("Connected!");
@@ -87,6 +92,17 @@ public class DBPersistor  implements IPersistor{
         }
     }
 
+
+    public String getDbUserEmail(User user) {
+        String email = user.getEmailAddress();
+        return email;
+    }
+
+
+    public String getDbUserPass(User user) {
+        String pass = user.getPassword();
+        return pass;
+    }
 
 
 
