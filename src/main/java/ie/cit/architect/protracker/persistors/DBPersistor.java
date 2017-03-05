@@ -1,5 +1,6 @@
 package ie.cit.architect.protracker.persistors;
 
+import ie.cit.architect.protracker.helpers.MySQLCredentials;
 import ie.cit.architect.protracker.model.User;
 import javafx.collections.ObservableList;
 
@@ -18,7 +19,10 @@ public class DBPersistor  implements IPersistor{
     private ArrayList<AutoCloseable> dbObjects;
 
 
-    private static final String DB_PASS = "<enter_pass_here>";
+    private static final String DB_HOST = "82.118.226.76";
+    private static final String DB_NAME = "protracker";
+    private static final String DB_PORT = "3306";
+    private static final String DB_USER = "remoteUser";
 
 
     public DBPersistor(){
@@ -27,7 +31,9 @@ public class DBPersistor  implements IPersistor{
         try {
 
             String db_Driver = "com.mysql.cj.jdbc.Driver";
-            String db_URL = "jdbc:mysql://82.118.226.76:3306/protracker?user=root&password=" + DB_PASS;
+
+            String db_URL = "jdbc:mysql://"+ DB_HOST +":"+ DB_PORT +"/"+ DB_NAME +
+                    "?user="+ DB_USER + "&password=" + MySQLCredentials.DB_PASS;
 
             Class.forName(db_Driver);
 

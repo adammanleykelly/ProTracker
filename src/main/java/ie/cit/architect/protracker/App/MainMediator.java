@@ -46,9 +46,7 @@ public class MainMediator extends Application {
         primaryStage = stage;
         homeMenuScene.start(primaryStage); // default
 
-        Platform.runLater(() -> {
-            DBController.getInstance().setPersistor(new DBPersistor());
-        });
+        Platform.runLater(() -> DBController.getInstance().setPersistor(new DBPersistor()));
     }
 
 
