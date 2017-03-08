@@ -125,17 +125,15 @@ public class CustomArchitectDialog
 
             User user = UserArchitect.getInstance(userEmail, userPass);
 
-
             mainMediator.changeToArchitectMenuScene();
 
-            if(user != null) {
-                DBController.getInstance().addUser(user);
-            }
+            Platform.runLater(() -> {
+                if(user != null) {
+                    DBController.getInstance().addUser(user);
+                }
 
-            DBController.getInstance().saveUser();
-
-
-
+                DBController.getInstance().saveUser();
+            });
             if (user != null)
                 System.out.println(user.toString());
 

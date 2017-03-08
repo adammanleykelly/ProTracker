@@ -1,13 +1,10 @@
 package ie.cit.architect.protracker.persistors;
 
-import ie.cit.architect.protracker.helpers.MySQLCredentials;
+import ie.cit.architect.protracker.model.Project;
 import ie.cit.architect.protracker.model.User;
-import javafx.collections.ObservableList;
+import ie.cit.architect.protracker.model.UserArchitect;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -34,15 +31,16 @@ public class DBPersistor  implements IPersistor{
 
             String db_Driver = "com.mysql.cj.jdbc.Driver";
 
-            String db_URL = "jdbc:mysql://"+ DB_REMOTE_HOST +":"+ DB_PORT +"/"+ DB_NAME +
-                    "?user="+ DB_USER + "&password=" + MySQLCredentials.DB_PASS;
+            //TODO: uncomment after testing on localhost database is complete
+//            String db_REMOTE_URL = "jdbc:mysql://"+ DB_REMOTE_HOST +":"+ DB_PORT +"/"+ DB_NAME +
+//                    "?user="+ DB_USER + "&password=" + MySQLCredentials.DB_PASS;
 
-            String db_TEST_URL = "jdbc:mysql://"+ DB_LOCAL_HOST +":"+ DB_PORT +"/"+ DB_NAME +
+            String db_LOCAL_URL = "jdbc:mysql://"+ DB_LOCAL_HOST +":"+ DB_PORT +"/"+ DB_NAME +
                     "?user="+ "root" + "&password=" + DB_LOCALHOST_PASS;
 
             Class.forName(db_Driver);
 
-            this.dbConnection = DriverManager.getConnection(db_TEST_URL);
+            this.dbConnection = DriverManager.getConnection(db_LOCAL_URL);
 
             if(this.dbConnection != null) {
                 System.out.println("Connected!");
@@ -60,7 +58,7 @@ public class DBPersistor  implements IPersistor{
 
 
     @Override
-    public void writeUsers(ObservableList<User> users) {
+    public void writeUsers(ArrayList<User> users) {
         try {
             for (User currUser : users) {
                 PreparedStatement preparedStatement =
@@ -80,6 +78,73 @@ public class DBPersistor  implements IPersistor{
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void writeProjects(ArrayList<Project> projects) {
+
+        try {
+
+            for(Project currProject : projects)
+            {
+                PreparedStatement preparedStatement =
+                        dbConnection.prepareStatement(
+                          "INSERT INTO projects" +
+                                  "(name, date, author, location, client_name)" +
+                                  "VALUES(?, ?, ?, ?, ?)");
+
+                preparedStatement.setString(1, currProject.getName());
+                preparedStatement.setString(2, String.valueOf(currProject.getDate()));
+                preparedStatement.setString(3, currProject.getAuthor());
+                preparedStatement.setString(4, currProject.getLocation());
+                preparedStatement.setString(5, currProject.getClientName());
+
+                preparedStatement.executeUpdate();
+                dbObjects.add(preparedStatement);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public User selectRecords() {
+
+        User user = new User();
+
+        try {
+            String query = "SELECT email FROM users WHERE (email LIKE ? OR email LIKE ?)";
+            String managerEmail = "coveneyarch@eircom.net";
+            String employeeEmail = "coveneygeorgia@hotmail.com";
+
+                PreparedStatement preparedStatement =
+                        dbConnection.prepareStatement(query);
+
+                preparedStatement.setString(1, managerEmail);
+                preparedStatement.setString(2, employeeEmail);
+
+                ResultSet rs = preparedStatement.executeQuery();
+
+                while (rs.next()) {
+                    String userEmail = rs.getString("email");
+
+                    user = UserArchitect.getInstance(userEmail);
+
+                    System.out.println("User email: " + userEmail);
+                }
+
+            close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
+
+
+
 
 
     public void close() {

@@ -15,10 +15,17 @@ public class UserArchitect extends User {
         this.password = password;
     }
 
+    public UserArchitect(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
     public static UserArchitect getInstance(String emailAddress, String password) {
         return new UserArchitect(emailAddress, password);
     }
 
+    public static UserArchitect getInstance(String emailAddress) {
+        return new UserArchitect(emailAddress);
+    }
 
     @Override
     public String speak() {

@@ -16,6 +16,8 @@ public class User implements IUser{
     private String emailAddress;
     private ArrayList<User> users;
 
+    public User() {  }
+
     public User(String emailAddress) { this.emailAddress = emailAddress; }
 
     public User(String emailAddress, String password) {
@@ -24,13 +26,13 @@ public class User implements IUser{
 
     }
 
-    public static User getInstance(String emailAddress, String password) {
-        return new User(emailAddress, password);
-    }
-
-    public static User getInstance(String emailAddress) {
-        return new User(emailAddress);
-    }
+//    public static User getInstance(String emailAddress, String password) {
+//        return new User(emailAddress, password);
+//    }
+//
+//    public static User getInstance(String emailAddress) {
+//        return new User(emailAddress);
+//    }
 
 
     public String getName() {

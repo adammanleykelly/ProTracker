@@ -1,7 +1,9 @@
 package ie.cit.architect.protracker.persistors;
 
+import ie.cit.architect.protracker.model.Project;
 import ie.cit.architect.protracker.model.User;
-import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
 
 /**
  * Created by brian on 3/3/2017.
@@ -9,6 +11,10 @@ import javafx.collections.ObservableList;
 public interface IPersistor {
 
 
-    void writeUsers(ObservableList<User> users);
+    void writeUsers(ArrayList<User> users);
+
+    void writeProjects(ArrayList<Project> projects);
+
+    User selectRecords();
 
 }

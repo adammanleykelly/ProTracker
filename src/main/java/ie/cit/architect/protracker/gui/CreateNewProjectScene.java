@@ -1,7 +1,10 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.MainMediator;
+import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.model.Project;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +20,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,8 +53,6 @@ public class CreateNewProjectScene {
     public void start(Stage stage) {
 
         createCheckboxArray();
-
-
 
         Scene scene = new Scene(
                 createContainer(createLeftPane(), createMiddlePane(), createRightPane(), createNavigationButtons()),
@@ -221,6 +223,27 @@ public class CreateNewProjectScene {
         buttonContinue.setOnAction(event -> {
             try {
                 createDirectories();
+
+                Platform.runLater(() -> {
+
+                    String projName = tfProjectName.getText();
+                    String projDate = String.valueOf(LocalDate.now());
+                    String projAuthor =  tfProjectAuthor.getText();
+                    String projLocation = tfProjectLocation.getText();
+                    String projClient = tfProjectClient.getText();
+
+                    Project project = new Project(
+                            projName, projDate, projAuthor, projLocation, projClient);
+
+                    if (project != null) {
+                        DBController.getInstance().addProject(project);
+                    }
+
+                    DBController.getInstance().saveProject();
+
+
+                });
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -235,6 +258,7 @@ public class CreateNewProjectScene {
 
         return anchorPane;
     }
+
 
 
 }
