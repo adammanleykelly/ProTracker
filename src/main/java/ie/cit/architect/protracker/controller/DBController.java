@@ -2,7 +2,10 @@ package ie.cit.architect.protracker.controller;
 
 import ie.cit.architect.protracker.model.Project;
 import ie.cit.architect.protracker.model.User;
+import ie.cit.architect.protracker.model.UserList;
+import ie.cit.architect.protracker.persistors.MySQLDBPersistor;
 import ie.cit.architect.protracker.persistors.IPersistor;
+import ie.cit.architect.protracker.persistors.MongoDBPersistor;
 
 import java.util.ArrayList;
 
@@ -13,17 +16,36 @@ public class DBController
 {
 
     private static DBController instance;
+    private PersistenceMode persistenceMode;
     private IPersistor persistor;
-    private ArrayList<User> userList = new ArrayList<>();
+    private UserList userList;
     private ArrayList<Project> projectList = new ArrayList<>();
 
-    private DBController() {}
+
+
+    private DBController() {
+        this.userList = new UserList();
+
+//      setPersistenceMode(PersistenceMode.MYSQL);
+
+        setPersistenceMode(PersistenceMode.MONGO);
+    }
+
 
     public static DBController getInstance() {
         if(instance == null) {
             instance = new DBController();
         }
         return instance;
+    }
+
+    public void setPersistenceMode(PersistenceMode mode) {
+        this.persistenceMode = mode;
+
+        switch (mode) {
+            case MYSQL: this.persistor = new MySQLDBPersistor();
+            case MONGO: this.persistor = new MongoDBPersistor();
+        }
     }
 
 

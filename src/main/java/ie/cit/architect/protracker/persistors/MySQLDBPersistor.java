@@ -3,6 +3,7 @@ package ie.cit.architect.protracker.persistors;
 import ie.cit.architect.protracker.model.Project;
 import ie.cit.architect.protracker.model.User;
 import ie.cit.architect.protracker.model.UserArchitect;
+import ie.cit.architect.protracker.model.UserList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by brian on 3/3/2017.
  */
-public class DBPersistor  implements IPersistor{
+public class MySQLDBPersistor implements IPersistor{
 
     private Connection dbConnection;
     private ArrayList<AutoCloseable> dbObjects;
@@ -24,7 +25,7 @@ public class DBPersistor  implements IPersistor{
     private static final String DB_LOCALHOST_PASS = "bossdog12";
 
 
-    public DBPersistor(){
+    public MySQLDBPersistor(){
 
         dbObjects = new ArrayList<>();
         try {
@@ -58,9 +59,9 @@ public class DBPersistor  implements IPersistor{
 
 
     @Override
-    public void writeUsers(ArrayList<User> users) {
+    public void writeUsers(UserList users) {
         try {
-            for (User currUser : users) {
+            for (User currUser : users.getUsers()) {
                 PreparedStatement preparedStatement =
                         dbConnection.prepareStatement(
                                 "INSERT INTO users " +

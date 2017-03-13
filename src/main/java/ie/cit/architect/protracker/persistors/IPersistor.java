@@ -2,6 +2,7 @@ package ie.cit.architect.protracker.persistors;
 
 import ie.cit.architect.protracker.model.Project;
 import ie.cit.architect.protracker.model.User;
+import ie.cit.architect.protracker.model.UserList;
 
 import java.util.ArrayList;
 
@@ -10,8 +11,7 @@ import java.util.ArrayList;
  */
 public interface IPersistor {
 
-
-    void writeUsers(ArrayList<User> users);
+    void writeUsers(UserList users);
 
     void writeProjects(ArrayList<Project> projects);
 

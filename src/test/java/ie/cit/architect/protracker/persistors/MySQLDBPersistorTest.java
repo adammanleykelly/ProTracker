@@ -1,10 +1,9 @@
 package ie.cit.architect.protracker.persistors;
 
 import ie.cit.architect.protracker.model.User;
+import ie.cit.architect.protracker.model.UserList;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -12,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by brian on 05/03/17.
  */
-public class DBPersistorTest {
+public class MySQLDBPersistorTest {
 
     private User dbUser;
 
@@ -21,13 +20,14 @@ public class DBPersistorTest {
         User user1 = new User("joe@moe.com", "mypass");
         User user2 = new User("someone@hotmail.com", "myotherpass");
 
-        DBPersistor dbPersistor = new DBPersistor();
+        MySQLDBPersistor dbPersistor = new MySQLDBPersistor();
 
-        ArrayList<User> users = new ArrayList<>();
-        users.add(user1);
-        users.add(user2);
+        UserList userList = new UserList();
 
-        dbPersistor.writeUsers(users);
+        userList.add(user1);
+        userList.add(user2);
+
+        dbPersistor.writeUsers(userList);
         dbUser = dbPersistor.getDbUser(user1);
     }
 

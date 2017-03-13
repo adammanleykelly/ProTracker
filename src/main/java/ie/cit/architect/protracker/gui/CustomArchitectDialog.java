@@ -3,7 +3,6 @@ package ie.cit.architect.protracker.gui;
 import ie.cit.architect.protracker.App.MainMediator;
 import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.model.User;
-import ie.cit.architect.protracker.model.UserArchitect;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -123,7 +122,7 @@ public class CustomArchitectDialog
             String userEmail = emailPass.getKey();
             String userPass = emailPass.getValue();
 
-            User user = UserArchitect.getInstance(userEmail, userPass);
+            User user = new User(userEmail, userPass);
 
             mainMediator.changeToArchitectMenuScene();
 

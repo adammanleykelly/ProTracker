@@ -2,7 +2,6 @@ package ie.cit.architect.protracker.App;
 
 import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.gui.*;
-import ie.cit.architect.protracker.persistors.DBPersistor;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -47,7 +46,8 @@ public class MainMediator extends Application {
         homeMenuScene.start(primaryStage); // default
 
 
-        Platform.runLater(() -> DBController.getInstance().setPersistor(new DBPersistor()));
+        // Database type (MongoDB / MySQL) selected in the controller
+        Platform.runLater(() -> DBController.getInstance());
     }
 
 
