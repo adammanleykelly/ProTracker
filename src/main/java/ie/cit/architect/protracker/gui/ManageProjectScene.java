@@ -1,6 +1,7 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.MainMediator;
+import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.helpers.Consts;
 import ie.cit.architect.protracker.helpers.Utility;
 import javafx.collections.FXCollections;
@@ -50,7 +51,7 @@ public class ManageProjectScene {
 
         scene.getStylesheets().add("/stylesheet.css");
         stage.setScene(scene);
-        stage.setTitle(Consts.APPLICATION_TITLE + " Manage Project");
+        stage.setTitle(Consts.APPLICATION_TITLE + " Manage project");
         stage.show();
     }
 
@@ -64,6 +65,9 @@ public class ManageProjectScene {
         button1.setOnAction(event -> openDocument());
         Button button2 = new Button("View Stage");
         Button button3 = new Button("Rename");
+
+        button1.setOnAction(event -> DBController.getInstance().showProjects());
+
         Button button4 = new Button("Delete");
         ObservableList<Button> buttonList =
                 FXCollections.observableArrayList(button1, button2, button3, button4);

@@ -218,7 +218,9 @@ public class CreateNewProjectScene {
         anchorPane.getStyleClass().add("anchorpane_color");
 
         Button buttonCancel = new Button("Cancel");
-        buttonCancel.setOnAction(event -> System.exit(0));
+
+        buttonCancel.setOnAction(event -> mainMediator.changeToArchitectMenuScene());
+
         Button buttonContinue = new Button("Continue");
         buttonContinue.setOnAction(event -> {
             try {

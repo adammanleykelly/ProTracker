@@ -2,11 +2,11 @@ package ie.cit.architect.protracker.persistors;
 
 import com.mongodb.*;
 import ie.cit.architect.protracker.model.Project;
+import ie.cit.architect.protracker.model.ProjectList;
 import ie.cit.architect.protracker.model.User;
 import ie.cit.architect.protracker.model.UserList;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 
 /**
  * Created by brian on 13/03/17.
@@ -38,9 +38,12 @@ public class MongoDBPersistor implements IPersistor {
             // if database doesn't exist, mongoDB will create it for you
             db = mongoClientConn.getDB(DB_NAME);
 
-            //Get Collection / Table from 'testdb'
+            //Get Collection / Table from 'protracker'
             //if collection doesn't exist, mongoDB will create it for you
             table = db.getCollection("users");
+
+            // create table
+            table = db.getCollection("projects");
 
 
         } catch (UnknownHostException e) {
@@ -70,12 +73,80 @@ public class MongoDBPersistor implements IPersistor {
     }
 
     @Override
-    public void writeProjects(ArrayList<Project> projects) {
+    public void writeProjects(ProjectList projects) {
+
+        try {
+            for (Project currProject : projects.getProjects()) {
+                BasicDBObject document = new BasicDBObject();
+                document.put("name", currProject.getName());
+                document.put("author", currProject.getAuthor());
+                document.put("location", currProject.getLocation());
+                document.put("client_name", currProject.getClientName());
+
+                table.insert(document);
+            }
+        }catch (MongoException e) {
+            e.printStackTrace();
+        }
 
     }
 
+
+    @Override
+    public void displayProjects(ProjectList projects) {
+
+        try {
+            for (Project currProject : projects.getProjects()) {
+                BasicDBObject searchQuery = new BasicDBObject();
+                searchQuery.put("name", currProject.getName());
+                searchQuery.put("author", currProject.getAuthor());
+                searchQuery.put("location", currProject.getLocation());
+                searchQuery.put("client_name", currProject.getClientName());
+
+                DBCursor cursor = table.find(searchQuery);
+
+                System.out.println("Project:");
+                while (cursor.hasNext()){
+                    System.out.println(cursor.next());
+                }
+            }
+        }catch (MongoException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    // not called
     @Override
     public User selectRecords() {
         return null;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

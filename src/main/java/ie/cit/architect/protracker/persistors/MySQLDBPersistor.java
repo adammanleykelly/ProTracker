@@ -1,9 +1,6 @@
 package ie.cit.architect.protracker.persistors;
 
-import ie.cit.architect.protracker.model.Project;
-import ie.cit.architect.protracker.model.User;
-import ie.cit.architect.protracker.model.UserArchitect;
-import ie.cit.architect.protracker.model.UserList;
+import ie.cit.architect.protracker.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -81,11 +78,11 @@ public class MySQLDBPersistor implements IPersistor{
     }
 
     @Override
-    public void writeProjects(ArrayList<Project> projects) {
+    public void writeProjects(ProjectList projects) {
 
         try {
 
-            for(Project currProject : projects)
+            for(Project currProject : projects.getProjects())
             {
                 PreparedStatement preparedStatement =
                         dbConnection.prepareStatement(
@@ -145,9 +142,6 @@ public class MySQLDBPersistor implements IPersistor{
 
 
 
-
-
-
     public void close() {
         try{
             for(AutoCloseable curr : dbObjects) {
@@ -158,32 +152,15 @@ public class MySQLDBPersistor implements IPersistor{
         }
     }
 
-
+    // for MySQLDBPersistorTest
     public User getDbUser(User user) {
         return user;
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // not called
+    @Override
+    public void displayProjects(ProjectList projects) { }
 
 
 }

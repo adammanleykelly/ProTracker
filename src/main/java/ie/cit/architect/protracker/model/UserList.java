@@ -22,7 +22,5 @@ public class UserList implements Serializable{
         this.users = users;
     }
 
-    public void add(User user) {
-        this.users.add(user);
-    }
+    public void add(User user) { this.users.add(user); }
 }

@@ -11,6 +11,7 @@ public class Project {
     private String location;
     private String clientName;
 
+    public Project() {}
 
     public Project(String name, String date, String author, String location, String clientName) {
         this.name = name;
