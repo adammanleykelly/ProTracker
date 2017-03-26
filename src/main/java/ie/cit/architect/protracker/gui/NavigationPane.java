@@ -1,21 +1,18 @@
 package ie.cit.architect.protracker.gui;
 
-import ie.cit.architect.protracker.App.MainMediator;
-import ie.cit.architect.protracker.helpers.Consts;
-import javafx.scene.Scene;
+import ie.cit.architect.protracker.App.Mediator;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  * Created by brian on 27/02/17.
  */
 public class NavigationPane {
 
-    private MainMediator mainMediator;
+    private Mediator mediator;
 
-    public NavigationPane(MainMediator mainMediator) {
-        this.mainMediator = mainMediator;
+    public NavigationPane(Mediator mediator) {
+        this.mediator = mediator;
     }
 
     public NavigationPane() {  }
@@ -31,7 +28,7 @@ public class NavigationPane {
         Button buttonContinue = new Button("Continue");
         buttonContinue.setOnAction(event -> {
             try {
-                mainMediator.changeToHomeScene();
+                mediator.changeToHomeScene();
             } catch (Exception e) {
                 e.printStackTrace();
             }

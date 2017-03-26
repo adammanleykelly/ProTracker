@@ -4,11 +4,12 @@ import ie.cit.architect.protracker.model.Project;
 import ie.cit.architect.protracker.model.ProjectList;
 import ie.cit.architect.protracker.model.User;
 import ie.cit.architect.protracker.model.UserList;
-import ie.cit.architect.protracker.persistors.MySQLDBPersistor;
 import ie.cit.architect.protracker.persistors.IPersistor;
 import ie.cit.architect.protracker.persistors.MongoDBPersistor;
+import ie.cit.architect.protracker.persistors.MySQLPersistor;
 
-import java.util.ArrayList;
+import static ie.cit.architect.protracker.controller.PersistenceMode.MONGODB;
+import static ie.cit.architect.protracker.controller.PersistenceMode.MYSQL;
 
 /**
  * Created by brian on 3/3/2017.
@@ -25,10 +26,6 @@ public class DBController {
     private DBController() {
         this.userList = new UserList();
         this.projectList = new ProjectList();
-
-        //setPersistenceMode(PersistenceMode.MYSQL);
-
-        setPersistenceMode(PersistenceMode.MONGO);
     }
 
 
@@ -40,13 +37,11 @@ public class DBController {
     }
 
     public void setPersistenceMode(PersistenceMode mode) {
-        this.persistenceMode = mode;
-
-        switch (mode) {
-            case MYSQL:
-                this.persistor = new MySQLDBPersistor();
-            case MONGO:
-                this.persistor = new MongoDBPersistor();
+        if(mode.equals(MYSQL)) {
+            this.persistor = new MySQLPersistor();
+        }
+        else if(mode.equals(MONGODB)) {
+            this.persistor = new MongoDBPersistor();
         }
     }
 

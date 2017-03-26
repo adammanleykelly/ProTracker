@@ -5,6 +5,29 @@ package ie.cit.architect.protracker.model;
  */
 public interface IUser {
 
-    String speak();
+    // project
 
+    void setProject(IProject project);
+
+    IProject getProject();
+
+    String getProjectName();
+
+    String getProjectDate();
+
+    String getProjectAuthor();
+
+    String getProjectLocation();
+
+    String getProjectClient();
+
+
+
+    // user
+
+    String getName();
+
+    String getEmailAddress();
+
+    String getPassword();
 }

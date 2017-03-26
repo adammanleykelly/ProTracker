@@ -1,10 +1,7 @@
 package ie.cit.architect.protracker.persistors;
 
 import com.mongodb.*;
-import ie.cit.architect.protracker.model.Project;
-import ie.cit.architect.protracker.model.ProjectList;
-import ie.cit.architect.protracker.model.User;
-import ie.cit.architect.protracker.model.UserList;
+import ie.cit.architect.protracker.model.*;
 
 import java.net.UnknownHostException;
 
@@ -14,7 +11,7 @@ import java.net.UnknownHostException;
 public class MongoDBPersistor implements IPersistor {
 
     private MongoClient mongoClientConn;
-    private DBCollection table;
+    private DBCollection tableUsers, tableProjects;
     private DB db;
 
     private static final String DB_LOCAL_HOST = "localhost";
@@ -40,11 +37,10 @@ public class MongoDBPersistor implements IPersistor {
 
             //Get Collection / Table from 'protracker'
             //if collection doesn't exist, mongoDB will create it for you
-            table = db.getCollection("users");
+            tableUsers = db.getCollection("users");
 
-            // create table
-            table = db.getCollection("projects");
-
+            // create another table
+            tableProjects = db.getCollection("projects");
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -58,12 +54,12 @@ public class MongoDBPersistor implements IPersistor {
     public void writeUsers(UserList users) {
 
         try {
-            for (User currUser : users.getUsers()) {
+            for (IUser currUser : users.getUsers()) {
                 BasicDBObject document = new BasicDBObject();
                 //key value pair
                 document.put("email", currUser.getEmailAddress());
                 document.put("password", currUser.getPassword());
-                table.insert(document);
+                tableUsers.insert(document);
             }
 
         }catch (MongoException e) {
@@ -83,7 +79,7 @@ public class MongoDBPersistor implements IPersistor {
                 document.put("location", currProject.getLocation());
                 document.put("client_name", currProject.getClientName());
 
-                table.insert(document);
+                tableProjects.insert(document);
             }
         }catch (MongoException e) {
             e.printStackTrace();
@@ -103,7 +99,7 @@ public class MongoDBPersistor implements IPersistor {
                 searchQuery.put("location", currProject.getLocation());
                 searchQuery.put("client_name", currProject.getClientName());
 
-                DBCursor cursor = table.find(searchQuery);
+                DBCursor cursor = tableProjects.find(searchQuery);
 
                 System.out.println("Project:");
                 while (cursor.hasNext()){

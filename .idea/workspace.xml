@@ -2,17 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ded50f0a-9d31-471b-b803-c616a3f23c23" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/ProjectList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/brian.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/brian.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/ProjectController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/IProject.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserArchitect.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserBuilder.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserClient.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserEmployee.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/ie/cit/architect/protracker/model/UserArchitect.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/ie/cit/architect/protracker/model/UserBuilder.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/ie/cit/architect/protracker/model/UserClient.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/ie/cit/architect/protracker/model/UserEmployee.class" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/App/MainMediator.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/App/Mediator.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MySQLDBPersistor.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MySQLPersistor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ie/cit/architect/protracker/model/IUser.class" afterPath="$PROJECT_DIR$/target/classes/ie/cit/architect/protracker/model/IUser.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ie/cit/architect/protracker/model/User.class" afterPath="$PROJECT_DIR$/target/classes/ie/cit/architect/protracker/model/User.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/DBController.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/DBController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/PersistenceMode.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/PersistenceMode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ArchitectMenuScene.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ArchitectMenuScene.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ClientMenuScene.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ClientMenuScene.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CreateNewProjectScene.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CreateNewProjectScene.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CustomArchitectDialog.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CustomArchitectDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CustomClientDialog.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CustomClientDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/HomeScene.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/HomeScene.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ManageProjectScene.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ManageProjectScene.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/NavigationPane.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/NavigationPane.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ViewMessagesScene.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ViewMessagesScene.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/IUser.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/IUser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/Project.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/Project.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserList.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/IPersistor.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/IPersistor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/User.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/User.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MongoDBPersistor.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MongoDBPersistor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MySQLDBPersistor.java" afterPath="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MySQLDBPersistor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/MySQLDBPersistorTest.java" afterPath="$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/MySQLDBPersistorTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -44,158 +65,125 @@
     <favorites_list name="ProTracker" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.54636014">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="DBController.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/DBController.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="630">
-                  <caret line="71" column="43" lean-forward="false" selection-start-line="71" selection-start-column="43" selection-end-line="71" selection-end-column="43" />
-                  <folding>
-                    <element signature="e#1472#1473#0" expanded="true" />
-                    <element signature="e#1514#1515#0" expanded="true" />
-                    <element signature="e#1564#1565#0" expanded="true" />
-                    <element signature="e#1603#1604#0" expanded="true" />
-                    <element signature="e#1633#1634#0" expanded="true" />
-                    <element signature="e#1689#1690#0" expanded="true" />
-                    <element signature="e#1752#1753#0" expanded="true" />
-                    <element signature="e#1797#1798#0" expanded="true" />
-                    <element signature="e#1830#1831#0" expanded="true" />
-                    <element signature="e#1892#1893#0" expanded="true" />
-                    <element signature="e#2040#2041#0" expanded="true" />
-                    <element signature="e#2104#2105#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="IPersistor.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/IPersistor.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="300">
-                  <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="MySQLDBPersistor.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MySQLDBPersistor.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1215">
-                  <caret line="84" column="60" lean-forward="false" selection-start-line="84" selection-start-column="60" selection-end-line="84" selection-end-column="60" />
-                  <folding>
-                    <element signature="e#4837#4838#0" expanded="true" />
-                    <element signature="e#4864#4865#0" expanded="true" />
-                    <marker date="1489489622000" expanded="true" signature="1991:2128" ph="INSERT INTO users... " />
-                    <marker date="1489489622000" expanded="true" signature="2799:2819" ph="INSERT INTO projects... " />
-                    <marker date="1489489622000" expanded="true" signature="2799:2859" ph="INSERT INTO projects... " />
-                    <marker date="1489489622000" expanded="true" signature="2799:2901" ph="INSERT INTO projects... " />
-                    <marker date="1489489622000" expanded="true" signature="2799:2961" ph="INSERT INTO projects... " />
-                    <marker date="1489489622000" expanded="true" signature="3676:3736" ph="SELECT email... users" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ManageProjectScene.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ManageProjectScene.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-90">
-                  <caret line="53" column="60" lean-forward="false" selection-start-line="53" selection-start-column="60" selection-end-line="53" selection-end-column="60" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ProjectList.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/ProjectList.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="300">
-                  <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="MongoDBPersistor.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MongoDBPersistor.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="208">
-                  <caret line="107" column="44" lean-forward="false" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#3571#3572#0" expanded="true" />
-                    <element signature="e#3598#3599#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="UserList.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserList.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="270">
-                  <caret line="24" column="55" lean-forward="false" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="CreateNewProjectScene.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CreateNewProjectScene.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="200">
-                  <caret line="210" column="20" lean-forward="true" selection-start-line="210" selection-start-column="20" selection-end-line="210" selection-end-column="20" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="HomeScene.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/HomeScene.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="252">
-                  <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Project.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/Project.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="118">
-                  <caret line="13" column="4" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="23" />
-                  <folding>
-                    <element signature="e#757#758#0" expanded="true" />
-                    <element signature="e#789#790#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="CreateNewProjectScene.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CreateNewProjectScene.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="568">
+              <caret line="282" column="25" lean-forward="false" selection-start-line="282" selection-start-column="25" selection-end-line="282" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MongoDBPersistor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MongoDBPersistor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="21" column="14" lean-forward="false" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DBController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/DBController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="269">
+              <caret line="70" column="25" lean-forward="false" selection-start-line="70" selection-start-column="25" selection-end-line="70" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1733#1734#0" expanded="true" />
+                <element signature="e#1778#1779#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArchitectMenuScene.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ArchitectMenuScene.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="40" column="8" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MySQLPersistor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MySQLPersistor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2176">
+              <caret line="131" column="54" lean-forward="false" selection-start-line="131" selection-start-column="54" selection-end-line="131" selection-end-column="54" />
+              <folding>
+                <marker date="1490541520769" expanded="true" signature="1996:2133" ph="INSERT INTO users... " />
+                <marker date="1490541520769" expanded="true" signature="2804:2966" ph="INSERT INTO projects... " />
+                <marker date="1490541520769" expanded="true" signature="3681:3741" ph="SELECT email... users" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HomeScene.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/HomeScene.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="263">
+              <caret line="68" column="42" lean-forward="true" selection-start-line="68" selection-start-column="42" selection-end-line="68" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IPersistor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/IPersistor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PersistenceMode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/PersistenceMode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IUser.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/IUser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IProject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/IProject.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="25" column="39" lean-forward="false" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="JUnit4 Test Class" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -223,6 +211,14 @@
       <find>DBController</find>
       <find>rename</find>
       <find>cancel</find>
+      <find>Ref</find>
+      <find>Ref:</find>
+      <find>project</find>
+      <find>tfProjectName</find>
+      <find>projLocation</find>
+      <find>MYSQL</find>
+      <find>test</find>
+      <find>persistenceMode</find>
     </findStrings>
     <replaceStrings>
       <replace>TextField</replace>
@@ -239,21 +235,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/stylesheet.css" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/IUser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/helpers/Const.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/MainTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserBuilder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserClient.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/MainApp.java" />
-        <option value="$PROJECT_DIR$/protracker.iml" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/HomeMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/MainAppMediator.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/Mediator.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/MainScene.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/MainMediator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserEmployee.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/BuilderMenuScene.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/helpers/Layouts.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/HomeButton.java" />
@@ -265,31 +250,42 @@
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CustomDialog.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CreateNewProjScene.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/NavigationPane.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/HomeScene.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/HomeButtonContainer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ClientMenuScene.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CustomClientDialog.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/DBConnection.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/helpers/MySQLCredentials.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/User.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserArchitect.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ArchitectMenuScene.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/DBPersistor.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CustomArchitectDialog.java" />
         <option value="$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/DBPersistorTest.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/PersistanceMode.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/App/MainMediator.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/PersistenceMode.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/Project.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ManageProjectScene.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CreateNewProjectScene.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/DBController.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserList.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/ProjectList.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/IPersistor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MySQLDBPersistor.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/MySQLDBPersistorTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserArchitect.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserEmployee.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserBuilder.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CustomClientDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/IProject.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/App/MainMediator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ClientMenuScene.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/Project.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/ProjectController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/MVCExample.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/App/Mediator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CreateNewProjectScene.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MongoDBPersistor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/HomeScene.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MySQLDBPersistor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/DBController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/IUser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ArchitectMenuScene.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MySQLPersistor.java" />
       </list>
     </option>
   </component>
@@ -335,10 +331,9 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-3" />
-    <option name="y" value="102" />
-    <option name="width" value="1926" />
-    <option name="height" value="1060" />
+    <option name="y" value="1" />
+    <option name="width" value="1805" />
+    <option name="height" value="1409" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -378,6 +373,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -477,10 +473,6 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -567,6 +559,10 @@
               <option name="myItemId" value="protracker" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="helpers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -628,14 +624,43 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProTracker" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProTracker" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="protracker" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="App" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs_interpreter_path" value="/usr/bin/node" />
@@ -667,18 +692,18 @@
       <recent name="$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MainMediator">
-    <configuration default="false" name="MainMediator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.Mediator">
+    <configuration default="false" name="Mediator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="ie.cit.architect.protracker.App.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="ie.cit.architect.protracker.App.MainMediator" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="MAIN_CLASS_NAME" value="ie.cit.architect.protracker.App.Mediator" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
@@ -686,32 +711,6 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="protracker" />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="UserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="ie.cit.architect.protracker.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="protracker" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="ie.cit.architect.protracker.model" />
-      <option name="MAIN_CLASS_NAME" value="ie.cit.architect.protracker.model.UserTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
       <method />
     </configuration>
     <configuration default="false" name="UserTest.testValidateName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
@@ -1210,26 +1209,6 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <configuration default="false" name="MainApp" type="Application" factoryName="Application" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="ie.cit.architect.protracker.App.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="ie.cit.architect.protracker.gui.MainApp" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="protracker" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="false" name="MainTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1256,22 +1235,19 @@
       <patterns />
       <method />
     </configuration>
-    <list size="7">
-      <item index="0" class="java.lang.String" itemvalue="Application.MainApp" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.MainTest" />
-      <item index="2" class="java.lang.String" itemvalue="Application.MainMediator" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.UserTest" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.UserTest.testValidateName" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.MySQLDBPersistorTest" />
-      <item index="6" class="java.lang.String" itemvalue="JUnit.UserTest.isEmailValid" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="JUnit.MainTest" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Mediator" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.UserTest.testValidateName" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.MySQLDBPersistorTest" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.UserTest.isEmailValid" />
     </list>
     <recent_temporary>
-      <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.MainMediator" />
+      <list size="4">
+        <item index="0" class="java.lang.String" itemvalue="Application.Mediator" />
         <item index="1" class="java.lang.String" itemvalue="JUnit.MySQLDBPersistorTest" />
         <item index="2" class="java.lang.String" itemvalue="JUnit.UserTest.isEmailValid" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.UserTest.testValidateName" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.UserTest" />
       </list>
     </recent_temporary>
   </component>
@@ -1342,7 +1318,25 @@
       <workItem from="1489156643348" duration="1558000" />
       <workItem from="1489244199232" duration="607000" />
       <workItem from="1489429851637" duration="7803000" />
-      <workItem from="1489485651039" duration="4144000" />
+      <workItem from="1489485651039" duration="5243000" />
+      <workItem from="1489496398983" duration="2011000" />
+      <workItem from="1489521530014" duration="2888000" />
+      <workItem from="1489571233492" duration="37000" />
+      <workItem from="1489593428542" duration="997000" />
+      <workItem from="1489600817406" duration="18000" />
+      <workItem from="1489601094708" duration="2387000" />
+      <workItem from="1490043328686" duration="1072000" />
+      <workItem from="1490047379232" duration="2170000" />
+      <workItem from="1490088511447" duration="1209000" />
+      <workItem from="1490179554688" duration="168000" />
+      <workItem from="1490205887008" duration="617000" />
+      <workItem from="1490281313115" duration="5322000" />
+      <workItem from="1490346366626" duration="12627000" />
+      <workItem from="1490378983627" duration="10294000" />
+      <workItem from="1490451048933" duration="2581000" />
+      <workItem from="1490454969968" duration="241000" />
+      <workItem from="1490455245015" duration="3943000" />
+      <workItem from="1490532739764" duration="4764000" />
     </task>
     <servers />
   </component>
@@ -1379,7 +1373,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="222978000" />
+    <option name="totallyTimeSpent" value="277423000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1391,40 +1385,75 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-3" y="102" width="1926" height="1060" extended-state="6" />
+    <frame x="0" y="1" width="1805" height="1409" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32406417" sideWeight="0.4966571" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41774675" sideWeight="0.4966571" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30370942" sideWeight="0.50477326" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13233724" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13186814" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26737967" sideWeight="0.49522674" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26557633" sideWeight="0.49522674" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28440368" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28342247" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17129135" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18254422" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32619774" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32476637" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24875125" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24980111" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39852008" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39786097" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties Pane" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917082" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project Explorer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16033965" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Message Pane" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30370942" sideWeight="0.50477326" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13186814" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24980111" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39786097" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32406417" sideWeight="0.4966571" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2662014" sideWeight="0.49522674" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28342247" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3090278" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32513368" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="processedProjectFiles" value="true" />
@@ -1443,25 +1472,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/MainApp.java" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/AppTest.java" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/AppTest.java" />
-    <entry file="jar:///opt/java/jdk1.8.0_91/javafx-src.zip!/com/sun/javafx/collections/VetoableListDecorator.java" />
-    <entry file="jar:///opt/java/jdk1.8.0_91/src.zip!/java/util/function/Consumer.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="41" lean-forward="false" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/firebase/firebase-simple-login/1.4.2/firebase-simple-login-1.4.2.jar!/com/firebase/simplelogin/FirebaseSimpleLoginUser.class" />
     <entry file="jar://$MAVEN_REPOSITORY$/com/firebase/firebase-simple-login/1.4.2/firebase-simple-login-1.4.2.jar!/com/firebase/simplelogin/FirebaseUtils.class" />
     <entry file="file://$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/MainTest.java" />
@@ -1474,20 +1484,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/MainApp.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/Main.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="4" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="19" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserEmployee.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="33" column="4" lean-forward="false" selection-start-line="33" selection-start-column="4" selection-end-line="39" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/helpers/Layouts.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/HomeButton.java" />
     <entry file="jar:///opt/java/jdk1.8.0_91/src.zip!/java/lang/Runnable.java" />
@@ -1505,7 +1501,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///opt/java/jdk1.8.0_91/javafx-src.zip!/javafx/event/EventHandler.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/helpers/Utility.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -1520,63 +1515,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/NavigationPane.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/HomeButtonContainer.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CustomClientDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1609">
-          <caret line="121" column="34" lean-forward="false" selection-start-line="121" selection-start-column="34" selection-end-line="121" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ClientMenuScene.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="954">
-          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/DBConnection.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/helpers/Consts.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="7" lean-forward="false" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserArchitect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="41" lean-forward="false" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="18" column="20" lean-forward="false" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/IUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1587,34 +1531,183 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CustomArchitectDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="124" column="32" lean-forward="false" selection-start-line="124" selection-start-column="32" selection-end-line="124" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/model/UserTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="429">
           <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ManageProjectScene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-90">
+          <caret line="53" column="60" lean-forward="false" selection-start-line="53" selection-start-column="60" selection-end-line="53" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/helpers/Consts.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="7" lean-forward="false" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="44" column="21" lean-forward="false" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
+        <state relative-caret-position="525">
+          <caret line="35" column="8" lean-forward="false" selection-start-line="35" selection-start-column="8" selection-end-line="39" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/App/MainMediator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="39" column="24" lean-forward="false" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
+        <state relative-caret-position="255">
+          <caret line="24" column="16" lean-forward="false" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/MySQLDBPersistorTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="50" lean-forward="false" selection-start-line="0" selection-start-column="50" selection-end-line="0" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/ProjectList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserArchitect.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserBuilder.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserClient.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CustomClientDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1605">
+          <caret line="120" column="32" lean-forward="false" selection-start-line="120" selection-start-column="32" selection-end-line="120" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ClientMenuScene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="27" column="75" lean-forward="false" selection-start-line="27" selection-start-column="75" selection-end-line="27" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///opt/java/jdk1.8.0_91/javafx-src.zip!/javafx/event/EventHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="44" column="9" lean-forward="false" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/NavigationPane.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CustomArchitectDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="130" column="47" lean-forward="false" selection-start-line="130" selection-start-column="47" selection-end-line="130" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#660#661#0" expanded="false" />
+            <element signature="e#700#701#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/Project.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8">
+          <caret line="17" column="33" lean-forward="false" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+          <folding>
+            <element signature="e#677#678#0" expanded="false" />
+            <element signature="e#708#709#0" expanded="false" />
+            <element signature="e#753#754#0" expanded="false" />
+            <element signature="e#780#781#0" expanded="false" />
+            <element signature="e#834#835#0" expanded="false" />
+            <element signature="e#866#867#0" expanded="false" />
+            <element signature="e#911#912#0" expanded="false" />
+            <element signature="e#938#939#0" expanded="false" />
+            <element signature="e#992#993#0" expanded="false" />
+            <element signature="e#1024#1025#0" expanded="false" />
+            <element signature="e#1071#1072#0" expanded="false" />
+            <element signature="e#1100#1101#0" expanded="false" />
+            <element signature="e#1158#1159#0" expanded="false" />
+            <element signature="e#1194#1195#0" expanded="false" />
+            <element signature="e#1256#1257#0" expanded="false" />
+            <element signature="e#1296#1297#0" expanded="false" />
+            <element signature="e#1347#1348#0" expanded="false" />
+            <element signature="e#1380#1381#0" expanded="false" />
+            <element signature="e#1446#1447#0" expanded="false" />
+            <element signature="e#1490#1491#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/MVCExample.java" />
+    <entry file="jar:///opt/java/jdk1.8.0_91/javafx-src.zip!/javafx/application/Platform.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="685">
+          <caret line="81" column="23" lean-forward="false" selection-start-line="81" selection-start-column="23" selection-end-line="81" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/ProjectController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="107" lean-forward="false" selection-start-line="32" selection-start-column="107" selection-end-line="32" selection-end-column="107" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserEmployee.java" />
+    <entry file="file://$PROJECT_DIR$/ProTracker.vpdm/Database.vpd">
+      <provider editor-type-id="VPUMLDiagram">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProTracker.vpdm/Full App.vpd" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/App/Mediator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1076">
+          <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="805">
+          <caret line="81" column="13" lean-forward="false" selection-start-line="81" selection-start-column="13" selection-end-line="81" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#746#747#0" expanded="true" />
+            <element signature="e#776#777#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CreateNewProjectScene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="568">
+          <caret line="282" column="25" lean-forward="false" selection-start-line="282" selection-start-column="25" selection-end-line="282" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1623,140 +1716,81 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/PersistenceMode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="6" column="11" lean-forward="false" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+        <state relative-caret-position="136">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ArchitectMenuScene.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MongoDBPersistor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="33" column="47" lean-forward="false" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ie/cit/architect/protracker/persistors/MySQLDBPersistorTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="13" column="33" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="33" />
+        <state relative-caret-position="306">
+          <caret line="21" column="14" lean-forward="false" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/HomeScene.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+        <state relative-caret-position="263">
+          <caret line="68" column="42" lean-forward="true" selection-start-line="68" selection-start-column="42" selection-end-line="68" selection-end-column="42" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/CreateNewProjectScene.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="210" column="20" lean-forward="true" selection-start-line="210" selection-start-column="20" selection-end-line="210" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ManageProjectScene.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-90">
-          <caret line="53" column="60" lean-forward="false" selection-start-line="53" selection-start-column="60" selection-end-line="53" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/Project.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="13" column="4" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="23" />
-          <folding>
-            <element signature="e#757#758#0" expanded="true" />
-            <element signature="e#789#790#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/ProjectList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/DBController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="71" column="43" lean-forward="false" selection-start-line="71" selection-start-column="43" selection-end-line="71" selection-end-column="43" />
-          <folding>
-            <element signature="e#1472#1473#0" expanded="true" />
-            <element signature="e#1514#1515#0" expanded="true" />
-            <element signature="e#1564#1565#0" expanded="true" />
-            <element signature="e#1603#1604#0" expanded="true" />
-            <element signature="e#1633#1634#0" expanded="true" />
-            <element signature="e#1689#1690#0" expanded="true" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1797#1798#0" expanded="true" />
-            <element signature="e#1830#1831#0" expanded="true" />
-            <element signature="e#1892#1893#0" expanded="true" />
-            <element signature="e#2040#2041#0" expanded="true" />
-            <element signature="e#2104#2105#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/IPersistor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="119">
+          <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/gui/ArchitectMenuScene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="40" column="8" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/controller/DBController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="70" column="25" lean-forward="false" selection-start-line="70" selection-start-column="25" selection-end-line="70" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1733#1734#0" expanded="true" />
+            <element signature="e#1778#1779#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MySQLDBPersistor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MySQLPersistor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="84" column="60" lean-forward="false" selection-start-line="84" selection-start-column="60" selection-end-line="84" selection-end-column="60" />
+        <state relative-caret-position="2176">
+          <caret line="131" column="54" lean-forward="false" selection-start-line="131" selection-start-column="54" selection-end-line="131" selection-end-column="54" />
           <folding>
-            <element signature="e#4837#4838#0" expanded="true" />
-            <element signature="e#4864#4865#0" expanded="true" />
-            <marker date="1489489622000" expanded="true" signature="1991:2128" ph="INSERT INTO users... " />
-            <marker date="1489489622000" expanded="true" signature="2799:2819" ph="INSERT INTO projects... " />
-            <marker date="1489489622000" expanded="true" signature="2799:2859" ph="INSERT INTO projects... " />
-            <marker date="1489489622000" expanded="true" signature="2799:2901" ph="INSERT INTO projects... " />
-            <marker date="1489489622000" expanded="true" signature="2799:2961" ph="INSERT INTO projects... " />
-            <marker date="1489489622000" expanded="true" signature="3676:3736" ph="SELECT email... users" />
+            <marker date="1490541520769" expanded="true" signature="1996:2133" ph="INSERT INTO users... " />
+            <marker date="1490541520769" expanded="true" signature="2804:2966" ph="INSERT INTO projects... " />
+            <marker date="1490541520769" expanded="true" signature="3681:3741" ph="SELECT email... users" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/UserList.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/IProject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="24" column="55" lean-forward="false" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="425">
+          <caret line="25" column="39" lean-forward="false" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/persistors/MongoDBPersistor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ie/cit/architect/protracker/model/IUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="107" column="44" lean-forward="false" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3571#3572#0" expanded="true" />
-            <element signature="e#3598#3599#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="408">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

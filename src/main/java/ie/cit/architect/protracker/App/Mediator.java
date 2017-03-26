@@ -6,7 +6,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-public class MainMediator extends Application {
+public class Mediator extends Application {
 
     private HomeScene homeMenuScene;
     private ArchitectMenuScene architectMenuScene;
@@ -23,8 +23,15 @@ public class MainMediator extends Application {
     public static void main(String[] args){ launch(args); }
 
 
-    //  Swapping scenes. Ref: http://stackoverflow.com/a/14168529/5942254
-    public MainMediator(){
+
+
+     /**
+     * Swapping scenes.
+     * @link { http://stackoverflow.com/a/14168529/5942254 }
+     * @return instance
+     */
+
+    public Mediator(){
         homeMenuScene = new HomeScene(this);
         architectMenuScene = new ArchitectMenuScene(this);
         clientMenuScene = new ClientMenuScene(this);
@@ -51,7 +58,10 @@ public class MainMediator extends Application {
     }
 
 
-    // methods to change scene
+    /**
+     * Swapping scenes - Theses methods
+     * @link { http://stackoverflow.com/a/14168529/5942254 }
+     */
     public void changeToArchitectMenuScene(){
         architectMenuScene.start(primaryStage);
     }

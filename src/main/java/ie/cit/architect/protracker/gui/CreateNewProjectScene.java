@@ -1,9 +1,13 @@
 package ie.cit.architect.protracker.gui;
 
-import ie.cit.architect.protracker.App.MainMediator;
+import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.DBController;
+import ie.cit.architect.protracker.controller.ProjectController;
 import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.model.IProject;
+import ie.cit.architect.protracker.model.IUser;
 import ie.cit.architect.protracker.model.Project;
+import ie.cit.architect.protracker.model.User;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,12 +45,24 @@ public class CreateNewProjectScene {
     private TextField tfProjectName = new TextField();
     private TextField tfProjectAuthor = new TextField();
     private TextField tfProjectClient = new TextField();
-    private TextField tfProjectLocation = new TextField();
+    private TextField tfProjectLocation;
+    private Project project;
+    private String projLocation;
+    private Button b;
 
-    private MainMediator mainMediator;
 
-    public CreateNewProjectScene(MainMediator mainMediator) {
-        this.mainMediator = mainMediator;
+    private Mediator mediator;
+
+    public CreateNewProjectScene(Mediator mediator) {
+        this.mediator = mediator;
+    }
+
+    public CreateNewProjectScene(Project project) {
+        this.project = project;
+    }
+
+    public CreateNewProjectScene() {
+
     }
 
 
@@ -80,6 +96,8 @@ public class CreateNewProjectScene {
         vBox.getStyleClass().add("hbox_left");
         vBox.setMinWidth(Consts.PANEL_WIDTH);
 
+        tfProjectLocation = new TextField();
+
         ObservableList<TextField> textFieldList =
                 FXCollections.observableArrayList(tfProjectName, tfProjectAuthor, tfProjectClient, tfProjectLocation);
         List<String> text = Arrays.asList("Project Name", "Name of Author", "Name of Client", "Project Location");
@@ -87,6 +105,8 @@ public class CreateNewProjectScene {
         for (int i = 0; i < textFieldList.size(); i++) {
             textFieldList.get(i).setPromptText(text.get(i));
         }
+
+
 
         for (TextField textField : textFieldList) {
             textField.setFocusTraversable(false);
@@ -219,49 +239,66 @@ public class CreateNewProjectScene {
 
         Button buttonCancel = new Button("Cancel");
 
-        buttonCancel.setOnAction(event -> mainMediator.changeToArchitectMenuScene());
+        buttonCancel.setOnAction(event -> mediator.changeToArchitectMenuScene());
 
         Button buttonContinue = new Button("Continue");
-        buttonContinue.setOnAction(event -> {
-            try {
-                createDirectories();
-
-                Platform.runLater(() -> {
-
-                    String projName = tfProjectName.getText();
-                    String projDate = String.valueOf(LocalDate.now());
-                    String projAuthor =  tfProjectAuthor.getText();
-                    String projLocation = tfProjectLocation.getText();
-                    String projClient = tfProjectClient.getText();
-
-                    Project project = new Project(
-                            projName, projDate, projAuthor, projLocation, projClient);
-
-                    if (project != null) {
-                        DBController.getInstance().addProject(project);
-                    }
-
-                    DBController.getInstance().saveProject();
-
-
-                });
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        buttonContinue.setOnAction(event -> createProject());
 
         AnchorPane.setTopAnchor(buttonCancel, 10.0);
         AnchorPane.setBottomAnchor(buttonCancel, 10.0);
         AnchorPane.setRightAnchor(buttonCancel, 150.0);
         AnchorPane.setBottomAnchor(buttonContinue, 10.0);
         AnchorPane.setRightAnchor(buttonContinue, 10.0);
+
         anchorPane.getChildren().addAll(buttonCancel, buttonContinue);
 
         return anchorPane;
     }
 
 
+
+    public void createProject() {
+        try {
+            createDirectories();
+
+            String projectName = tfProjectName.getText();
+            String projectDate = String.valueOf(LocalDate.now());
+            String projecAuthor = tfProjectAuthor.getText();
+            String projectLocation = tfProjectLocation.getText();
+            String projectClient = tfProjectClient.getText();
+
+
+            // create a project and populate it with help from the controller
+            IProject project = ProjectController.getInstance()
+                    .createProject(projectName, projectDate,
+                            projecAuthor, projectLocation, projectClient);
+
+            System.out.println(project);
+
+
+            // User object now sets the project
+            IUser user = new User();
+            user.setProject(project);
+
+            IProject p = user.getProject();
+
+
+
+            Platform.runLater(() -> {
+
+                if (project != null) {
+                    DBController.getInstance().addProject((Project) p);
+                }
+
+                DBController.getInstance().saveProject();
+            });
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by brian on 3/3/2017.
  */
-public class MySQLDBPersistor implements IPersistor{
+public class MySQLPersistor implements IPersistor{
 
     private Connection dbConnection;
     private ArrayList<AutoCloseable> dbObjects;
@@ -22,7 +22,7 @@ public class MySQLDBPersistor implements IPersistor{
     private static final String DB_LOCALHOST_PASS = "bossdog12";
 
 
-    public MySQLDBPersistor(){
+    public MySQLPersistor(){
 
         dbObjects = new ArrayList<>();
         try {
@@ -41,7 +41,7 @@ public class MySQLDBPersistor implements IPersistor{
             this.dbConnection = DriverManager.getConnection(db_LOCAL_URL);
 
             if(this.dbConnection != null) {
-                System.out.println("Connected!");
+                System.out.println("Connected to MySQL!");
             } else {
                 System.out.println("Connection Failed!");
             }
@@ -127,9 +127,9 @@ public class MySQLDBPersistor implements IPersistor{
                 while (rs.next()) {
                     String userEmail = rs.getString("email");
 
-                    user = UserArchitect.getInstance(userEmail);
+                    user = new User(userEmail);
 
-                    System.out.println("User email: " + userEmail);
+                    System.out.println("Found employee email: " + userEmail);
                 }
 
             close();

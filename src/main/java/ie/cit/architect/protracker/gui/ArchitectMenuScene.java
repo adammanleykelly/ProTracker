@@ -1,9 +1,8 @@
 package ie.cit.architect.protracker.gui;
 
-import ie.cit.architect.protracker.App.MainMediator;
+import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.helpers.Consts;
-import ie.cit.architect.protracker.model.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,17 +20,25 @@ import java.util.List;
  */
 public class ArchitectMenuScene {
 
-    private MainMediator mainMediator;
 
-    public ArchitectMenuScene(MainMediator mainMediator) {
-        this.mainMediator = mainMediator;
+    private Mediator mediator;
+
+    /**
+     * Each GUI class has a constructor that passes a Mediator object.
+     * Within this (and other GUI classes), this mediator reference will pass the selected stage
+     * back to the Mediator, which will in turn 'start' that stage.
+     * @see #architectMenu() -> ...mediator.changeToManageProjcetScene();
+     * Reference:
+     * @link { http://stackoverflow.com/a/14168529/5942254 }
+     */
+    public ArchitectMenuScene(Mediator mediator) {
+        this.mediator = mediator;
     }
 
 
     public void start(Stage stage) {
 
-
-        User user = DBController.getInstance().readRecords();
+        DBController.getInstance().readRecords();
 
         BorderPane pane = new BorderPane();
         pane.setTop(homeButtonContainer());
@@ -69,13 +76,13 @@ public class ArchitectMenuScene {
         for (Button button : buttonList) {
             button.setOnAction(event -> {
                 if (event.getSource().equals(btn1)) {
-                    mainMediator.changeToCreateProjScene();
+                    mediator.changeToCreateProjScene();
                 } else if (event.getSource().equals(btn2)) {
-                    mainMediator.changeToManageProjcetScene();
+                    mediator.changeToManageProjcetScene();
                 } else if (event.getSource().equals(btn3)) {
                     System.out.println("Billing");
                 } else if (event.getSource().equals(btn4)) {
-                    mainMediator.changeToViewMessagesScene();
+                    mediator.changeToViewMessagesScene();
                 }
             });
         }
@@ -96,7 +103,7 @@ public class ArchitectMenuScene {
         Button buttonHome = new Button("Home");
         buttonHome.setOnAction(event -> {
             try {
-                mainMediator.changeToHomeScene();
+                mediator.changeToHomeScene();
             } catch (Exception e) {
                 e.printStackTrace();
             }

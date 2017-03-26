@@ -60,7 +60,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        ie.cit.architect.protracker.App.MainMediator
+                                        ie.cit.architect.protracker.App.Mediator
                                     </mainClass>
                                 </manifest>
                             </archive>

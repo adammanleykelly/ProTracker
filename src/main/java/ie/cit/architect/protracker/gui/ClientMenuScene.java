@@ -1,6 +1,6 @@
 package ie.cit.architect.protracker.gui;
 
-import ie.cit.architect.protracker.App.MainMediator;
+import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.helpers.Consts;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,10 +19,18 @@ import java.util.List;
  */
 public class ClientMenuScene {
 
-    private MainMediator mainMediator;
+    private Mediator mediator;
 
-    public ClientMenuScene(MainMediator mainMediator) {
-        this.mainMediator = mainMediator;
+    /**
+     * Each GUI class has a constructor that passes a Mediator object.
+     * Within this (and other GUI classes), this mediator reference will pass the selected stage
+     * back to the Mediator, which will in turn 'start' that stage.
+     * @see #createClientMenu() () -> ...mediator.changeToViewMessagesScene();
+     * Reference:
+     * @link { http://stackoverflow.com/a/14168529/5942254 }
+     */
+    public ClientMenuScene(Mediator mediator) {
+        this.mediator = mediator;
     }
 
 
@@ -51,6 +59,10 @@ public class ClientMenuScene {
         Button btnBilling = new Button("View Billing");
         Button btnAppointments = new Button("View Appointments");
 
+
+        btnAppointments.setOnAction(event -> mediator.changeToViewMessagesScene()); // to be changed
+
+
         List<Button> buttonList = Arrays.asList(btnTimeline, btnProgress, btnBilling, btnAppointments);
         for(Button butons : buttonList) {
             butons.getStyleClass().add("client_menu_buttons");
@@ -74,7 +86,7 @@ public class ClientMenuScene {
         Button buttonHome = new Button("Home");
         buttonHome.setOnAction(event -> {
             try {
-                mainMediator.changeToHomeScene();
+                mediator.changeToHomeScene();
             } catch (Exception e) {
                 e.printStackTrace();
             }

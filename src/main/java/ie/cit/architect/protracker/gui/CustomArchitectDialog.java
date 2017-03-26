@@ -1,6 +1,6 @@
 package ie.cit.architect.protracker.gui;
 
-import ie.cit.architect.protracker.App.MainMediator;
+import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.model.User;
 import javafx.application.Platform;
@@ -20,11 +20,11 @@ import java.util.Optional;
 public class CustomArchitectDialog
 {
 
-    private MainMediator mainMediator;
+    private Mediator mediator;
 
 
-    public CustomArchitectDialog(MainMediator mediator) {
-        this.mainMediator = mediator;
+    public CustomArchitectDialog(Mediator mediator) {
+        this.mediator = mediator;
     }
 
 
@@ -124,7 +124,7 @@ public class CustomArchitectDialog
 
             User user = new User(userEmail, userPass);
 
-            mainMediator.changeToArchitectMenuScene();
+            mediator.changeToArchitectMenuScene();
 
             Platform.runLater(() -> {
                 if(user != null) {
