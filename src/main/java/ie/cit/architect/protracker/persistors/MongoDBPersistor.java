@@ -1,7 +1,7 @@
 package ie.cit.architect.protracker.persistors;
 
 import com.mongodb.*;
-import ie.cit.architect.protracker.helpers.MySQLCredentials;
+import ie.cit.architect.protracker.helpers.Credentials;
 import ie.cit.architect.protracker.model.*;
 
 /**
@@ -27,8 +27,8 @@ public class MongoDBPersistor implements IPersistor {
 //            mongoClientConn = new MongoClient(DB_LOCAL_HOST, DB_PORT);
 
             // remote database
-            MongoClientOptions.Builder builder = MongoClientOptions.builder().connectTimeout(3000);
-            mongoClientConn = new MongoClient(new ServerAddress(MySQLCredentials.DB_REMOTE_HOST, DB_PORT), builder.build());
+           mongoClientConn = new MongoClient( new MongoClientURI(
+                   "mongodb://" + Credentials.DB_USER + ":" + Credentials.DB_REMOTE_PASS + "@" + Credentials.DB_REMOTE_HOST +"/" + DB_NAME));
 
 
             if(mongoClientConn != null) {
