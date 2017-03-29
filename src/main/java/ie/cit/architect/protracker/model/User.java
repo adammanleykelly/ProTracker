@@ -89,7 +89,7 @@ public class User implements IUser{
     }
 
 
-    public boolean isEmailValid(String eMail) {
+    boolean isEmailValid(String eMail) {
 
         if(eMail != null) {
             Pattern pattern = Pattern.compile(Consts.VALID_EMAIL_REGEX);
@@ -100,7 +100,7 @@ public class User implements IUser{
     }
 
 
-    public boolean isNameValid(String fName) {
+    boolean isNameValid() {
         if (getName().matches(Consts.VALID_NAME)) {
             return true;
         }

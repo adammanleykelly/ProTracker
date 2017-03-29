@@ -61,16 +61,16 @@ public class ManageProjectScene {
         vBox.getStyleClass().add("hbox_left");
         vBox.setMinWidth(Consts.PANEL_WIDTH);
 
-        Button button1 = new Button("Open");
-        button1.setOnAction(event -> openDocument());
+        Button buttonOpen = new Button("Open");
+        buttonOpen.setOnAction(event -> openDocument());
         Button button2 = new Button("View Stage");
         Button button3 = new Button("Rename");
 
-        button1.setOnAction(event -> DBController.getInstance().showProjects());
+        buttonOpen.setOnAction(event -> DBController.getInstance().showProjects());
 
         Button button4 = new Button("Delete");
         ObservableList<Button> buttonList =
-                FXCollections.observableArrayList(button1, button2, button3, button4);
+                FXCollections.observableArrayList(buttonOpen, button2, button3, button4);
 
         for (Button button : buttonList) {
             button.setFocusTraversable(false);
@@ -86,7 +86,7 @@ public class ManageProjectScene {
         VBox.setMargin(label1, new Insets(30, 0, 50, 10));
 
         // add controls to VBox
-        vBox.getChildren().addAll(label1, button1, button2, button3, button4);
+        vBox.getChildren().addAll(label1, buttonOpen, button2, button3, button4);
 
         return vBox;
     }
@@ -100,8 +100,7 @@ public class ManageProjectScene {
 
         vBox.getChildren().add(label);
 
-        for (CheckBox checkBox :
-                checkBoxes) {
+        for (CheckBox checkBox : checkBoxes) {
             checkBox.setOnAction(event -> System.out.println(checkBox.selectedProperty().getValue()));
             checkBox.getStyleClass().add("checkbox_padding");
             vBox.getChildren().add(checkBox);

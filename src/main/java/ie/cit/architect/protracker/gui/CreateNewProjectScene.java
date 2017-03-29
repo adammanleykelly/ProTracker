@@ -2,12 +2,10 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.DBController;
-import ie.cit.architect.protracker.controller.ProjectController;
+import ie.cit.architect.protracker.controller.Controller;
 import ie.cit.architect.protracker.helpers.Consts;
 import ie.cit.architect.protracker.model.IProject;
-import ie.cit.architect.protracker.model.IUser;
 import ie.cit.architect.protracker.model.Project;
-import ie.cit.architect.protracker.model.User;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,29 +38,17 @@ public class CreateNewProjectScene {
 
     private ArrayList<String> directoryArrayList = new ArrayList<>();
     private CheckBox[] checkboxList = new CheckBox[10];
-    private String checkboxText;
-    private String numberRemoved;
     private TextField tfProjectName = new TextField();
     private TextField tfProjectAuthor = new TextField();
     private TextField tfProjectClient = new TextField();
     private TextField tfProjectLocation;
-    private Project project;
-    private String projLocation;
-    private Button b;
-
-
+    private String projectName, projectDate, projectAuthor, projectLocation, projectClient;
+    private IProject project;
     private Mediator mediator;
+
 
     public CreateNewProjectScene(Mediator mediator) {
         this.mediator = mediator;
-    }
-
-    public CreateNewProjectScene(Project project) {
-        this.project = project;
-    }
-
-    public CreateNewProjectScene() {
-
     }
 
 
@@ -80,8 +66,16 @@ public class CreateNewProjectScene {
         stage.show();
     }
 
+    private void getUserInput() {
+        projectName = tfProjectName.getText();
+        projectDate = String.valueOf(LocalDate.now());
+        projectAuthor = tfProjectAuthor.getText();
+        projectLocation = tfProjectLocation.getText();
+        projectClient = tfProjectClient.getText();
+    }
 
-    public static BorderPane createContainer(VBox vb1, VBox vb2, VBox vb3, AnchorPane ap) {
+
+    private static BorderPane createContainer(VBox vb1, VBox vb2, VBox vb3, AnchorPane ap) {
         BorderPane borderPane = new BorderPane();
         borderPane.setLeft(vb1);
         borderPane.setCenter(vb2);
@@ -105,7 +99,6 @@ public class CreateNewProjectScene {
         for (int i = 0; i < textFieldList.size(); i++) {
             textFieldList.get(i).setPromptText(text.get(i));
         }
-
 
 
         for (TextField textField : textFieldList) {
@@ -139,31 +132,14 @@ public class CreateNewProjectScene {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_middle");
         vBox.setMinWidth(Consts.PANEL_WIDTH);
-
         Label label = new Label("Select folders to create:");
-
         vBox.getChildren().add(label);
-
 
         for (CheckBox checkBox : checkboxList) {
             checkBox.setOnAction(event -> removeDigits(event));
             checkBox.getStyleClass().add("checkbox_padding");
             vBox.getChildren().add(checkBox);
-//            checkBox.setDisable(true);
         }
-
-
-//        tfProjectName.textProperty().addListener((observable, oldValue, newValue) -> {
-//            for (CheckBox checkBox : checkboxList) {
-//                if (newValue.isEmpty()) {
-//                    checkBox.setDisable(true);
-//                } else {
-//                    checkBox.setDisable(false);
-//                }
-//            }
-//        });
-
-
         VBox.setMargin(label, new Insets(30, 0, 10, 0));
 
         return vBox;
@@ -171,15 +147,15 @@ public class CreateNewProjectScene {
 
 
     private void createDirectories() {
-        String projectName = tfProjectName.getText();
         try {
-            Path path1 = Paths.get(PATH_TO_DESKTOP + projectName + DOUBLE_FILE_SEP);
+            String projName = tfProjectName.getText();
+            Path path1 = Paths.get(PATH_TO_DESKTOP + projName + DOUBLE_FILE_SEP);
             Files.createDirectories(path1);
 
-            if (!projectName.isEmpty()) {
+            if (!projName.isEmpty()) {
                 for (int i = 0; i < directoryArrayList.size(); i++) {
                     String subDirectory = directoryArrayList.get(i);
-                    Path path2 = Paths.get(PATH_TO_DESKTOP + projectName + DOUBLE_FILE_SEP + subDirectory);
+                    Path path2 = Paths.get(PATH_TO_DESKTOP + projName + DOUBLE_FILE_SEP + subDirectory);
                     Files.createDirectories(path2);
                 }
             }
@@ -192,8 +168,8 @@ public class CreateNewProjectScene {
     private void removeDigits(ActionEvent event) {
         for (CheckBox checkBox : checkboxList) {
             if (event.getSource().equals(checkBox) && checkBox.isSelected()) {
-                checkboxText = checkBox.getText();
-                numberRemoved = checkboxText.replaceAll("\\d", "");
+                String checkboxText = checkBox.getText();
+                String numberRemoved = checkboxText.replaceAll("\\d", "");
 
                 directoryArrayList.add(numberRemoved);
             }
@@ -201,7 +177,7 @@ public class CreateNewProjectScene {
     }
 
 
-    // Ref: http://stackoverflow.com/a/23512831/5942254
+    // @link { Ref: http://stackoverflow.com/a/23512831/5942254 }
     private void createCheckboxArray() {
 
         List<String> text = Arrays.asList(
@@ -215,17 +191,17 @@ public class CreateNewProjectScene {
 
 
     private VBox createRightPane() {
-        VBox vBox = new VBox();
-        vBox.getStyleClass().add("hbox_right");
-        vBox.setMinWidth(Consts.PANEL_WIDTH);
+
 
         Label label = new Label("Description:");
 
         TextArea textArea = new TextArea();
         textArea.setPrefWidth(200);
 
+        VBox vBox = new VBox();
+        vBox.getStyleClass().add("hbox_right");
+        vBox.setMinWidth(Consts.PANEL_WIDTH);
         VBox.setMargin(label, new Insets(30, 0, 0, 0));
-
         vBox.getChildren().addAll(label, textArea);
 
         return vBox;
@@ -234,16 +210,18 @@ public class CreateNewProjectScene {
 
     private AnchorPane createNavigationButtons() {
 
-        AnchorPane anchorPane = new AnchorPane();
-        anchorPane.getStyleClass().add("anchorpane_color");
+        Button buttonContinue = new Button("Continue");
+        buttonContinue.setOnAction(event -> {
+            createDirectories();
+            createProject();
+        });
 
         Button buttonCancel = new Button("Cancel");
-
         buttonCancel.setOnAction(event -> mediator.changeToArchitectMenuScene());
 
-        Button buttonContinue = new Button("Continue");
-        buttonContinue.setOnAction(event -> createProject());
-
+        // layout
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getStyleClass().add("anchorpane_color");
         AnchorPane.setTopAnchor(buttonCancel, 10.0);
         AnchorPane.setBottomAnchor(buttonCancel, 10.0);
         AnchorPane.setRightAnchor(buttonCancel, 150.0);
@@ -256,74 +234,49 @@ public class CreateNewProjectScene {
     }
 
 
+    /**
+     * Button 'Continue' method listener
+     * that uses the Controller class create and populate the Project object
+     * @see CreateNewProjectScene#createNavigationButtons
+     */
+    private void createProject() {
 
-    public void createProject() {
+        // values from TextFields stored as strings
+        getUserInput();
+
+
+        project = Controller.getInstance()
+                .createProject(projectName, projectDate,
+                        projectAuthor, projectLocation, projectClient);
+
+
+        // User object now sets the project - not sure how useful this is
+//            IUser user = new User();
+//            user.setProject(project);
+//            IProject p = user.getProject();
+
+        addProjectToDB();
+
+    }
+
+
+    private void addProjectToDB() {
+
         try {
-            createDirectories();
-
-            String projectName = tfProjectName.getText();
-            String projectDate = String.valueOf(LocalDate.now());
-            String projecAuthor = tfProjectAuthor.getText();
-            String projectLocation = tfProjectLocation.getText();
-            String projectClient = tfProjectClient.getText();
-
-
-            // create a project and populate it with help from the controller
-            IProject project = ProjectController.getInstance()
-                    .createProject(projectName, projectDate,
-                            projecAuthor, projectLocation, projectClient);
-
-            System.out.println(project);
-
-
-            // User object now sets the project
-            IUser user = new User();
-            user.setProject(project);
-
-            IProject p = user.getProject();
-
-
-
             Platform.runLater(() -> {
 
                 if (project != null) {
-                    DBController.getInstance().addProject((Project) p);
+                    DBController.getInstance().addProject((Project) project);
                 }
 
                 DBController.getInstance().saveProject();
             });
 
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

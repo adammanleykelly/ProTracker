@@ -2,6 +2,8 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.DBController;
+import ie.cit.architect.protracker.controller.Controller;
+import ie.cit.architect.protracker.model.IUser;
 import ie.cit.architect.protracker.model.User;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -122,13 +124,14 @@ public class CustomArchitectDialog
             String userEmail = emailPass.getKey();
             String userPass = emailPass.getValue();
 
-            User user = new User(userEmail, userPass);
+
+            IUser user = Controller.getInstance().createUser(userEmail, userPass);
 
             mediator.changeToArchitectMenuScene();
 
             Platform.runLater(() -> {
                 if(user != null) {
-                    DBController.getInstance().addUser(user);
+                    DBController.getInstance().addUser((User) user);
                 }
 
                 DBController.getInstance().saveUser();

@@ -1,9 +1,8 @@
 package ie.cit.architect.protracker.persistors;
 
 import com.mongodb.*;
+import ie.cit.architect.protracker.helpers.MySQLCredentials;
 import ie.cit.architect.protracker.model.*;
-
-import java.net.UnknownHostException;
 
 /**
  * Created by brian on 13/03/17.
@@ -14,6 +13,7 @@ public class MongoDBPersistor implements IPersistor {
     private DBCollection tableUsers, tableProjects;
     private DB db;
 
+
     private static final String DB_LOCAL_HOST = "localhost";
     private static final String DB_NAME = "protracker";
     private static final int DB_PORT = 27017;
@@ -23,7 +23,13 @@ public class MongoDBPersistor implements IPersistor {
 
         try {
 
-            mongoClientConn = new MongoClient(DB_LOCAL_HOST, DB_PORT);
+            //local database
+//            mongoClientConn = new MongoClient(DB_LOCAL_HOST, DB_PORT);
+
+            // remote database
+            MongoClientOptions.Builder builder = MongoClientOptions.builder().connectTimeout(3000);
+            mongoClientConn = new MongoClient(new ServerAddress(MySQLCredentials.DB_REMOTE_HOST, DB_PORT), builder.build());
+
 
             if(mongoClientConn != null) {
                 System.out.println("Connected to MongoDB!");
@@ -42,8 +48,7 @@ public class MongoDBPersistor implements IPersistor {
             // create another table
             tableProjects = db.getCollection("projects");
 
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
+
         } catch (MongoException e) {
             e.printStackTrace();
         }
@@ -119,14 +124,6 @@ public class MongoDBPersistor implements IPersistor {
         return null;
     }
 }
-
-
-
-
-
-
-
-
 
 
 
