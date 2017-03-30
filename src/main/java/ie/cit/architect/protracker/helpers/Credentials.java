@@ -5,9 +5,20 @@ package ie.cit.architect.protracker.helpers;
  */
 public final class Credentials {
 
-    public static final String DB_REMOTE_PASS = "bossdog12";
+    // mongodb
+    public static final String DB_MONGO_USER = "dbuser";
+    public static final String DB_MONGO_PASS = "bossdog12";
+    public static final String DB_MONGO_IP = "ec2-54-202-69-181.us-west-2.compute.amazonaws.com";
 
-    public static final String DB_USER = "dbuser";
+    // mysql
+    public static final String DB_SQL_USER = "brian";
+    public static final String DB_SQL_PASS = "topdog12";
+    public static final String DB_SQL_IP = "82.118.226.76";
+    public static final String DB_SQL_PORT = "3306";
 
-    public static final String DB_REMOTE_HOST = "ec2-54-202-69-181.us-west-2.compute.amazonaws.com";
+    // generic
+    public static final String DB_NAME = "protracker";
+
+
 }
+

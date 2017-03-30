@@ -4,6 +4,7 @@ import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.controller.PersistenceMode;
 import ie.cit.architect.protracker.helpers.Consts;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -66,9 +67,9 @@ public class HomeScene {
                 DBController.getInstance().setPersistenceMode(PersistenceMode.MYSQL));
 
         buttonMongoDB = new Button("MongoDB");
-        buttonMongoDB.setOnAction(event ->
-                DBController.getInstance().setPersistenceMode(PersistenceMode.MONGODB));
 
+        Platform.runLater(() -> buttonMongoDB.setOnAction(event ->
+                DBController.getInstance().setPersistenceMode(PersistenceMode.MONGODB)));
 
         buttonSignInClient.setOnAction(event -> mediator.changeToClientCustomDialog());
         buttonSignInArchitect.setOnAction(event -> mediator.changeToArchitectCustomDialog());

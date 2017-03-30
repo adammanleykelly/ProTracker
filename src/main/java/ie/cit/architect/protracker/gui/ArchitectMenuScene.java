@@ -27,7 +27,7 @@ public class ArchitectMenuScene {
      * Each GUI class has a constructor that passes a Mediator object.
      * Within this (and other GUI classes), this mediator reference will pass the selected stage
      * back to the Mediator, which will in turn 'start' that stage.
-     * @see #architectMenu() -> ...mediator.changeToManageProjcetScene();
+     * @see #architectMenu() -> ...mediator.changeToManageProjectScene();
      * Reference:
      * @link { http://stackoverflow.com/a/14168529/5942254 }
      */
@@ -76,9 +76,9 @@ public class ArchitectMenuScene {
         for (Button button : buttonList) {
             button.setOnAction(event -> {
                 if (event.getSource().equals(btn1)) {
-                    mediator.changeToCreateProjScene();
+                    mediator.changeToCreateProjectScene();
                 } else if (event.getSource().equals(btn2)) {
-                    mediator.changeToManageProjcetScene();
+                    mediator.changeToManageProjectScene();
                 } else if (event.getSource().equals(btn3)) {
                     System.out.println("Billing");
                 } else if (event.getSource().equals(btn4)) {

@@ -1,6 +1,10 @@
 package ie.cit.architect.protracker.persistors;
 
-import ie.cit.architect.protracker.model.*;
+import ie.cit.architect.protracker.helpers.Credentials;
+import ie.cit.architect.protracker.model.Project;
+import ie.cit.architect.protracker.model.ProjectList;
+import ie.cit.architect.protracker.model.User;
+import ie.cit.architect.protracker.model.UserList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,12 +18,7 @@ public class MySQLPersistor implements IPersistor{
     private ArrayList<AutoCloseable> dbObjects;
 
 
-    private static final String DB_REMOTE_HOST = "82.118.226.76";
-    private static final String DB_LOCAL_HOST = "localhost";
-    private static final String DB_NAME = "protracker";
-    private static final String DB_PORT = "3306";
-    private static final String DB_USER = "remoteUser";
-    private static final String DB_LOCALHOST_PASS = "bossdog12";
+
 
 
     public MySQLPersistor(){
@@ -30,15 +29,15 @@ public class MySQLPersistor implements IPersistor{
             String db_Driver = "com.mysql.cj.jdbc.Driver";
 
             //TODO: uncomment after testing on localhost database is complete
-//            String db_REMOTE_URL = "jdbc:mysql://"+ DB_REMOTE_HOST +":"+ DB_PORT +"/"+ DB_NAME +
-//                    "?user="+ DB_USER + "&password=" + MySQLCredentials.DB_PASS;
+            String db_REMOTE_URL = "jdbc:mysql://"+ Credentials.DB_SQL_IP +":"+ Credentials.DB_SQL_PORT +"/"+
+                    Credentials.DB_NAME + "?user="+ Credentials.DB_SQL_USER + "&password=" + Credentials.DB_SQL_PASS;
 
-            String db_LOCAL_URL = "jdbc:mysql://"+ DB_LOCAL_HOST +":"+ DB_PORT +"/"+ DB_NAME +
-                    "?user="+ "root" + "&password=" + DB_LOCALHOST_PASS;
+//            String db_LOCAL_URL = "jdbc:mysql://"+ DB_LOCAL_HOST +":"+ DB_SQL_PORT +"/"+ DB_NAME +
+//                    "?user="+ "root" + "&password=" + DB_LOCALHOST_PASS;
 
             Class.forName(db_Driver);
 
-            this.dbConnection = DriverManager.getConnection(db_LOCAL_URL);
+            this.dbConnection = DriverManager.getConnection(db_REMOTE_URL);
 
             if(this.dbConnection != null) {
                 System.out.println("Connected to MySQL!");
@@ -107,9 +106,7 @@ public class MySQLPersistor implements IPersistor{
     }
 
     @Override
-    public User selectRecords() {
-
-        User user = new User();
+    public void selectRecords() {
 
         try {
             String query = "SELECT email FROM users WHERE (email LIKE ? OR email LIKE ?)";
@@ -127,9 +124,7 @@ public class MySQLPersistor implements IPersistor{
                 while (rs.next()) {
                     String userEmail = rs.getString("email");
 
-                    user = new User(userEmail);
-
-                    System.out.println("Found employee email: " + userEmail);
+                    System.out.printf("Found employee email: %s", userEmail );
                 }
 
             close();
@@ -137,7 +132,7 @@ public class MySQLPersistor implements IPersistor{
             e.printStackTrace();
         }
 
-        return user;
+
     }
 
 
@@ -158,9 +153,12 @@ public class MySQLPersistor implements IPersistor{
     }
 
 
-    // not called
+    // methods not called. Belong to MongoDB
     @Override
-    public void displayProjects(ProjectList projects) { }
+    public void displayCreatedProjects() { }
+
+    @Override
+    public void displayCurrentProject(ProjectList projects) { }
 
 
 }

@@ -1,8 +1,8 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
-import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.controller.Controller;
+import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.model.IUser;
 import ie.cit.architect.protracker.model.User;
 import javafx.application.Platform;
@@ -23,6 +23,9 @@ public class CustomArchitectDialog
 {
 
     private Mediator mediator;
+    private Dialog<Pair<String, String>> dialog;
+    private String userEmail;
+    private String userPass;
 
 
     public CustomArchitectDialog(Mediator mediator) {
@@ -34,15 +37,13 @@ public class CustomArchitectDialog
     public Dialog<Pair<String, String>> signInArchitectDialog() {
 
 
-
         // Create the custom dialog.
-        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog = new Dialog<>();
         dialog.setTitle("Login Architect");
         dialog.setHeaderText("Please Sign In");
 
         // Set the icon (must be included in the project).
         dialog.setGraphic(new ImageView(this.getClass().getResource("/login_icon_architect.png").toString()));
-
 
 
         // Set the button types.
@@ -82,6 +83,9 @@ public class CustomArchitectDialog
         // Enable/Disable login button depending on whether a username was entered.
         Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
 
+        Button button = (Button) dialog.getDialogPane().lookupButton(loginButtonType);
+        button.setOnAction(event -> System.out.println("Hello"));
+
         //TODO : change to true and uncomment code after testing
         loginButton.setDisable(false);
         // disable the Login button and set prompt, if user enters incorrect email address
@@ -110,39 +114,70 @@ public class CustomArchitectDialog
 
         // Convert the result to a username-password-pair when the login button is clicked.
         dialog.setResultConverter(dialogButton -> {
+
+
             if (dialogButton == loginButtonType) {
+
+                mediator.changeToArchitectMenuScene();
+
+
                 return new Pair<>(textFieldEmail.getText(), password.getText());
+
             }
+
             return null;
         });
 
-
         Optional<Pair<String, String>> result = dialog.showAndWait();
 
-        result.ifPresent(emailPass -> {
-
-            String userEmail = emailPass.getKey();
-            String userPass = emailPass.getValue();
-
-
-            IUser user = Controller.getInstance().createUser(userEmail, userPass);
-
-            mediator.changeToArchitectMenuScene();
-
-            Platform.runLater(() -> {
-                if(user != null) {
-                    DBController.getInstance().addUser((User) user);
-                }
-
-                DBController.getInstance().saveUser();
-            });
-            if (user != null)
-                System.out.println(user.toString());
-
+        result.ifPresent(emailPassword -> {
+            userEmail = emailPassword.getKey();
+            userPass = emailPassword.getValue();
         });
+
+        addUserToDB();
 
         return dialog;
 
     }
 
+    public void addUserToDB() {
+
+
+
+            IUser user = Controller.getInstance().createUser(userEmail, userPass);
+
+            if (user != null) {
+                DBController.getInstance().addUser((User) user);
+            }
+
+            DBController.getInstance().saveUser();
+
+
+
+    }
 }
+
+
+
+
+
+
+//            Platform.runLater(() -> {
+//
+//                IUser user = Controller.getInstance().createUser(userEmail, userPass);
+//
+//                if(user != null) {
+//                    DBController.getInstance().addUser((User) user);
+//                }
+//
+//                DBController.getInstance().saveUser();
+//                if (user != null)
+//                    System.out.println(user.toString());
+//            });
+//
+//        });
+
+
+
+

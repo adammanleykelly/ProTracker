@@ -24,11 +24,9 @@ public class Mediator extends Application {
 
 
 
-
      /**
      * Swapping scenes.
      * @link { http://stackoverflow.com/a/14168529/5942254 }
-     * @return instance
      */
 
     public Mediator(){
@@ -58,10 +56,6 @@ public class Mediator extends Application {
     }
 
 
-    /**
-     * Swapping scenes - Theses methods
-     * @link { http://stackoverflow.com/a/14168529/5942254 }
-     */
     public void changeToArchitectMenuScene(){
         architectMenuScene.start(primaryStage);
     }
@@ -70,11 +64,11 @@ public class Mediator extends Application {
         clientMenuScene.start(primaryStage);
     }
 
-    public void changeToCreateProjScene() { createNewProjectScene.start(primaryStage); }
+    public void changeToCreateProjectScene() { createNewProjectScene.start(primaryStage); }
 
     public void changeToViewMessagesScene() { viewMessagesScene.start(primaryStage); }
 
-    public void changeToManageProjcetScene() { manageProjectScene.start(primaryStage); }
+    public void changeToManageProjectScene() { manageProjectScene.start(primaryStage); }
 
     public void changeToArchitectCustomDialog() { customArchitectDialog.signInArchitectDialog(); }
 

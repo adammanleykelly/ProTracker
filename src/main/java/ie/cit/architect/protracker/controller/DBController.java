@@ -68,14 +68,13 @@ public class DBController {
     }
 
 
-    public User readRecords() {
-        User user = this.persistor.selectRecords();
-        return user;
+    public void readRecords() {
+        this.persistor.selectRecords();
     }
 
 
     public void showProjects() {
-        this.persistor.displayProjects(this.projectList);
+        this.persistor.displayCreatedProjects();
     }
 
 

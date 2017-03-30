@@ -63,14 +63,17 @@ public class ManageProjectScene {
 
         Button buttonOpen = new Button("Open");
         buttonOpen.setOnAction(event -> openDocument());
-        Button button2 = new Button("View Stage");
-        Button button3 = new Button("Rename");
+        Button buttonViewStage = new Button("View Stage");
+        Button buttonRename = new Button("Rename");
 
         buttonOpen.setOnAction(event -> DBController.getInstance().showProjects());
 
+        buttonRename.setOnAction(event -> DBController.getInstance().readRecords());
+
+
         Button button4 = new Button("Delete");
         ObservableList<Button> buttonList =
-                FXCollections.observableArrayList(buttonOpen, button2, button3, button4);
+                FXCollections.observableArrayList(buttonOpen, buttonViewStage, buttonRename, button4);
 
         for (Button button : buttonList) {
             button.setFocusTraversable(false);
@@ -80,13 +83,13 @@ public class ManageProjectScene {
         }
 
         // Labels
-        Label label1 = new Label("Operations:");
+        Label labelOperations = new Label("Operations:");
 
 
-        VBox.setMargin(label1, new Insets(30, 0, 50, 10));
+        VBox.setMargin(labelOperations, new Insets(30, 0, 50, 10));
 
         // add controls to VBox
-        vBox.getChildren().addAll(label1, buttonOpen, button2, button3, button4);
+        vBox.getChildren().addAll(labelOperations, buttonOpen, buttonViewStage, buttonRename, button4);
 
         return vBox;
     }

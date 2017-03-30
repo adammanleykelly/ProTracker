@@ -1,7 +1,6 @@
 package ie.cit.architect.protracker.persistors;
 
 import ie.cit.architect.protracker.model.ProjectList;
-import ie.cit.architect.protracker.model.User;
 import ie.cit.architect.protracker.model.UserList;
 
 /**
@@ -13,8 +12,12 @@ public interface IPersistor {
 
     void writeProjects(ProjectList projects);
 
-    User selectRecords();
+    void selectRecords();
 
-    void displayProjects(ProjectList projects);
+    void displayCreatedProjects();
+
+    void displayCurrentProject(ProjectList projects);
+
+
 
 }

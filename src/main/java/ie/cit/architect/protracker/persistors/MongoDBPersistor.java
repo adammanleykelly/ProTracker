@@ -2,7 +2,11 @@ package ie.cit.architect.protracker.persistors;
 
 import com.mongodb.*;
 import ie.cit.architect.protracker.helpers.Credentials;
-import ie.cit.architect.protracker.model.*;
+import ie.cit.architect.protracker.model.IUser;
+import ie.cit.architect.protracker.model.Project;
+import ie.cit.architect.protracker.model.ProjectList;
+import ie.cit.architect.protracker.model.UserList;
+
 
 /**
  * Created by brian on 13/03/17.
@@ -14,9 +18,6 @@ public class MongoDBPersistor implements IPersistor {
     private DB db;
 
 
-    private static final String DB_LOCAL_HOST = "localhost";
-    private static final String DB_NAME = "protracker";
-    private static final int DB_PORT = 27017;
 
 
     public MongoDBPersistor() {
@@ -24,11 +25,12 @@ public class MongoDBPersistor implements IPersistor {
         try {
 
             //local database
-//            mongoClientConn = new MongoClient(DB_LOCAL_HOST, DB_PORT);
+//            mongoClientConn = new MongoClient("localhost", 27017);
 
-            // remote database
+            // remote database - there is ~2sec delay
            mongoClientConn = new MongoClient( new MongoClientURI(
-                   "mongodb://" + Credentials.DB_USER + ":" + Credentials.DB_REMOTE_PASS + "@" + Credentials.DB_REMOTE_HOST +"/" + DB_NAME));
+                   "mongodb://" + Credentials.DB_MONGO_USER + ":" +
+                           Credentials.DB_MONGO_PASS + "@" + Credentials.DB_MONGO_IP +"/" + Credentials.DB_NAME));
 
 
             if(mongoClientConn != null) {
@@ -39,7 +41,7 @@ public class MongoDBPersistor implements IPersistor {
 
             //Get Database
             // if database doesn't exist, mongoDB will create it for you
-            db = mongoClientConn.getDB(DB_NAME);
+            db = mongoClientConn.getDB(Credentials.DB_NAME);
 
             //Get Collection / Table from 'protracker'
             //if collection doesn't exist, mongoDB will create it for you
@@ -58,18 +60,20 @@ public class MongoDBPersistor implements IPersistor {
     @Override
     public void writeUsers(UserList users) {
 
-        try {
-            for (IUser currUser : users.getUsers()) {
-                BasicDBObject document = new BasicDBObject();
-                //key value pair
-                document.put("email", currUser.getEmailAddress());
-                document.put("password", currUser.getPassword());
-                tableUsers.insert(document);
-            }
+        new Thread(() -> {
+            try {
+                for (IUser currUser : users.getUsers()) {
+                    BasicDBObject document = new BasicDBObject();
+                    //key value pair
+                    document.put("email", currUser.getEmailAddress());
+                    document.put("password", currUser.getPassword());
+                    tableUsers.insert(document);
+                }
 
-        }catch (MongoException e) {
-            e.printStackTrace();
-        }
+            } catch (MongoException e) {
+                e.printStackTrace();
+            }
+        }).start();
 
     }
 
@@ -94,8 +98,7 @@ public class MongoDBPersistor implements IPersistor {
 
 
     @Override
-    public void displayProjects(ProjectList projects) {
-
+    public void displayCurrentProject(ProjectList projects) {
         try {
             for (Project currProject : projects.getProjects()) {
                 BasicDBObject searchQuery = new BasicDBObject();
@@ -114,14 +117,36 @@ public class MongoDBPersistor implements IPersistor {
         }catch (MongoException e) {
             e.printStackTrace();
         }
-
     }
 
 
-    // not called
     @Override
-    public User selectRecords() {
-        return null;
+    public void displayCreatedProjects() {
+
+        try {
+            DBCursor cursor = tableProjects.find();
+
+            System.out.println("Project:");
+            while (cursor.hasNext()) {
+                System.out.println(cursor.next());
+            }
+
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    // get all documents where email is 'coveneygeorgia@hotmail.com'
+    @Override
+    public void selectRecords() {
+        BasicDBObject whereQuery = new BasicDBObject();
+        whereQuery.put("email", "coveneygeorgia@hotmail.com");
+        DBCursor cursor = tableUsers.find(whereQuery);
+        while(cursor.hasNext()) {
+            System.out.println(cursor.next());
+        }
     }
 }
 
