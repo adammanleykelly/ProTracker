@@ -1,7 +1,6 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
-import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.helpers.Consts;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -38,7 +37,8 @@ public class ArchitectMenuScene {
 
     public void start(Stage stage) {
 
-        DBController.getInstance().readRecords();
+
+//        Platform.runLater(() -> DBController.getInstance().readRecords());
 
         BorderPane pane = new BorderPane();
         pane.setTop(homeButtonContainer());

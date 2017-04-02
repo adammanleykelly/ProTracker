@@ -8,6 +8,8 @@ import ie.cit.architect.protracker.persistors.IPersistor;
 import ie.cit.architect.protracker.persistors.MongoDBPersistor;
 import ie.cit.architect.protracker.persistors.MySQLPersistor;
 
+import java.util.ArrayList;
+
 import static ie.cit.architect.protracker.controller.PersistenceMode.MONGODB;
 import static ie.cit.architect.protracker.controller.PersistenceMode.MYSQL;
 
@@ -50,8 +52,10 @@ public class DBController {
     }
 
     // user
-    public void addUser(User user) {
+    public User addUser(User user) {
         this.userList.add(user);
+
+        return user;
     }
 
     public void saveUser() {
@@ -68,14 +72,21 @@ public class DBController {
     }
 
 
-    public void readRecords() {
-        this.persistor.selectRecords();
+    public ArrayList<String> selectRecords() {
+       return this.persistor.selectRecords(this.projectList);
+
     }
 
 
-    public void showProjects() {
+    public void selectProjectName() { persistor.selectProjectName(this.projectList); }
+
+
+    public void getProjects() {
         this.persistor.displayCreatedProjects();
     }
+
+
+    public void getResults() { this.persistor.getResults(10); }
 
 
 }

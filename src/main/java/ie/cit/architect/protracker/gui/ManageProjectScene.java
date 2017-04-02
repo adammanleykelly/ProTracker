@@ -3,7 +3,6 @@ package ie.cit.architect.protracker.gui;
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.helpers.Consts;
-import ie.cit.architect.protracker.helpers.Utility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -13,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -20,7 +21,7 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,10 +30,14 @@ import java.util.List;
 public class ManageProjectScene {
 
 
-    private CheckBox[] checkBoxes = new CheckBox[21];
+    private ObservableList<CheckBox> checkboxList = FXCollections.observableArrayList();
+    private ArrayList<CheckBox> ck = new ArrayList<>();
     private static final String CURR_DIR = "src/main/resources";
     private static final String TXT_FILE_DESC = "txt files (*.txt)";
     private static final String TXT_FILE_EXT = "*.txt";
+    private ArrayList<String> arrayListProjectNames;
+    private List<String> listProjectNames;
+    private CheckBox[] checkBoxes;
 
     private Mediator mediator;
 
@@ -45,8 +50,15 @@ public class ManageProjectScene {
 
         createCheckboxArray();
 
+        BorderPane borderPane = new BorderPane();
+        borderPane.setLeft(createLeftPane());
+        borderPane.setCenter(createMiddlePane());
+        borderPane.setRight(createRightPane());
+        borderPane.setBottom(createBottomPane());
+
+
         Scene scene = new Scene(
-                Utility.createContainer(createLeftPane(), createMiddlePane(), createRightPane()),
+                borderPane,
                 Consts.APP_WIDTH, Consts.APP_HEIGHT);
 
         scene.getStylesheets().add("/stylesheet.css");
@@ -65,15 +77,22 @@ public class ManageProjectScene {
         buttonOpen.setOnAction(event -> openDocument());
         Button buttonViewStage = new Button("View Stage");
         Button buttonRename = new Button("Rename");
-
-        buttonOpen.setOnAction(event -> DBController.getInstance().showProjects());
-
-        buttonRename.setOnAction(event -> DBController.getInstance().readRecords());
+        Button buttonDelete = new Button("Delete");
 
 
-        Button button4 = new Button("Delete");
+        buttonOpen.setOnAction(event -> DBController.getInstance().getProjects());
+
+        buttonRename.setOnAction(event -> {
+            arrayListProjectNames = DBController.getInstance().selectRecords();
+        });
+
+//        buttonDelete.setOnAction(event -> DBController.getInstance().getResults());
+
+        buttonDelete.setOnAction(event -> DBController.getInstance().selectProjectName());
+
+
         ObservableList<Button> buttonList =
-                FXCollections.observableArrayList(buttonOpen, buttonViewStage, buttonRename, button4);
+                FXCollections.observableArrayList(buttonOpen, buttonViewStage, buttonRename, buttonDelete);
 
         for (Button button : buttonList) {
             button.setFocusTraversable(false);
@@ -89,7 +108,7 @@ public class ManageProjectScene {
         VBox.setMargin(labelOperations, new Insets(30, 0, 50, 10));
 
         // add controls to VBox
-        vBox.getChildren().addAll(labelOperations, buttonOpen, buttonViewStage, buttonRename, button4);
+        vBox.getChildren().addAll(labelOperations, buttonOpen, buttonViewStage, buttonRename, buttonDelete);
 
         return vBox;
     }
@@ -120,15 +139,19 @@ public class ManageProjectScene {
     }
 
 
+    /**
+     * CheckBoxes populated with the project 'name' field from MongoDB
+     * @see DBController#selectRecords()
+     */
     private void createCheckboxArray() {
 
-        List<String> text = Arrays.asList(
-                "Project Name", "Project Name", "Project Name", "Project Name", "Project Name", "Project Name", "Project Name",
-                "Project Name", "Project Name", "Project Name", "Project Name", "Project Name", "Project Name", "Project Name",
-                "Project Name", "Project Name", "Project Name", "Project Name", "Project Name", "Project Name", "Project Name");
+        arrayListProjectNames = DBController.getInstance().selectRecords();
+        int numProjects = arrayListProjectNames.size();
 
-        for (int i = 0; i < checkBoxes.length; i++) {
-            checkBoxes[i] = new CheckBox((i + 1) + " " + text.get(i));
+        checkBoxes = new CheckBox[numProjects];
+
+        for (int i = 0; i < arrayListProjectNames.size(); i++) {
+            checkBoxes[i] = new CheckBox((i + 1) + " " + arrayListProjectNames.get(i));
         }
     }
 
@@ -143,12 +166,38 @@ public class ManageProjectScene {
 
 
         TextField textField = new TextField();
+
         VBox.setMargin(textField, new Insets(0, 37.5, 0, 37.5));
 
 
         vBox.getChildren().addAll(label, textField);
 
         return vBox;
+    }
+
+
+    private AnchorPane createBottomPane() {
+
+        Button buttonContinue = new Button("Continue");
+        buttonContinue.setOnAction(event -> {
+
+        });
+
+        Button buttonCancel = new Button("Cancel");
+        buttonCancel.setOnAction(event -> mediator.changeToArchitectMenuScene());
+
+        // layout
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getStyleClass().add("anchorpane_color");
+        AnchorPane.setTopAnchor(buttonCancel, 10.0);
+        AnchorPane.setBottomAnchor(buttonCancel, 10.0);
+        AnchorPane.setRightAnchor(buttonCancel, 150.0);
+        AnchorPane.setBottomAnchor(buttonContinue, 10.0);
+        AnchorPane.setRightAnchor(buttonContinue, 10.0);
+
+        anchorPane.getChildren().addAll(buttonCancel, buttonContinue);
+
+        return anchorPane;
     }
 
 

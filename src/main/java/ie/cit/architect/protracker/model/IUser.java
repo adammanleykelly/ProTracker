@@ -11,16 +11,6 @@ public interface IUser {
 
     IProject getProject();
 
-    String getProjectName();
-
-    String getProjectDate();
-
-    String getProjectAuthor();
-
-    String getProjectLocation();
-
-    String getProjectClient();
-
 
 
     // user

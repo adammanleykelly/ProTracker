@@ -80,11 +80,13 @@ public class CustomArchitectDialog
         gridPane.getColumnConstraints().addAll(col1, col2);
 
 
+        Button button = (Button) dialog.getDialogPane().lookupButton(loginButtonType);
+        button.setOnAction(event -> mediator.changeToArchitectMenuScene());
+
         // Enable/Disable login button depending on whether a username was entered.
         Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
 
-        Button button = (Button) dialog.getDialogPane().lookupButton(loginButtonType);
-        button.setOnAction(event -> System.out.println("Hello"));
+
 
         //TODO : change to true and uncomment code after testing
         loginButton.setDisable(false);
@@ -143,40 +145,16 @@ public class CustomArchitectDialog
 
     public void addUserToDB() {
 
+        IUser user = Controller.getInstance().createUser(userEmail, userPass);
 
+        if (user != null) {
+            DBController.getInstance().addUser((User) user);
+        }
 
-            IUser user = Controller.getInstance().createUser(userEmail, userPass);
-
-            if (user != null) {
-                DBController.getInstance().addUser((User) user);
-            }
-
-            DBController.getInstance().saveUser();
-
-
+        DBController.getInstance().saveUser();
 
     }
 }
-
-
-
-
-
-
-//            Platform.runLater(() -> {
-//
-//                IUser user = Controller.getInstance().createUser(userEmail, userPass);
-//
-//                if(user != null) {
-//                    DBController.getInstance().addUser((User) user);
-//                }
-//
-//                DBController.getInstance().saveUser();
-//                if (user != null)
-//                    System.out.println(user.toString());
-//            });
-//
-//        });
 
 
 

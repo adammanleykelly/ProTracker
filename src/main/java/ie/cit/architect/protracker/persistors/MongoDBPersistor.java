@@ -2,10 +2,10 @@ package ie.cit.architect.protracker.persistors;
 
 import com.mongodb.*;
 import ie.cit.architect.protracker.helpers.Credentials;
-import ie.cit.architect.protracker.model.IUser;
-import ie.cit.architect.protracker.model.Project;
-import ie.cit.architect.protracker.model.ProjectList;
-import ie.cit.architect.protracker.model.UserList;
+import ie.cit.architect.protracker.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -17,7 +17,7 @@ public class MongoDBPersistor implements IPersistor {
     private DBCollection tableUsers, tableProjects;
     private DB db;
 
-
+    private ArrayList<String> projectNameList;
 
 
     public MongoDBPersistor() {
@@ -39,9 +39,11 @@ public class MongoDBPersistor implements IPersistor {
                 System.out.println("Connection to MongoDB Failed!");
             }
 
+
             //Get Database
             // if database doesn't exist, mongoDB will create it for you
             db = mongoClientConn.getDB(Credentials.DB_NAME);
+
 
             //Get Collection / Table from 'protracker'
             //if collection doesn't exist, mongoDB will create it for you
@@ -68,13 +70,13 @@ public class MongoDBPersistor implements IPersistor {
                     document.put("email", currUser.getEmailAddress());
                     document.put("password", currUser.getPassword());
                     tableUsers.insert(document);
-                }
 
+                }
             } catch (MongoException e) {
                 e.printStackTrace();
             }
-        }).start();
 
+        }).start();
     }
 
     @Override
@@ -100,7 +102,7 @@ public class MongoDBPersistor implements IPersistor {
     @Override
     public void displayCurrentProject(ProjectList projects) {
         try {
-            for (Project currProject : projects.getProjects()) {
+            for (IProject currProject : projects.getProjects()) {
                 BasicDBObject searchQuery = new BasicDBObject();
                 searchQuery.put("name", currProject.getName());
                 searchQuery.put("author", currProject.getAuthor());
@@ -128,7 +130,10 @@ public class MongoDBPersistor implements IPersistor {
 
             System.out.println("Project:");
             while (cursor.hasNext()) {
-                System.out.println(cursor.next());
+
+                String x = String.valueOf(cursor.next());
+                System.out.println(x);
+
             }
 
         } catch (MongoException e) {
@@ -137,17 +142,83 @@ public class MongoDBPersistor implements IPersistor {
     }
 
 
+    // https://stackoverflow.com/questions/19580501/create-a-list-from-dbcursor-in-mongodb-and-java
+    public List<DBObject> getResults(int limit) {
+        List<DBObject> myList = new ArrayList<>();
+        DBCursor myCursor= tableProjects.find().sort(new BasicDBObject("name",-1)).limit(limit);
+        try {
+            while(myCursor.hasNext()) {
+                myList.add(myCursor.next());
+            }
 
-    // get all documents where email is 'coveneygeorgia@hotmail.com'
-    @Override
-    public void selectRecords() {
-        BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("email", "coveneygeorgia@hotmail.com");
-        DBCursor cursor = tableUsers.find(whereQuery);
-        while(cursor.hasNext()) {
-            System.out.println(cursor.next());
+            System.out.println(myList);
+
         }
+        finally {
+            myCursor.close();
+        }
+        return myList;
     }
+
+
+    // print all entries from a single field in the collection
+    @Override
+    public ArrayList<String> selectRecords(ProjectList project) {
+
+        try {
+            BasicDBObject query = new BasicDBObject();
+            BasicDBObject field = new BasicDBObject();
+            field.put("name", 1);
+            DBCursor cursor = tableProjects.find(query, field);
+
+            projectNameList = new ArrayList<>();
+
+            while (cursor.hasNext()) {
+
+                String pName = (String) cursor.next().get("name");
+                projectNameList.add(pName);
+            }
+
+            System.out.println(projectNameList.toString());
+
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+
+        return projectNameList;
+    }
+
+
+    @Override
+    public ArrayList<Project> selectProjectName(ProjectList projectList) {
+        try {
+
+            List<Project> projectNameList = new ArrayList<>();
+
+            for(Project currProject : projectList.getProjects()) {
+                BasicDBObject query = new BasicDBObject();
+                BasicDBObject field = new BasicDBObject();
+                field.put("name", 1);
+                DBCursor cursor = tableProjects.find(query, field);
+
+
+                while (cursor.hasNext()) {
+                    String pName = (String) cursor.next().get("name");
+                    currProject.setName(pName);
+
+                }
+
+                projectNameList.add(currProject);
+                System.out.println(projectNameList);
+            }
+
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+
+        return projectList.getProjects();
+    }
+
 }
 
 

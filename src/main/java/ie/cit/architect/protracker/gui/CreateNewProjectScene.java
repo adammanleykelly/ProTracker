@@ -57,7 +57,7 @@ public class CreateNewProjectScene {
         createCheckboxArray();
 
         Scene scene = new Scene(
-                createContainer(createLeftPane(), createMiddlePane(), createRightPane(), createNavigationButtons()),
+                createContainer(createLeftPane(), createMiddlePane(), createRightPane(), createBottomPane()),
                 Consts.APP_WIDTH, Consts.APP_HEIGHT);
 
         scene.getStylesheets().add("/stylesheet.css");
@@ -184,6 +184,7 @@ public class CreateNewProjectScene {
                 "SiteMaps", "ProposedDrawings", "StructuralDrawings", "SupplierDetails",
                 "FireDrawings", "Images", "Exports", "Imports", "Documents", "Emails");
 
+
         for (int i = 0; i < checkboxList.length; i++) {
             checkboxList[i] = new CheckBox((i + 1) + text.get(i));
         }
@@ -208,7 +209,7 @@ public class CreateNewProjectScene {
     }
 
 
-    private AnchorPane createNavigationButtons() {
+    private AnchorPane createBottomPane() {
 
         Button buttonContinue = new Button("Continue");
         buttonContinue.setOnAction(event -> {
@@ -237,7 +238,7 @@ public class CreateNewProjectScene {
     /**
      * Button 'Continue' method listener
      * that uses the Controller class create and populate the Project object
-     * @see CreateNewProjectScene#createNavigationButtons
+     * @see CreateNewProjectScene#createBottomPane
      */
     private void createProject() {
 
@@ -245,17 +246,13 @@ public class CreateNewProjectScene {
         getUserInput();
 
 
-        project = Controller.getInstance()
-                .createProject(projectName, projectDate,
-                        projectAuthor, projectLocation, projectClient);
+        project = Controller.getInstance().createProject(
+                projectName, projectDate, projectAuthor, projectLocation, projectClient);
 
-
-        // User object now sets the project - not sure how useful this is
-//            IUser user = new User();
-//            user.setProject(project);
-//            IProject p = user.getProject();
 
         addProjectToDB();
+
+        mediator.changeToArchitectMenuScene();
 
     }
 

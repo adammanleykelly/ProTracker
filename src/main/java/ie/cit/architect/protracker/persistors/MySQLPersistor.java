@@ -1,5 +1,6 @@
 package ie.cit.architect.protracker.persistors;
 
+import com.mongodb.DBObject;
 import ie.cit.architect.protracker.helpers.Credentials;
 import ie.cit.architect.protracker.model.Project;
 import ie.cit.architect.protracker.model.ProjectList;
@@ -8,6 +9,7 @@ import ie.cit.architect.protracker.model.UserList;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by brian on 3/3/2017.
@@ -17,8 +19,7 @@ public class MySQLPersistor implements IPersistor{
     private Connection dbConnection;
     private ArrayList<AutoCloseable> dbObjects;
 
-
-
+    private ArrayList<String> projectNameList;
 
 
     public MySQLPersistor(){
@@ -44,6 +45,8 @@ public class MySQLPersistor implements IPersistor{
             } else {
                 System.out.println("Connection Failed!");
             }
+
+
 
 
         }catch (SQLException e) {
@@ -105,10 +108,16 @@ public class MySQLPersistor implements IPersistor{
 
     }
 
+
+
+    //TODO - remove params, only used for testing mongo
     @Override
-    public void selectRecords() {
+    public ArrayList<String> selectRecords(ProjectList projectList) {
 
         try {
+
+            ArrayList<Project> projectNameList = new ArrayList<>();
+
             String query = "SELECT email FROM users WHERE (email LIKE ? OR email LIKE ?)";
             String managerEmail = "coveneyarch@eircom.net";
             String employeeEmail = "coveneygeorgia@hotmail.com";
@@ -133,8 +142,13 @@ public class MySQLPersistor implements IPersistor{
         }
 
 
+        return projectNameList;
     }
 
+    @Override
+    public void displayCreatedProjects() {
+
+    }
 
 
     public void close() {
@@ -154,11 +168,20 @@ public class MySQLPersistor implements IPersistor{
 
 
     // methods not called. Belong to MongoDB
-    @Override
-    public void displayCreatedProjects() { }
+
 
     @Override
     public void displayCurrentProject(ProjectList projects) { }
+
+    @Override
+    public List<DBObject> getResults(int limit) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Project> selectProjectName(ProjectList projectList) {
+        return null;
+    }
 
 
 }

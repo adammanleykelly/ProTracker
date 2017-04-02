@@ -38,31 +38,6 @@ public class User implements IUser{
     }
 
     @Override
-    public String getProjectName() {
-        return project.getName();
-    }
-
-    @Override
-    public String getProjectDate() {
-        return project.getDate();
-    }
-
-    @Override
-    public String getProjectAuthor() {
-        return project.getAuthor();
-    }
-
-    @Override
-    public String getProjectLocation() {
-        return project.getLocation();
-    }
-
-    @Override
-    public String getProjectClient() {
-        return project.getClientName();
-    }
-
-    @Override
     public String getName() {
         return name;
     }

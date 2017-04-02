@@ -14,7 +14,6 @@ public class Mediator extends Application {
     private CreateNewProjectScene createNewProjectScene;
     private ViewMessagesScene viewMessagesScene;
     private ManageProjectScene manageProjectScene;
-    private NavigationPane navigationPane;
     private CustomArchitectDialog customArchitectDialog;
     private CustomClientDialog customClientDialog;
 
@@ -36,7 +35,6 @@ public class Mediator extends Application {
         createNewProjectScene = new CreateNewProjectScene(this);
         viewMessagesScene = new ViewMessagesScene(this);
         manageProjectScene = new ManageProjectScene(this);
-        navigationPane = new NavigationPane(this);
         customArchitectDialog = new CustomArchitectDialog(this);
         customClientDialog = new CustomClientDialog(this);
 
