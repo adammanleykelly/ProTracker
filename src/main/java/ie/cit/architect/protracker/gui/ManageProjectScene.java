@@ -3,6 +3,7 @@ package ie.cit.architect.protracker.gui;
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.persistors.MongoDBPersistor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -22,7 +23,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 /**
  * Created by brian on 27/02/17.
@@ -30,14 +31,11 @@ import java.util.List;
 public class ManageProjectScene {
 
 
-    private ObservableList<CheckBox> checkboxList = FXCollections.observableArrayList();
-    private ArrayList<CheckBox> ck = new ArrayList<>();
     private static final String CURR_DIR = "src/main/resources";
     private static final String TXT_FILE_DESC = "txt files (*.txt)";
     private static final String TXT_FILE_EXT = "*.txt";
     private ArrayList<String> arrayListProjectNames;
-    private List<String> listProjectNames;
-    private CheckBox[] checkBoxes;
+    private VBox vBoxMiddlePane;
 
     private Mediator mediator;
 
@@ -47,8 +45,6 @@ public class ManageProjectScene {
 
 
     public void start(Stage stage) {
-
-        createCheckboxArray();
 
         BorderPane borderPane = new BorderPane();
         borderPane.setLeft(createLeftPane());
@@ -82,14 +78,6 @@ public class ManageProjectScene {
 
         buttonOpen.setOnAction(event -> DBController.getInstance().getProjects());
 
-        buttonRename.setOnAction(event -> {
-            arrayListProjectNames = DBController.getInstance().selectRecords();
-        });
-
-//        buttonDelete.setOnAction(event -> DBController.getInstance().getResults());
-
-        buttonDelete.setOnAction(event -> DBController.getInstance().selectProjectName());
-
 
         ObservableList<Button> buttonList =
                 FXCollections.observableArrayList(buttonOpen, buttonViewStage, buttonRename, buttonDelete);
@@ -101,9 +89,8 @@ public class ManageProjectScene {
 
         }
 
-        // Labels
-        Label labelOperations = new Label("Operations:");
 
+        Label labelOperations = new Label("Operations:");
 
         VBox.setMargin(labelOperations, new Insets(30, 0, 50, 10));
 
@@ -114,26 +101,23 @@ public class ManageProjectScene {
     }
 
     private ScrollPane createMiddlePane() {
-        VBox vBox = new VBox();
-        vBox.getStyleClass().add("hbox_middle");
-        vBox.setMinWidth(Consts.PANEL_WIDTH);
+        vBoxMiddlePane = new VBox();
+        vBoxMiddlePane.getStyleClass().add("hbox_middle");
+        vBoxMiddlePane.setMinWidth(Consts.PANEL_WIDTH);
 
         Label label = new Label("Select project:");
 
-        vBox.getChildren().add(label);
+        vBoxMiddlePane.getChildren().add(label);
 
-        for (CheckBox checkBox : checkBoxes) {
-            checkBox.setOnAction(event -> System.out.println(checkBox.selectedProperty().getValue()));
-            checkBox.getStyleClass().add("checkbox_padding");
-            vBox.getChildren().add(checkBox);
-        }
+
+        createCheckboxArray();
 
         VBox.setMargin(label, new Insets(30, 0, 10, 10));
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setContent(vBox);
+        scrollPane.setContent(vBoxMiddlePane);
 
         return scrollPane;
     }
@@ -142,16 +126,35 @@ public class ManageProjectScene {
     /**
      * CheckBoxes populated with the project 'name' field from MongoDB
      * @see DBController#selectRecords()
+     * @see MongoDBPersistor#getProjectNameList()
      */
     private void createCheckboxArray() {
 
+        ArrayList<CheckBox> checkBoxList = new ArrayList<>();
+
+        // set ArrayList equal to the return value from a MongoDB search query
         arrayListProjectNames = DBController.getInstance().selectRecords();
-        int numProjects = arrayListProjectNames.size();
 
-        checkBoxes = new CheckBox[numProjects];
+        // Prevents duplication of projects in our Checkboxes, i.e. when user leaves and then re-enters this scene
+        HashSet uniqueProjectNames = new HashSet<>();
+        uniqueProjectNames.addAll(arrayListProjectNames);
 
-        for (int i = 0; i < arrayListProjectNames.size(); i++) {
-            checkBoxes[i] = new CheckBox((i + 1) + " " + arrayListProjectNames.get(i));
+
+        int i = 0;
+        for (Object projectName : uniqueProjectNames) {
+
+            // create CheckBoxes and set their text equal to the MongoDB find()
+            CheckBox checkBox = new CheckBox((i+1) + " " + projectName);
+
+            checkBoxList.add(checkBox);
+
+            checkBox.getStyleClass().add("checkbox_padding");
+            i++;
+        }
+
+
+        for (CheckBox checkBox : checkBoxList) {
+            vBoxMiddlePane.getChildren().add(checkBox);
         }
     }
 
@@ -201,7 +204,7 @@ public class ManageProjectScene {
     }
 
 
-    public void openDocument() {
+    private void openDocument() {
 
         File myFile = null;
 

@@ -17,7 +17,6 @@ public class MongoDBPersistor implements IPersistor {
     private DBCollection tableUsers, tableProjects;
     private DB db;
 
-    private ArrayList<String> projectNameList;
 
 
     public MongoDBPersistor() {
@@ -122,6 +121,8 @@ public class MongoDBPersistor implements IPersistor {
     }
 
 
+
+
     @Override
     public void displayCreatedProjects() {
 
@@ -142,44 +143,27 @@ public class MongoDBPersistor implements IPersistor {
     }
 
 
-    // https://stackoverflow.com/questions/19580501/create-a-list-from-dbcursor-in-mongodb-and-java
-    public List<DBObject> getResults(int limit) {
-        List<DBObject> myList = new ArrayList<>();
-        DBCursor myCursor= tableProjects.find().sort(new BasicDBObject("name",-1)).limit(limit);
-        try {
-            while(myCursor.hasNext()) {
-                myList.add(myCursor.next());
-            }
 
-            System.out.println(myList);
-
-        }
-        finally {
-            myCursor.close();
-        }
-        return myList;
-    }
-
-
-    // print all entries from a single field in the collection
     @Override
-    public ArrayList<String> selectRecords(ProjectList project) {
+    public List<String> getProjectNameList() {
+
+        List<String> projectNameList = new ArrayList<>();
 
         try {
             BasicDBObject query = new BasicDBObject();
             BasicDBObject field = new BasicDBObject();
-            field.put("name", 1);
+            field.put("name", 1); // even tho we have asked for just the 'name' field
             DBCursor cursor = tableProjects.find(query, field);
 
-            projectNameList = new ArrayList<>();
 
             while (cursor.hasNext()) {
 
-                String pName = (String) cursor.next().get("name");
+                //String pName = String.valueOf(cursor.next()); //... cursor will return all fields
+
+                String pName = String.valueOf(cursor.next().get("name")); // fix - prob not ideal
                 projectNameList.add(pName);
             }
 
-            System.out.println(projectNameList.toString());
 
         } catch (MongoException e) {
             e.printStackTrace();
@@ -189,35 +173,20 @@ public class MongoDBPersistor implements IPersistor {
     }
 
 
-    @Override
-    public ArrayList<Project> selectProjectName(ProjectList projectList) {
-        try {
-
-            List<Project> projectNameList = new ArrayList<>();
-
-            for(Project currProject : projectList.getProjects()) {
-                BasicDBObject query = new BasicDBObject();
-                BasicDBObject field = new BasicDBObject();
-                field.put("name", 1);
-                DBCursor cursor = tableProjects.find(query, field);
 
 
-                while (cursor.hasNext()) {
-                    String pName = (String) cursor.next().get("name");
-                    currProject.setName(pName);
 
-                }
 
-                projectNameList.add(currProject);
-                System.out.println(projectNameList);
-            }
 
-        } catch (MongoException e) {
-            e.printStackTrace();
-        }
 
-        return projectList.getProjects();
-    }
+
+
+
+
+
+
+
+
 
 }
 

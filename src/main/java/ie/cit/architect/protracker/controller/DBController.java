@@ -73,20 +73,15 @@ public class DBController {
 
 
     public ArrayList<String> selectRecords() {
-       return this.persistor.selectRecords(this.projectList);
+        return (ArrayList<String>) this.persistor.getProjectNameList();
 
     }
-
-
-    public void selectProjectName() { persistor.selectProjectName(this.projectList); }
 
 
     public void getProjects() {
         this.persistor.displayCreatedProjects();
     }
 
-
-    public void getResults() { this.persistor.getResults(10); }
 
 
 }

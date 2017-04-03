@@ -106,6 +106,14 @@ public class CreateNewProjectScene {
             VBox.setMargin(textField, new Insets(0, 37.5, 0, 37.5));
         }
 
+        Button buttonCreate = new Button("Create");
+        buttonCreate.setOnAction(event -> {
+            createProject();
+            createDirectories();
+        });
+
+        VBox.setMargin(buttonCreate, new Insets(30,37.5,0,37.5));
+
         // Labels
         Label lbProjectName = new Label("Name of project");
         Label lbProjectAuthor = new Label("Name of author");
@@ -122,7 +130,7 @@ public class CreateNewProjectScene {
 
         // add controls to VBox
         vBox.getChildren().addAll(lbProjectName, tfProjectName, lbProjectAuthor, tfProjectAuthor,
-                lbProjectClient, tfProjectClient, lbProjectLocation, tfProjectLocation);
+                lbProjectClient, tfProjectClient, lbProjectLocation, tfProjectLocation, buttonCreate);
 
         return vBox;
     }
@@ -148,14 +156,14 @@ public class CreateNewProjectScene {
 
     private void createDirectories() {
         try {
-            String projName = tfProjectName.getText();
-            Path path1 = Paths.get(PATH_TO_DESKTOP + projName + DOUBLE_FILE_SEP);
+            String projectName = tfProjectName.getText();
+            Path path1 = Paths.get(PATH_TO_DESKTOP + projectName + DOUBLE_FILE_SEP);
             Files.createDirectories(path1);
 
-            if (!projName.isEmpty()) {
+            if (!projectName.isEmpty()) {
                 for (int i = 0; i < directoryArrayList.size(); i++) {
                     String subDirectory = directoryArrayList.get(i);
-                    Path path2 = Paths.get(PATH_TO_DESKTOP + projName + DOUBLE_FILE_SEP + subDirectory);
+                    Path path2 = Paths.get(PATH_TO_DESKTOP + projectName + DOUBLE_FILE_SEP + subDirectory);
                     Files.createDirectories(path2);
                 }
             }
@@ -186,7 +194,7 @@ public class CreateNewProjectScene {
 
 
         for (int i = 0; i < checkboxList.length; i++) {
-            checkboxList[i] = new CheckBox((i + 1) + text.get(i));
+            checkboxList[i] = new CheckBox((i + 1) + " " + text.get(i));
         }
     }
 
@@ -213,8 +221,7 @@ public class CreateNewProjectScene {
 
         Button buttonContinue = new Button("Continue");
         buttonContinue.setOnAction(event -> {
-            createDirectories();
-            createProject();
+            mediator.changeToArchitectMenuScene();
         });
 
         Button buttonCancel = new Button("Cancel");
@@ -245,14 +252,10 @@ public class CreateNewProjectScene {
         // values from TextFields stored as strings
         getUserInput();
 
-
         project = Controller.getInstance().createProject(
                 projectName, projectDate, projectAuthor, projectLocation, projectClient);
 
-
         addProjectToDB();
-
-        mediator.changeToArchitectMenuScene();
 
     }
 

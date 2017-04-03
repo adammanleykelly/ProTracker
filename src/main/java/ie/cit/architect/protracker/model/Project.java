@@ -1,5 +1,7 @@
 package ie.cit.architect.protracker.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by brian on 08/03/17.
  */
@@ -10,6 +12,7 @@ public class Project implements IProject{
     private String author;
     private String location;
     private String clientName;
+    private ArrayList<Project> projectNames;
 
 
     public Project() {}
@@ -24,6 +27,14 @@ public class Project implements IProject{
         this.author = author;
         this.location = location;
         this.clientName = clientName;
+    }
+
+    public ArrayList<Project> getProjectNames() {
+        return projectNames;
+    }
+
+    public void setProjectNames(ArrayList<Project> projectNames) {
+        this.projectNames = projectNames;
     }
 
 

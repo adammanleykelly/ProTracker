@@ -1,6 +1,5 @@
 package ie.cit.architect.protracker.persistors;
 
-import com.mongodb.DBObject;
 import ie.cit.architect.protracker.helpers.Credentials;
 import ie.cit.architect.protracker.model.Project;
 import ie.cit.architect.protracker.model.ProjectList;
@@ -110,31 +109,31 @@ public class MySQLPersistor implements IPersistor{
 
 
 
-    //TODO - remove params, only used for testing mongo
+
     @Override
-    public ArrayList<String> selectRecords(ProjectList projectList) {
+    public List<String> getProjectNameList() {
 
         try {
 
-            ArrayList<Project> projectNameList = new ArrayList<>();
+            List<Project> projectNameList = new ArrayList<>();
 
             String query = "SELECT email FROM users WHERE (email LIKE ? OR email LIKE ?)";
             String managerEmail = "coveneyarch@eircom.net";
             String employeeEmail = "coveneygeorgia@hotmail.com";
 
-                PreparedStatement preparedStatement =
-                        dbConnection.prepareStatement(query);
+            PreparedStatement preparedStatement =
+                    dbConnection.prepareStatement(query);
 
-                preparedStatement.setString(1, managerEmail);
-                preparedStatement.setString(2, employeeEmail);
+            preparedStatement.setString(1, managerEmail);
+            preparedStatement.setString(2, employeeEmail);
 
-                ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = preparedStatement.executeQuery();
 
-                while (rs.next()) {
-                    String userEmail = rs.getString("email");
+            while (rs.next()) {
+                String userEmail = rs.getString("email");
 
-                    System.out.printf("Found employee email: %s", userEmail );
-                }
+                System.out.printf("Found employee email: %s", userEmail );
+            }
 
             close();
         } catch (SQLException e) {
@@ -144,6 +143,7 @@ public class MySQLPersistor implements IPersistor{
 
         return projectNameList;
     }
+
 
     @Override
     public void displayCreatedProjects() {
@@ -168,20 +168,11 @@ public class MySQLPersistor implements IPersistor{
 
 
     // methods not called. Belong to MongoDB
-
-
     @Override
     public void displayCurrentProject(ProjectList projects) { }
 
-    @Override
-    public List<DBObject> getResults(int limit) {
-        return null;
-    }
 
-    @Override
-    public ArrayList<Project> selectProjectName(ProjectList projectList) {
-        return null;
-    }
+
 
 
 }
