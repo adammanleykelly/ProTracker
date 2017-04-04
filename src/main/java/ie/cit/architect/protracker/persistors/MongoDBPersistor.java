@@ -61,21 +61,19 @@ public class MongoDBPersistor implements IPersistor {
     @Override
     public void writeUsers(UserList users) {
 
-        new Thread(() -> {
-            try {
-                for (IUser currUser : users.getUsers()) {
-                    BasicDBObject document = new BasicDBObject();
-                    //key value pair
-                    document.put("email", currUser.getEmailAddress());
-                    document.put("password", currUser.getPassword());
-                    tableUsers.insert(document);
+        try {
+            for (IUser currUser : users.getUsers()) {
+                BasicDBObject document = new BasicDBObject();
+                //key value pair
+                document.put("email", currUser.getEmailAddress());
+                document.put("password", currUser.getPassword());
+                tableUsers.insert(document);
 
-                }
-            } catch (MongoException e) {
-                e.printStackTrace();
             }
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
 
-        }).start();
     }
 
     @Override
@@ -88,6 +86,13 @@ public class MongoDBPersistor implements IPersistor {
                 document.put("author", currProject.getAuthor());
                 document.put("location", currProject.getLocation());
                 document.put("client_name", currProject.getClientName());
+
+
+//                DBObject indexOption = new BasicDBObject();
+//                indexOption.put("unique", true);
+
+                //TODO - A unique index ensures that the indexed fields do not store duplicate values
+                // https://docs.mongodb.com/v3.2/core/index-unique/
 
                 tableProjects.insert(document);
             }
@@ -145,24 +150,34 @@ public class MongoDBPersistor implements IPersistor {
 
 
     @Override
-    public List<String> getProjectNameList() {
+    public List<Object> getProjectNameList() {
 
-        List<String> projectNameList = new ArrayList<>();
+        List<Object> projectNameList = new ArrayList<>();
 
         try {
             BasicDBObject query = new BasicDBObject();
             BasicDBObject field = new BasicDBObject();
-            field.put("name", 1); // even tho we have asked for just the 'name' field
+//            BasicDBObject field = new BasicDBObject("name", true).append("_id", false);
+
+
+
+            field.put("name", true);
+//            field.put("location", true);
+            field.append("_id", false);
+
             DBCursor cursor = tableProjects.find(query, field);
 
 
             while (cursor.hasNext()) {
 
-                //String pName = String.valueOf(cursor.next()); //... cursor will return all fields
+                BasicDBObject object = (BasicDBObject) cursor.next();
 
-                String pName = String.valueOf(cursor.next().get("name")); // fix - prob not ideal
-                projectNameList.add(pName);
+                projectNameList.add(object.get("name"));
+//                projectNameList.add(object.get("location"));
+
             }
+
+            System.out.println("Here: " + projectNameList);
 
 
         } catch (MongoException e) {

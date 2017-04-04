@@ -111,11 +111,11 @@ public class MySQLPersistor implements IPersistor{
 
 
     @Override
-    public List<String> getProjectNameList() {
+    public List<Object> getProjectNameList() {
+
+        List<Object> pNameList = new ArrayList<>();
 
         try {
-
-            List<Project> projectNameList = new ArrayList<>();
 
             String query = "SELECT email FROM users WHERE (email LIKE ? OR email LIKE ?)";
             String managerEmail = "coveneyarch@eircom.net";
@@ -141,7 +141,7 @@ public class MySQLPersistor implements IPersistor{
         }
 
 
-        return projectNameList;
+        return pNameList;
     }
 
 

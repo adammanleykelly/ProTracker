@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by brian on 27/02/17.
@@ -31,10 +33,11 @@ import java.util.HashSet;
 public class ManageProjectScene {
 
 
+
     private static final String CURR_DIR = "src/main/resources";
     private static final String TXT_FILE_DESC = "txt files (*.txt)";
     private static final String TXT_FILE_EXT = "*.txt";
-    private ArrayList<String> arrayListProjectNames;
+    private List<Object> arrayListProjectNames;
     private VBox vBoxMiddlePane;
 
     private Mediator mediator;
@@ -89,7 +92,6 @@ public class ManageProjectScene {
 
         }
 
-
         Label labelOperations = new Label("Operations:");
 
         VBox.setMargin(labelOperations, new Insets(30, 0, 50, 10));
@@ -99,6 +101,7 @@ public class ManageProjectScene {
 
         return vBox;
     }
+
 
     private ScrollPane createMiddlePane() {
         vBoxMiddlePane = new VBox();
@@ -132,6 +135,7 @@ public class ManageProjectScene {
 
         ArrayList<CheckBox> checkBoxList = new ArrayList<>();
 
+
         // set ArrayList equal to the return value from a MongoDB search query
         arrayListProjectNames = DBController.getInstance().selectRecords();
 
@@ -139,21 +143,47 @@ public class ManageProjectScene {
         HashSet uniqueProjectNames = new HashSet<>();
         uniqueProjectNames.addAll(arrayListProjectNames);
 
+        // HashSet will not guarantee any order of its elements.
+        // We will use TreeSet, so that values will come back in a well defined order.
+//        TreeSet sortedProjectNames = new TreeSet();
+//        sortedProjectNames.addAll(uniqueProjectNames);
 
-        int i = 0;
-        for (Object projectName : uniqueProjectNames) {
+
+        ArrayList orderedList = new ArrayList();
+        orderedList.addAll(uniqueProjectNames);
+
+
+        Iterator iterator = orderedList.iterator();
+
+        int j = 0; // index used to give the project a number
+        while (iterator.hasNext()) {
+            Object projectName = iterator.next();
+
+//            Queue<Object> fifoProjectNames = new LinkedList();
+//            fifoProjectNames.add(projectName);
+            
 
             // create CheckBoxes and set their text equal to the MongoDB find()
-            CheckBox checkBox = new CheckBox((i+1) + " " + projectName);
+            CheckBox checkBox = new CheckBox((j+1) + " " + projectName);
 
             checkBoxList.add(checkBox);
 
-            checkBox.getStyleClass().add("checkbox_padding");
-            i++;
+            j++;
         }
 
 
+//        int i = 0;
+//        for (Object projectName : uniqueProjectNames) {
+//
+//            // create CheckBoxes and set their text equal to the MongoDB find()
+//            CheckBox checkBox = new CheckBox((j+1) + " " + projectName);
+//            checkBoxList.add(checkBox);
+//            i++;
+//        }
+
+
         for (CheckBox checkBox : checkBoxList) {
+            checkBox.getStyleClass().add("checkbox_padding");
             vBoxMiddlePane.getChildren().add(checkBox);
         }
     }

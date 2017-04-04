@@ -8,7 +8,7 @@ import ie.cit.architect.protracker.persistors.IPersistor;
 import ie.cit.architect.protracker.persistors.MongoDBPersistor;
 import ie.cit.architect.protracker.persistors.MySQLPersistor;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static ie.cit.architect.protracker.controller.PersistenceMode.MONGODB;
 import static ie.cit.architect.protracker.controller.PersistenceMode.MYSQL;
@@ -72,8 +72,8 @@ public class DBController {
     }
 
 
-    public ArrayList<String> selectRecords() {
-        return (ArrayList<String>) this.persistor.getProjectNameList();
+    public List<Object> selectRecords() {
+        return this.persistor.getProjectNameList();
 
     }
 

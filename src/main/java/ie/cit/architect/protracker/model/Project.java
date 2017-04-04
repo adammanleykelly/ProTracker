@@ -17,8 +17,9 @@ public class Project implements IProject{
 
     public Project() {}
 
-    public Project(String location) {
-        this.location = location;
+    public Project(String name, String date) {
+        this.name = name;
+        this.date = date;
     }
 
     public Project(String name, String date, String author, String location, String clientName) {

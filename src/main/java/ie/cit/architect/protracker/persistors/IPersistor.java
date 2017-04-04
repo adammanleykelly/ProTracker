@@ -19,7 +19,7 @@ public interface IPersistor {
     void displayCurrentProject(ProjectList projects);
 
 
-    List<String> getProjectNameList();
+    List<Object> getProjectNameList();
 
 
 
