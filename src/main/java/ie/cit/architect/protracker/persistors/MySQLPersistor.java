@@ -8,7 +8,7 @@ import ie.cit.architect.protracker.model.UserList;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 /**
  * Created by brian on 3/3/2017.
@@ -111,9 +111,9 @@ public class MySQLPersistor implements IPersistor{
 
 
     @Override
-    public List<Object> getProjectNameList() {
+    public HashSet<Project> getProjectNameList() {
 
-        List<Object> pNameList = new ArrayList<>();
+        HashSet<Project> pNameList = new HashSet<>();
 
         try {
 

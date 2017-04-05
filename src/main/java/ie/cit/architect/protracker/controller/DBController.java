@@ -8,7 +8,7 @@ import ie.cit.architect.protracker.persistors.IPersistor;
 import ie.cit.architect.protracker.persistors.MongoDBPersistor;
 import ie.cit.architect.protracker.persistors.MySQLPersistor;
 
-import java.util.List;
+import java.util.HashSet;
 
 import static ie.cit.architect.protracker.controller.PersistenceMode.MONGODB;
 import static ie.cit.architect.protracker.controller.PersistenceMode.MYSQL;
@@ -72,7 +72,7 @@ public class DBController {
     }
 
 
-    public List<Object> selectRecords() {
+    public HashSet<Project> selectRecords() {
         return this.persistor.getProjectNameList();
 
     }

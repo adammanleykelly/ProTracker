@@ -4,8 +4,7 @@ import com.mongodb.*;
 import ie.cit.architect.protracker.helpers.Credentials;
 import ie.cit.architect.protracker.model.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 
 /**
@@ -26,10 +25,10 @@ public class MongoDBPersistor implements IPersistor {
             //local database
 //            mongoClientConn = new MongoClient("localhost", 27017);
 
-            // remote database - there is ~2sec delay
-           mongoClientConn = new MongoClient( new MongoClientURI(
-                   "mongodb://" + Credentials.DB_MONGO_USER + ":" +
-                           Credentials.DB_MONGO_PASS + "@" + Credentials.DB_MONGO_IP +"/" + Credentials.DB_NAME));
+            String mongoURI = "mongodb://" + Credentials.DB_MONGO_USER + ":" + Credentials.DB_MONGO_PASS + "@" +
+                    Credentials.DB_MONGO_IP +"/" + Credentials.DB_NAME;
+
+            mongoClientConn = new MongoClient( new MongoClientURI(mongoURI));
 
 
             if(mongoClientConn != null) {
@@ -80,22 +79,26 @@ public class MongoDBPersistor implements IPersistor {
     public void writeProjects(ProjectList projects) {
 
         try {
+            BasicDBObject document = new BasicDBObject();
+
             for (Project currProject : projects.getProjects()) {
-                BasicDBObject document = new BasicDBObject();
+
                 document.put("name", currProject.getName());
                 document.put("author", currProject.getAuthor());
                 document.put("location", currProject.getLocation());
                 document.put("client_name", currProject.getClientName());
 
 
-//                DBObject indexOption = new BasicDBObject();
-//                indexOption.put("unique", true);
+                DBObject indexOption = new BasicDBObject();
+                indexOption.put("unique", true);
 
                 //TODO - A unique index ensures that the indexed fields do not store duplicate values
                 // https://docs.mongodb.com/v3.2/core/index-unique/
 
-                tableProjects.insert(document);
+
             }
+            tableProjects.insert(document);
+
         }catch (MongoException e) {
             e.printStackTrace();
         }
@@ -150,9 +153,9 @@ public class MongoDBPersistor implements IPersistor {
 
 
     @Override
-    public List<Object> getProjectNameList() {
+    public HashSet<Project> getProjectNameList() {
 
-        List<Object> projectNameList = new ArrayList<>();
+        HashSet<Project> projectNameList = new HashSet<>();
 
         try {
             BasicDBObject query = new BasicDBObject();
@@ -161,19 +164,24 @@ public class MongoDBPersistor implements IPersistor {
 
 
 
-            field.put("name", true);
+            field.put("name", 1);
 //            field.put("location", true);
-            field.append("_id", false);
+            field.append("_id", 0);
 
             DBCursor cursor = tableProjects.find(query, field);
+
 
 
             while (cursor.hasNext()) {
 
                 BasicDBObject object = (BasicDBObject) cursor.next();
 
-                projectNameList.add(object.get("name"));
-//                projectNameList.add(object.get("location"));
+                String pName = String.valueOf(object.get("name"));
+
+                Project project = new Project();
+                project.setName(pName);
+
+                projectNameList.add(project);
 
             }
 

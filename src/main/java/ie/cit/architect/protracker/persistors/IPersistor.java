@@ -1,9 +1,10 @@
 package ie.cit.architect.protracker.persistors;
 
+import ie.cit.architect.protracker.model.Project;
 import ie.cit.architect.protracker.model.ProjectList;
 import ie.cit.architect.protracker.model.UserList;
 
-import java.util.List;
+import java.util.HashSet;
 
 /**
  * Created by brian on 3/3/2017.
@@ -19,7 +20,7 @@ public interface IPersistor {
     void displayCurrentProject(ProjectList projects);
 
 
-    List<Object> getProjectNameList();
+    HashSet<Project> getProjectNameList();
 
 
 

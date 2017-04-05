@@ -1,8 +1,10 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
+import ie.cit.architect.protracker.comparators.AlphabeticalComparator;
 import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.model.Project;
 import ie.cit.architect.protracker.persistors.MongoDBPersistor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,9 +25,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by brian on 27/02/17.
@@ -37,7 +39,7 @@ public class ManageProjectScene {
     private static final String CURR_DIR = "src/main/resources";
     private static final String TXT_FILE_DESC = "txt files (*.txt)";
     private static final String TXT_FILE_EXT = "*.txt";
-    private List<Object> arrayListProjectNames;
+    private HashSet<Project> hashSetProjectNames;
     private VBox vBoxMiddlePane;
 
     private Mediator mediator;
@@ -135,22 +137,21 @@ public class ManageProjectScene {
 
         ArrayList<CheckBox> checkBoxList = new ArrayList<>();
 
-
-        // set ArrayList equal to the return value from a MongoDB search query
-        arrayListProjectNames = DBController.getInstance().selectRecords();
-
-        // Prevents duplication of projects in our Checkboxes, i.e. when user leaves and then re-enters this scene
-        HashSet uniqueProjectNames = new HashSet<>();
-        uniqueProjectNames.addAll(arrayListProjectNames);
-
-        // HashSet will not guarantee any order of its elements.
-        // We will use TreeSet, so that values will come back in a well defined order.
-//        TreeSet sortedProjectNames = new TreeSet();
-//        sortedProjectNames.addAll(uniqueProjectNames);
+        // set HashSet equal to the return value from a MongoDB search query
+        hashSetProjectNames = DBController.getInstance().selectRecords();
 
 
         ArrayList orderedList = new ArrayList();
-        orderedList.addAll(uniqueProjectNames);
+
+        for(Project project : hashSetProjectNames) {
+            String projectName = project.getName();
+            orderedList.add(projectName);
+        }
+
+
+//        Collections.sort(orderedList, new StringLengthComparator());
+        Collections.sort(orderedList, new AlphabeticalComparator());
+
 
 
         Iterator iterator = orderedList.iterator();
@@ -158,10 +159,6 @@ public class ManageProjectScene {
         int j = 0; // index used to give the project a number
         while (iterator.hasNext()) {
             Object projectName = iterator.next();
-
-//            Queue<Object> fifoProjectNames = new LinkedList();
-//            fifoProjectNames.add(projectName);
-            
 
             // create CheckBoxes and set their text equal to the MongoDB find()
             CheckBox checkBox = new CheckBox((j+1) + " " + projectName);
@@ -172,21 +169,12 @@ public class ManageProjectScene {
         }
 
 
-//        int i = 0;
-//        for (Object projectName : uniqueProjectNames) {
-//
-//            // create CheckBoxes and set their text equal to the MongoDB find()
-//            CheckBox checkBox = new CheckBox((j+1) + " " + projectName);
-//            checkBoxList.add(checkBox);
-//            i++;
-//        }
-
-
         for (CheckBox checkBox : checkBoxList) {
             checkBox.getStyleClass().add("checkbox_padding");
             vBoxMiddlePane.getChildren().add(checkBox);
         }
     }
+
 
 
     private VBox createLeftPane() {
