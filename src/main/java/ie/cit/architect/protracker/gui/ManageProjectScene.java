@@ -1,7 +1,6 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
-import ie.cit.architect.protracker.comparators.AlphabeticalComparator;
 import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.helpers.Consts;
 import ie.cit.architect.protracker.model.Project;
@@ -24,10 +23,7 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Created by brian on 27/02/17.
@@ -137,35 +133,11 @@ public class ManageProjectScene {
 
         ArrayList<CheckBox> checkBoxList = new ArrayList<>();
 
-        // set HashSet equal to the return value from a MongoDB search query
-        hashSetProjectNames = DBController.getInstance().selectRecords();
+        ArrayList<Project> projects = DBController.getInstance().selectRecords();
 
-
-        ArrayList orderedList = new ArrayList();
-
-        for(Project project : hashSetProjectNames) {
-            String projectName = project.getName();
-            orderedList.add(projectName);
-        }
-
-
-//        Collections.sort(orderedList, new StringLengthComparator());
-        Collections.sort(orderedList, new AlphabeticalComparator());
-
-
-
-        Iterator iterator = orderedList.iterator();
-
-        int j = 0; // index used to give the project a number
-        while (iterator.hasNext()) {
-            Object projectName = iterator.next();
-
-            // create CheckBoxes and set their text equal to the MongoDB find()
-            CheckBox checkBox = new CheckBox((j+1) + " " + projectName);
-
+        for(Project project : projects) {
+            CheckBox checkBox = new CheckBox(project.toString());
             checkBoxList.add(checkBox);
-
-            j++;
         }
 
 

@@ -4,6 +4,9 @@ import com.mongodb.*;
 import ie.cit.architect.protracker.helpers.Credentials;
 import ie.cit.architect.protracker.model.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 
 
@@ -83,19 +86,17 @@ public class MongoDBPersistor implements IPersistor {
 
             for (Project currProject : projects.getProjects()) {
 
+                document.put("project_id", currProject.getProjectId());
                 document.put("name", currProject.getName());
                 document.put("author", currProject.getAuthor());
                 document.put("location", currProject.getLocation());
                 document.put("client_name", currProject.getClientName());
 
 
+                //A unique index ensures that the indexed fields do not store duplicate values
+                // https://docs.mongodb.com/v3.2/core/index-unique/
                 DBObject indexOption = new BasicDBObject();
                 indexOption.put("unique", true);
-
-                //TODO - A unique index ensures that the indexed fields do not store duplicate values
-                // https://docs.mongodb.com/v3.2/core/index-unique/
-
-
             }
             tableProjects.insert(document);
 
@@ -153,9 +154,11 @@ public class MongoDBPersistor implements IPersistor {
 
 
     @Override
-    public HashSet<Project> getProjectNameList() {
+    public ArrayList<Project> getProjectNameList() {
 
         HashSet<Project> projectNameList = new HashSet<>();
+        ArrayList<Project> orderedList = new ArrayList();
+
 
         try {
             BasicDBObject query = new BasicDBObject();
@@ -163,38 +166,60 @@ public class MongoDBPersistor implements IPersistor {
 //            BasicDBObject field = new BasicDBObject("name", true).append("_id", false);
 
 
-
+            field.put("project_id", 1);
             field.put("name", 1);
-//            field.put("location", true);
             field.append("_id", 0);
 
             DBCursor cursor = tableProjects.find(query, field);
-
 
 
             while (cursor.hasNext()) {
 
                 BasicDBObject object = (BasicDBObject) cursor.next();
 
-                String pName = String.valueOf(object.get("name"));
+                int projectId = (int) object.get("project_id");
+                String projectName = String.valueOf(object.get("name"));
 
                 Project project = new Project();
-                project.setName(pName);
+                project.setProjectId(projectId);
+                project.setName(projectName);
 
                 projectNameList.add(project);
-
             }
 
-            System.out.println("Here: " + projectNameList);
+
+            for(Project project : projectNameList) {
+                orderedList.add(project);
+            }
+
+
+            sortProjectsById(orderedList);
 
 
         } catch (MongoException e) {
             e.printStackTrace();
         }
 
-        return projectNameList;
+        return orderedList;
     }
 
+
+    private void sortProjectsById(ArrayList<Project> list) {
+        Collections.sort(list, new Comparator<Project>() {
+            @Override
+            public int compare(Project p1, Project p2) {
+
+                if(p1.getProjectId() > p2.getProjectId()) {
+                    return 1;
+                }
+                else if(p1.getProjectId() < p2.getProjectId()) {
+                    return -1;
+                }
+
+                return 0;
+            }
+        });
+    }
 
 
 

@@ -16,7 +16,7 @@
 
 ---------------  T H R E A D  ---------------
 
-Current thread (0x00007f983834f800):  JavaThread "JavaFX Application Thread" [_thread_in_vm, id=23462, stack(0x00007f97d9c46000,0x00007f97d9d47000)]
+Current thread (0x00007f983834f800):  JavaThread "JavaFX Application Thread" [_thread_in_vm, projectId=23462, stack(0x00007f97d9c46000,0x00007f97d9d47000)]
 
 siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x0000000000000080
 
@@ -165,26 +165,26 @@ v  ~StubRoutines::call_stub
 ---------------  P R O C E S S  ---------------
 
 Java Threads: ( => current thread )
-  0x00007f97cc411800 JavaThread "pool-2-thread-1" daemon [_thread_blocked, id=23473, stack(0x00007f97cb29e000,0x00007f97cb39f000)]
-  0x00007f97cc410000 JavaThread "cluster-ClusterId{value='58e4cac6e8a9405b8752ce64', description='null'}-ec2-54-202-69-181.us-west-2.compute.amazonaws.com:27017" daemon [_thread_blocked, id=23472, stack(0x00007f97d8031000,0x00007f97d8132000)]
-  0x00007f97cc20b000 JavaThread "Prism Font Disposer" daemon [_thread_blocked, id=23467, stack(0x00007f97d8729000,0x00007f97d882a000)]
-  0x00007f9838353800 JavaThread "JavaFX-Launcher" [_thread_blocked, id=23463, stack(0x00007f97d9b45000,0x00007f97d9c46000)]
-=>0x00007f983834f800 JavaThread "JavaFX Application Thread" [_thread_in_vm, id=23462, stack(0x00007f97d9c46000,0x00007f97d9d47000)]
-  0x00007f983834b800 JavaThread "Thread-1" daemon [_thread_blocked, id=23461, stack(0x00007f97d9d47000,0x00007f97d9e48000)]
-  0x00007f98382cd000 JavaThread "QuantumRenderer-0" daemon [_thread_blocked, id=23460, stack(0x00007f9820c4e000,0x00007f9820d4f000)]
-  0x00007f983820e000 JavaThread "Service Thread" daemon [_thread_blocked, id=23458, stack(0x00007f9820ee5000,0x00007f9820fe6000)]
-  0x00007f983820b000 JavaThread "C1 CompilerThread2" daemon [_thread_blocked, id=23457, stack(0x00007f9820fe6000,0x00007f98210e7000)]
-  0x00007f9838209000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=23456, stack(0x00007f98210e7000,0x00007f98211e8000)]
-  0x00007f9838206000 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=23455, stack(0x00007f9821700000,0x00007f9821801000)]
-  0x00007f98381fc800 JavaThread "Monitor Ctrl-Break" daemon [_thread_in_native, id=23454, stack(0x00007f9821801000,0x00007f9821902000)]
-  0x00007f983817f800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=23453, stack(0x00007f9821978000,0x00007f9821a79000)]
-  0x00007f983814c800 JavaThread "Finalizer" daemon [_thread_blocked, id=23446, stack(0x00007f9821d51000,0x00007f9821e52000)]
-  0x00007f9838147800 JavaThread "Reference Handler" daemon [_thread_blocked, id=23445, stack(0x00007f9821e52000,0x00007f9821f53000)]
-  0x00007f983800b000 JavaThread "main" [_thread_blocked, id=23432, stack(0x00007f983e9bc000,0x00007f983eabd000)]
+  0x00007f97cc411800 JavaThread "pool-2-thread-1" daemon [_thread_blocked, projectId=23473, stack(0x00007f97cb29e000,0x00007f97cb39f000)]
+  0x00007f97cc410000 JavaThread "cluster-ClusterId{value='58e4cac6e8a9405b8752ce64', description='null'}-ec2-54-202-69-181.us-west-2.compute.amazonaws.com:27017" daemon [_thread_blocked, projectId=23472, stack(0x00007f97d8031000,0x00007f97d8132000)]
+  0x00007f97cc20b000 JavaThread "Prism Font Disposer" daemon [_thread_blocked, projectId=23467, stack(0x00007f97d8729000,0x00007f97d882a000)]
+  0x00007f9838353800 JavaThread "JavaFX-Launcher" [_thread_blocked, projectId=23463, stack(0x00007f97d9b45000,0x00007f97d9c46000)]
+=>0x00007f983834f800 JavaThread "JavaFX Application Thread" [_thread_in_vm, projectId=23462, stack(0x00007f97d9c46000,0x00007f97d9d47000)]
+  0x00007f983834b800 JavaThread "Thread-1" daemon [_thread_blocked, projectId=23461, stack(0x00007f97d9d47000,0x00007f97d9e48000)]
+  0x00007f98382cd000 JavaThread "QuantumRenderer-0" daemon [_thread_blocked, projectId=23460, stack(0x00007f9820c4e000,0x00007f9820d4f000)]
+  0x00007f983820e000 JavaThread "Service Thread" daemon [_thread_blocked, projectId=23458, stack(0x00007f9820ee5000,0x00007f9820fe6000)]
+  0x00007f983820b000 JavaThread "C1 CompilerThread2" daemon [_thread_blocked, projectId=23457, stack(0x00007f9820fe6000,0x00007f98210e7000)]
+  0x00007f9838209000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, projectId=23456, stack(0x00007f98210e7000,0x00007f98211e8000)]
+  0x00007f9838206000 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, projectId=23455, stack(0x00007f9821700000,0x00007f9821801000)]
+  0x00007f98381fc800 JavaThread "Monitor Ctrl-Break" daemon [_thread_in_native, projectId=23454, stack(0x00007f9821801000,0x00007f9821902000)]
+  0x00007f983817f800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, projectId=23453, stack(0x00007f9821978000,0x00007f9821a79000)]
+  0x00007f983814c800 JavaThread "Finalizer" daemon [_thread_blocked, projectId=23446, stack(0x00007f9821d51000,0x00007f9821e52000)]
+  0x00007f9838147800 JavaThread "Reference Handler" daemon [_thread_blocked, projectId=23445, stack(0x00007f9821e52000,0x00007f9821f53000)]
+  0x00007f983800b000 JavaThread "main" [_thread_blocked, projectId=23432, stack(0x00007f983e9bc000,0x00007f983eabd000)]
 
 Other Threads:
-  0x00007f9838140000 VMThread [stack: 0x00007f9821f53000,0x00007f9822054000] [id=23442]
-  0x00007f9838210800 WatcherThread [stack: 0x00007f9820de4000,0x00007f9820ee5000] [id=23459]
+  0x00007f9838140000 VMThread [stack: 0x00007f9821f53000,0x00007f9822054000] [projectId=23442]
+  0x00007f9838210800 WatcherThread [stack: 0x00007f9820de4000,0x00007f9820ee5000] [projectId=23459]
 
 VM state:not at safepoint (normal execution)
 
@@ -1092,9 +1092,9 @@ stepping	: 4
 microcode	: 0x22
 cpu MHz		: 3099.992
 cache size	: 4096 KB
-physical id	: 0
+physical projectId	: 0
 siblings	: 4
-core id		: 0
+core projectId		: 0
 cpu cores	: 2
 apicid		: 0
 initial apicid	: 0
@@ -1119,9 +1119,9 @@ stepping	: 4
 microcode	: 0x22
 cpu MHz		: 3099.992
 cache size	: 4096 KB
-physical id	: 0
+physical projectId	: 0
 siblings	: 4
-core id		: 0
+core projectId		: 0
 cpu cores	: 2
 apicid		: 1
 initial apicid	: 1
@@ -1146,9 +1146,9 @@ stepping	: 4
 microcode	: 0x22
 cpu MHz		: 3099.992
 cache size	: 4096 KB
-physical id	: 0
+physical projectId	: 0
 siblings	: 4
-core id		: 1
+core projectId		: 1
 cpu cores	: 2
 apicid		: 2
 initial apicid	: 2
@@ -1173,9 +1173,9 @@ stepping	: 4
 microcode	: 0x22
 cpu MHz		: 3099.992
 cache size	: 4096 KB
-physical id	: 0
+physical projectId	: 0
 siblings	: 4
-core id		: 1
+core projectId		: 1
 cpu cores	: 2
 apicid		: 3
 initial apicid	: 3

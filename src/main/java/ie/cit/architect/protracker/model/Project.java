@@ -7,6 +7,8 @@ import java.util.ArrayList;
  */
 public class Project implements IProject{
 
+    private int projectId;
+    private static int count = 0;
     private String name;
     private String date;
     private String author;
@@ -20,9 +22,16 @@ public class Project implements IProject{
     public Project(String name, String date) {
         this.name = name;
         this.date = date;
+
+    }
+
+    public Project(String name) {
+        projectId = ++count;
+        this.name = name;
     }
 
     public Project(String name, String date, String author, String location, String clientName) {
+        projectId = ++count;
         this.name = name;
         this.date = date;
         this.author = author;
@@ -89,17 +98,28 @@ public class Project implements IProject{
         this.clientName = clientName;
     }
 
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+
     @Override
     public String toString() {
-        return "Project{" +
-                "name='" + name + '\'' +
-                ", date=" + date +
-                ", author='" + author + '\'' +
-                ", location='" + location + '\'' +
-                ", clientName='" + clientName + '\'' +
-                '}';
+        return projectId + " " +  name;
     }
 
 
+    public static void main(String[] args) {
+
+        for (int i = 0; i < 10; i++) {
+            Project p = new Project("blah", "today", "her",
+                    "ber", "sdf");
+            System.out.println(p.getProjectId());
+        }
+
+    }
 
 }
