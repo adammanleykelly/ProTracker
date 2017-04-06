@@ -142,7 +142,7 @@ public class ManageProjectScene {
 
             CheckBox checkBox = new CheckBox(project.getName());
 
-            Label label = new Label(project.getDate().toString());
+            Label label = new Label(project.getFormattedDate());
             label.getStyleClass().add("label_padding");
 
 

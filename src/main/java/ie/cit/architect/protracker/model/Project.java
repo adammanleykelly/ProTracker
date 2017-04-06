@@ -109,38 +109,25 @@ public class Project implements IProject{
         this.projectId = projectId;
     }
 
-    @Override
-    public String toString() {
+
+    public String getFormattedDate() {
 
         String dateFormatted = "";
-
+        Date currentDate;
         try {
-            Date currentDate = null;
+
             String d = String.valueOf(this.date);
             SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
-
             currentDate = sdf.parse(d);
 
-            SimpleDateFormat sdf2 = new SimpleDateFormat("dd MMM,yy HH:mm:ss a");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MMM-yy HH:mm:ss a");
             dateFormatted = sdf2.format(currentDate);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        return this.name + " " + dateFormatted;
-
-    }
-
-
-    public static void main(String[] args) {
-
-        Date date = new Date();
-
-        for (int i = 0; i < 10; i++) {
-            Project p = new Project("blah", "her",
-                    "ber", "sdf");
-            System.out.println(p.getProjectId());
-        }
+        return dateFormatted;
 
     }
 

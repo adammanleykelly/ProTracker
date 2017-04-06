@@ -154,7 +154,7 @@ public class MongoDBPersistor implements IPersistor {
     @Override
     public ArrayList<Project> getProjectNameList() {
 
-        HashSet<Project> projectNameList = new HashSet<>();
+        HashSet<Project> projectNameHashSet = new HashSet<>();
         ArrayList<Project> orderedList = new ArrayList();
 
 
@@ -176,20 +176,24 @@ public class MongoDBPersistor implements IPersistor {
 
                 BasicDBObject object = (BasicDBObject) cursor.next();
 
+                // mongo collection fields
                 int projectId = (int) object.get("project_id");
                 String projectName = String.valueOf(object.get("name"));
                 Date date = (Date) object.get("create_date");
 
+
+                // create project with values set from DB
                 Project project = new Project();
                 project.setProjectId(projectId);
                 project.setName(projectName);
                 project.setDate(date);
 
-                projectNameList.add(project);
+
+                projectNameHashSet.add(project);
             }
 
 
-            for(Project project : projectNameList) {
+            for(Project project : projectNameHashSet) {
                 orderedList.add(project);
             }
 
