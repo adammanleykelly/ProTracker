@@ -47,7 +47,7 @@ public class ViewMessagesScene {
 
     public VBox createLeftPane() {
         VBox vBoxLeftPane = new VBox();
-        vBoxLeftPane.setMinWidth(Consts.PANEL_WIDTH);
+        vBoxLeftPane.setMinWidth(Consts.PANE_WIDTH);
 
         Label label = new Label("Employee: Georgia");
 
@@ -69,7 +69,7 @@ public class ViewMessagesScene {
 
     private VBox createMiddlePane() {
         VBox vBox = new VBox();
-        vBox.setMinWidth(Consts.PANEL_WIDTH);
+        vBox.setMinWidth(Consts.PANE_WIDTH);
 
         Label label = new Label("Client: Joe");
 
@@ -94,7 +94,7 @@ public class ViewMessagesScene {
 
     private VBox createRightPane() {
         VBox vBox = new VBox();
-        vBox.setMinWidth(Consts.PANEL_WIDTH);
+        vBox.setMinWidth(Consts.PANE_WIDTH);
 
         Label label = new Label("Compose Message:");
 

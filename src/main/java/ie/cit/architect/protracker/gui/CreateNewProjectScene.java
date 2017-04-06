@@ -25,6 +25,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -88,7 +89,7 @@ public class CreateNewProjectScene {
     private VBox createLeftPane() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_left");
-        vBox.setMinWidth(Consts.PANEL_WIDTH);
+        vBox.setMinWidth(Consts.PANE_WIDTH);
 
         tfProjectLocation = new TextField();
 
@@ -139,7 +140,7 @@ public class CreateNewProjectScene {
     private VBox createMiddlePane() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_middle");
-        vBox.setMinWidth(Consts.PANEL_WIDTH);
+        vBox.setMinWidth(Consts.PANE_WIDTH);
         Label label = new Label("Select folders to create:");
         vBox.getChildren().add(label);
 
@@ -209,7 +210,7 @@ public class CreateNewProjectScene {
 
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_right");
-        vBox.setMinWidth(Consts.PANEL_WIDTH);
+        vBox.setMinWidth(Consts.PANE_WIDTH);
         VBox.setMargin(label, new Insets(30, 0, 0, 0));
         vBox.getChildren().addAll(label, textArea);
 
@@ -249,11 +250,15 @@ public class CreateNewProjectScene {
      */
     private void createProject() {
 
+        Date date = new Date();
+        date.getTime();
+        System.out.println(date.toString());
+
         // values from TextFields stored as strings
         getUserInput();
 
         project = Controller.getInstance().createProject(
-                projectName, projectDate, projectAuthor, projectLocation, projectClient);
+                projectName, projectAuthor, projectLocation, projectClient);
 
         addProjectToDB();
 

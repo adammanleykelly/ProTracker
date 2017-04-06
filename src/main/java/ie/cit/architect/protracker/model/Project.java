@@ -1,6 +1,9 @@
 package ie.cit.architect.protracker.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by brian on 08/03/17.
@@ -10,7 +13,7 @@ public class Project implements IProject{
     private int projectId;
     private static int count = 0;
     private String name;
-    private String date;
+    private Date date;
     private String author;
     private String location;
     private String clientName;
@@ -19,7 +22,7 @@ public class Project implements IProject{
 
     public Project() {}
 
-    public Project(String name, String date) {
+    public Project(String name, Date date) {
         this.name = name;
         this.date = date;
 
@@ -30,10 +33,10 @@ public class Project implements IProject{
         this.name = name;
     }
 
-    public Project(String name, String date, String author, String location, String clientName) {
+    public Project(String name, String author, String location, String clientName) {
         projectId = ++count;
         this.name = name;
-        this.date = date;
+        setDate(new Date());
         this.author = author;
         this.location = location;
         this.clientName = clientName;
@@ -64,12 +67,12 @@ public class Project implements IProject{
     }
 
     @Override
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
     @Override
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -108,14 +111,33 @@ public class Project implements IProject{
 
     @Override
     public String toString() {
-        return projectId + " " +  name;
+
+        String dateFormatted = "";
+
+        try {
+            Date currentDate = null;
+            String d = String.valueOf(this.date);
+            SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
+
+            currentDate = sdf.parse(d);
+
+            SimpleDateFormat sdf2 = new SimpleDateFormat("dd MMM,yy HH:mm:ss a");
+            dateFormatted = sdf2.format(currentDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return this.name + " " + dateFormatted;
+
     }
 
 
     public static void main(String[] args) {
 
+        Date date = new Date();
+
         for (int i = 0; i < 10; i++) {
-            Project p = new Project("blah", "today", "her",
+            Project p = new Project("blah", "her",
                     "ber", "sdf");
             System.out.println(p.getProjectId());
         }

@@ -37,9 +37,6 @@ public class ArchitectMenuScene {
 
     public void start(Stage stage) {
 
-
-//        Platform.runLater(() -> DBController.getInstance().readRecords());
-
         BorderPane pane = new BorderPane();
         pane.setTop(homeButtonContainer());
         pane.setCenter(architectMenu());
@@ -58,7 +55,6 @@ public class ArchitectMenuScene {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setPadding(new Insets(20, 0, 20, 20));
         gridPane.setVgap(20);
-
 
         Button btn1 = new Button();
         Button btn2 = new Button();

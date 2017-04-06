@@ -1,5 +1,7 @@
 package ie.cit.architect.protracker.model;
 
+import java.util.Date;
+
 /**
  * Created by brian on 23/03/17.
  */
@@ -13,9 +15,9 @@ public interface IProject {
 
    void setName(String name);
 
-   String getDate();
+   Date getDate();
 
-   void setDate(String date);
+   void setDate(Date date);
 
    String getAuthor();
 

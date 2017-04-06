@@ -44,8 +44,13 @@
 
 .checkbox_padding {
     -fx-padding: 10, 0, 10, 0;
+    -fx-min-width: 200px;
 }
 
 #text-area *.text {
     -fx-text-alignment: center;
+}
+
+.label_padding{
+    -fx-padding: 12, 0, 0, 0;
 }

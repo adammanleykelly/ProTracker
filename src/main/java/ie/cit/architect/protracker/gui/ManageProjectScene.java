@@ -16,6 +16,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -23,7 +24,8 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by brian on 27/02/17.
@@ -37,6 +39,8 @@ public class ManageProjectScene {
     private static final String TXT_FILE_EXT = "*.txt";
     private HashSet<Project> hashSetProjectNames;
     private VBox vBoxMiddlePane;
+    private static int SCENE_WIDTH = 1000;
+    private static int PANE_WIDTH = 300;
 
     private Mediator mediator;
 
@@ -56,7 +60,7 @@ public class ManageProjectScene {
 
         Scene scene = new Scene(
                 borderPane,
-                Consts.APP_WIDTH, Consts.APP_HEIGHT);
+                SCENE_WIDTH, Consts.APP_HEIGHT);
 
         scene.getStylesheets().add("/stylesheet.css");
         stage.setScene(scene);
@@ -68,7 +72,7 @@ public class ManageProjectScene {
     private VBox createRightPane() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_left");
-        vBox.setMinWidth(Consts.PANEL_WIDTH);
+        vBox.setMinWidth(Consts.PANE_WIDTH);
 
         Button buttonOpen = new Button("Open");
         buttonOpen.setOnAction(event -> openDocument());
@@ -104,7 +108,7 @@ public class ManageProjectScene {
     private ScrollPane createMiddlePane() {
         vBoxMiddlePane = new VBox();
         vBoxMiddlePane.getStyleClass().add("hbox_middle");
-        vBoxMiddlePane.setMinWidth(Consts.PANEL_WIDTH);
+        vBoxMiddlePane.setMinWidth(PANE_WIDTH);
 
         Label label = new Label("Select project:");
 
@@ -132,19 +136,28 @@ public class ManageProjectScene {
     private void createCheckboxArray() {
 
         ArrayList<CheckBox> checkBoxList = new ArrayList<>();
-
         ArrayList<Project> projects = DBController.getInstance().selectRecords();
 
         for(Project project : projects) {
-            CheckBox checkBox = new CheckBox(project.toString());
+
+            CheckBox checkBox = new CheckBox(project.getName());
+
+            Label label = new Label(project.getDate().toString());
+            label.getStyleClass().add("label_padding");
+
+
             checkBoxList.add(checkBox);
-        }
-
-
-        for (CheckBox checkBox : checkBoxList) {
             checkBox.getStyleClass().add("checkbox_padding");
-            vBoxMiddlePane.getChildren().add(checkBox);
+
+            HBox hBox = new HBox();
+            hBox.getChildren().addAll(checkBox, label);
+
+            vBoxMiddlePane.getChildren().add(hBox);
+
         }
+
+
+
     }
 
 

@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static junit.framework.TestCase.assertNotSame;
 import static org.hamcrest.CoreMatchers.is;
@@ -20,14 +21,16 @@ public class ProjectTest {
     @Before
     public void setUp() throws Exception {
 
+        Date date = new Date();
+
         project1 = new Project(
-          "house","27/01/2017","Der","Cork","Ben"
+          "house","Der","Cork","Ben"
         );
         project2 = new Project(
-                "apart","15/01/2017","Jer","Cork","Clare"
+                "apart","Jer","Cork","Clare"
         );
         project3 = new Project(
-                "church","22/01/2017","Der","Cork","Ben"
+                "church","Der","Cork","Ben"
         );
 
     }

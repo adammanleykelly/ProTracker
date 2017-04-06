@@ -27,9 +27,9 @@ public class Controller {
     }
 
 
-    public Project createProject(String name, String date, String author, String location, String client) {
+    public Project createProject(String name, String author, String location, String client) {
 
-        return new Project(name, date, author, location, client);
+        return new Project(name, author, location, client);
 
     }
 

@@ -4,10 +4,7 @@ import com.mongodb.*;
 import ie.cit.architect.protracker.helpers.Credentials;
 import ie.cit.architect.protracker.model.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
+import java.util.*;
 
 
 /**
@@ -91,6 +88,7 @@ public class MongoDBPersistor implements IPersistor {
                 document.put("author", currProject.getAuthor());
                 document.put("location", currProject.getLocation());
                 document.put("client_name", currProject.getClientName());
+                document.put("create_date", currProject.getDate());
 
 
                 //A unique index ensures that the indexed fields do not store duplicate values
@@ -168,6 +166,7 @@ public class MongoDBPersistor implements IPersistor {
 
             field.put("project_id", 1);
             field.put("name", 1);
+            field.put("create_date", 1);
             field.append("_id", 0);
 
             DBCursor cursor = tableProjects.find(query, field);
@@ -179,10 +178,12 @@ public class MongoDBPersistor implements IPersistor {
 
                 int projectId = (int) object.get("project_id");
                 String projectName = String.valueOf(object.get("name"));
+                Date date = (Date) object.get("create_date");
 
                 Project project = new Project();
                 project.setProjectId(projectId);
                 project.setName(projectName);
+                project.setDate(date);
 
                 projectNameList.add(project);
             }
@@ -193,7 +194,7 @@ public class MongoDBPersistor implements IPersistor {
             }
 
 
-            sortProjectsById(orderedList);
+            sortProjectsByDate(orderedList);
 
 
         } catch (MongoException e) {
@@ -204,37 +205,42 @@ public class MongoDBPersistor implements IPersistor {
     }
 
 
-    private void sortProjectsById(ArrayList<Project> list) {
+    private void sortProjectsByDate(ArrayList<Project> list) {
         Collections.sort(list, new Comparator<Project>() {
             @Override
             public int compare(Project p1, Project p2) {
 
-                if(p1.getProjectId() > p2.getProjectId()) {
+                if(p1.getDate().before(p2.getDate())) {
                     return 1;
                 }
-                else if(p1.getProjectId() < p2.getProjectId()) {
+                else if(p1.getDate().after(p2.getDate())) {
                     return -1;
                 }
 
                 return 0;
             }
         });
+
+
+//    private void sortProjectsById(ArrayList<Project> list) {
+//        Collections.sort(list, new Comparator<Project>() {
+//            @Override
+//            public int compare(Project p1, Project p2) {
+//
+//                if(p1.getProjectId() > p2.getProjectId()) {
+//                    return 1;
+//                }
+//                else if(p1.getProjectId() < p2.getProjectId()) {
+//                    return -1;
+//                }
+//
+//                return 0;
+//            }
+//        });
+
+
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
