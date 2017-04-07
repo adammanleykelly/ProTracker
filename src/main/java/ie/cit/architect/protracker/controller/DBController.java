@@ -78,12 +78,6 @@ public class DBController {
     }
 
 
-    public void getProjects() {
-        this.persistor.displayCreatedProjects();
-    }
-
-
-
 }
 
 

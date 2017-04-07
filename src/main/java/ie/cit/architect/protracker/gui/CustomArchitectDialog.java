@@ -122,9 +122,7 @@ public class CustomArchitectDialog
 
                 mediator.changeToArchitectMenuScene();
 
-
                 return new Pair<>(textFieldEmail.getText(), password.getText());
-
             }
 
             return null;
@@ -137,7 +135,8 @@ public class CustomArchitectDialog
             userPass = emailPassword.getValue();
         });
 
-        addUserToDB();
+
+        Platform.runLater(() -> addUserToDB());
 
         return dialog;
 

@@ -81,9 +81,6 @@ public class ManageProjectScene {
         Button buttonDelete = new Button("Delete");
 
 
-        buttonOpen.setOnAction(event -> DBController.getInstance().getProjects());
-
-
         ObservableList<Button> buttonList =
                 FXCollections.observableArrayList(buttonOpen, buttonViewStage, buttonRename, buttonDelete);
 

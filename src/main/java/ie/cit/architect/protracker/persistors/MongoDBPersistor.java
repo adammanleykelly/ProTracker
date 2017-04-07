@@ -1,8 +1,16 @@
 package ie.cit.architect.protracker.persistors;
 
 import com.mongodb.*;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
 import ie.cit.architect.protracker.helpers.Credentials;
-import ie.cit.architect.protracker.model.*;
+import ie.cit.architect.protracker.model.IUser;
+import ie.cit.architect.protracker.model.Project;
+import ie.cit.architect.protracker.model.ProjectList;
+import ie.cit.architect.protracker.model.UserList;
+import org.bson.Document;
 
 import java.util.*;
 
@@ -13,8 +21,11 @@ import java.util.*;
 public class MongoDBPersistor implements IPersistor {
 
     private MongoClient mongoClientConn;
-    private DBCollection tableUsers, tableProjects;
-    private DB db;
+    private MongoCollection collectionUsers, collectionProjects;
+//    private DB database;
+    private MongoDatabase database;
+
+    private static int count = 0;
 
 
 
@@ -23,12 +34,13 @@ public class MongoDBPersistor implements IPersistor {
         try {
 
             //local database
-//            mongoClientConn = new MongoClient("localhost", 27017);
+            mongoClientConn = new MongoClient("localhost", 27017);
 
-            String mongoURI = "mongodb://" + Credentials.DB_MONGO_USER + ":" + Credentials.DB_MONGO_PASS + "@" +
-                    Credentials.DB_MONGO_IP +"/" + Credentials.DB_NAME;
-
-            mongoClientConn = new MongoClient( new MongoClientURI(mongoURI));
+            // remote database
+//            String mongoURI = "mongodb://" + Credentials.DB_MONGO_USER + ":" + Credentials.DB_MONGO_PASS + "@" +
+//                    Credentials.DB_MONGO_IP +"/" + Credentials.DB_NAME;
+//
+//            mongoClientConn = new MongoClient( new MongoClientURI(mongoURI));
 
 
             if(mongoClientConn != null) {
@@ -40,15 +52,15 @@ public class MongoDBPersistor implements IPersistor {
 
             //Get Database
             // if database doesn't exist, mongoDB will create it for you
-            db = mongoClientConn.getDB(Credentials.DB_NAME);
+            database = mongoClientConn.getDatabase(Credentials.DB_NAME);
 
 
             //Get Collection / Table from 'protracker'
             //if collection doesn't exist, mongoDB will create it for you
-            tableUsers = db.getCollection("users");
+            collectionUsers = database.getCollection("users");
 
             // create another table
-            tableProjects = db.getCollection("projects");
+            collectionProjects = database.getCollection("projects");
 
 
         } catch (MongoException e) {
@@ -62,11 +74,11 @@ public class MongoDBPersistor implements IPersistor {
 
         try {
             for (IUser currUser : users.getUsers()) {
-                BasicDBObject document = new BasicDBObject();
+                Document document = new Document();
                 //key value pair
                 document.put("email", currUser.getEmailAddress());
                 document.put("password", currUser.getPassword());
-                tableUsers.insert(document);
+                collectionUsers.insertOne(document);
 
             }
         } catch (MongoException e) {
@@ -78,8 +90,9 @@ public class MongoDBPersistor implements IPersistor {
     @Override
     public void writeProjects(ProjectList projects) {
 
+
         try {
-            BasicDBObject document = new BasicDBObject();
+            Document document = new Document();
 
             for (Project currProject : projects.getProjects()) {
 
@@ -93,10 +106,10 @@ public class MongoDBPersistor implements IPersistor {
 
                 //A unique index ensures that the indexed fields do not store duplicate values
                 // https://docs.mongodb.com/v3.2/core/index-unique/
-                DBObject indexOption = new BasicDBObject();
+                Document indexOption = new Document();
                 indexOption.put("unique", true);
             }
-            tableProjects.insert(document);
+            collectionProjects.insertOne(document);
 
         }catch (MongoException e) {
             e.printStackTrace();
@@ -104,50 +117,6 @@ public class MongoDBPersistor implements IPersistor {
 
     }
 
-
-    @Override
-    public void displayCurrentProject(ProjectList projects) {
-        try {
-            for (IProject currProject : projects.getProjects()) {
-                BasicDBObject searchQuery = new BasicDBObject();
-                searchQuery.put("name", currProject.getName());
-                searchQuery.put("author", currProject.getAuthor());
-                searchQuery.put("location", currProject.getLocation());
-                searchQuery.put("client_name", currProject.getClientName());
-
-                DBCursor cursor = tableProjects.find(searchQuery);
-
-                System.out.println("Project:");
-                while (cursor.hasNext()){
-                    System.out.println(cursor.next());
-                }
-            }
-        }catch (MongoException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
-    @Override
-    public void displayCreatedProjects() {
-
-        try {
-            DBCursor cursor = tableProjects.find();
-
-            System.out.println("Project:");
-            while (cursor.hasNext()) {
-
-                String x = String.valueOf(cursor.next());
-                System.out.println(x);
-
-            }
-
-        } catch (MongoException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 
@@ -157,37 +126,25 @@ public class MongoDBPersistor implements IPersistor {
         HashSet<Project> projectNameHashSet = new HashSet<>();
         ArrayList<Project> orderedList = new ArrayList();
 
-
         try {
-            BasicDBObject query = new BasicDBObject();
-            BasicDBObject field = new BasicDBObject();
-//            BasicDBObject field = new BasicDBObject("name", true).append("_id", false);
+
+            FindIterable<Document> databaseRecords = database.getCollection("projects").find();
+            MongoCursor<Document> iterator = databaseRecords.iterator();
+
+            while (iterator.hasNext()) {
 
 
-            field.put("project_id", 1);
-            field.put("name", 1);
-            field.put("create_date", 1);
-            field.append("_id", 0);
+                Document document = iterator.next();
 
-            DBCursor cursor = tableProjects.find(query, field);
-
-
-            while (cursor.hasNext()) {
-
-                BasicDBObject object = (BasicDBObject) cursor.next();
-
-                // mongo collection fields
-                int projectId = (int) object.get("project_id");
-                String projectName = String.valueOf(object.get("name"));
-                Date date = (Date) object.get("create_date");
-
+                int projectId = document.getInteger("project_id");
+                String projectName = document.getString("name");
+                Date date = document.getDate("create_date");
 
                 // create project with values set from DB
                 Project project = new Project();
                 project.setProjectId(projectId);
                 project.setName(projectName);
                 project.setDate(date);
-
 
                 projectNameHashSet.add(project);
             }

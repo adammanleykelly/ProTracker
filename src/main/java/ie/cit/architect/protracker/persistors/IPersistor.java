@@ -15,11 +15,6 @@ public interface IPersistor {
 
     void writeProjects(ProjectList projects);
 
-    void displayCreatedProjects();
-
-    void displayCurrentProject(ProjectList projects);
-
-
     ArrayList<Project> getProjectNameList();
 
 

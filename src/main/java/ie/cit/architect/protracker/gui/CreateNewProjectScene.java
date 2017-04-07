@@ -107,13 +107,13 @@ public class CreateNewProjectScene {
             VBox.setMargin(textField, new Insets(0, 37.5, 0, 37.5));
         }
 
-        Button buttonCreate = new Button("Create");
-        buttonCreate.setOnAction(event -> {
-            createProject();
-            createDirectories();
-        });
+//        Button buttonCreate = new Button("Create");
+//        buttonCreate.setOnAction(event -> {
+//            createProject();
+//            createDirectories();
+//        });
 
-        VBox.setMargin(buttonCreate, new Insets(30,37.5,0,37.5));
+//        VBox.setMargin(buttonCreate, new Insets(30,37.5,0,37.5));
 
         // Labels
         Label lbProjectName = new Label("Name of project");
@@ -131,7 +131,7 @@ public class CreateNewProjectScene {
 
         // add controls to VBox
         vBox.getChildren().addAll(lbProjectName, tfProjectName, lbProjectAuthor, tfProjectAuthor,
-                lbProjectClient, tfProjectClient, lbProjectLocation, tfProjectLocation, buttonCreate);
+                lbProjectClient, tfProjectClient, lbProjectLocation, tfProjectLocation);
 
         return vBox;
     }
@@ -222,6 +222,8 @@ public class CreateNewProjectScene {
 
         Button buttonContinue = new Button("Continue");
         buttonContinue.setOnAction(event -> {
+            createProject();
+            createDirectories();
             mediator.changeToArchitectMenuScene();
         });
 

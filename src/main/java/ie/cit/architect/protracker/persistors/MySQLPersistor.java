@@ -144,10 +144,7 @@ public class MySQLPersistor implements IPersistor{
     }
 
 
-    @Override
-    public void displayCreatedProjects() {
 
-    }
 
 
     public void close() {
@@ -166,9 +163,6 @@ public class MySQLPersistor implements IPersistor{
     }
 
 
-    // methods not called. Belong to MongoDB
-    @Override
-    public void displayCurrentProject(ProjectList projects) { }
 
 
 

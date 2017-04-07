@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by brian on 08/03/17.
@@ -12,6 +14,7 @@ public class Project implements IProject{
 
     private int projectId;
     private static int count = 0;
+    private static AtomicInteger next_id = new AtomicInteger(0);
     private String name;
     private Date date;
     private String author;
@@ -28,13 +31,13 @@ public class Project implements IProject{
 
     }
 
-    public Project(String name) {
-        projectId = ++count;
-        this.name = name;
-    }
+//    public Project(String name) {
+//        projectId = ++count;
+//        this.name = name;
+//    }
 
     public Project(String name, String author, String location, String clientName) {
-        projectId = ++count;
+        this.projectId = Project.next_id.incrementAndGet();
         this.name = name;
         setDate(new Date());
         this.author = author;
@@ -112,15 +115,17 @@ public class Project implements IProject{
 
     public String getFormattedDate() {
 
+        String inputPattern = "E MMM dd HH:mm:ss z yyyy";
+        String outputPattern = "dd-MMM-yy HH:mm:ss a";
         String dateFormatted = "";
         Date currentDate;
         try {
 
             String d = String.valueOf(this.date);
-            SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat(inputPattern, Locale.ENGLISH);
             currentDate = sdf.parse(d);
 
-            SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MMM-yy HH:mm:ss a");
+            SimpleDateFormat sdf2 = new SimpleDateFormat(outputPattern);
             dateFormatted = sdf2.format(currentDate);
 
         } catch (ParseException e) {
