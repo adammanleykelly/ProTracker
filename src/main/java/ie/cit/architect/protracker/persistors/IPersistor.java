@@ -17,6 +17,7 @@ public interface IPersistor {
 
     ArrayList<Project> getProjectNameList();
 
+    void deleteProject(String projectName);
 
 
 }

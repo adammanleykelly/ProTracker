@@ -25,7 +25,6 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Created by brian on 27/02/17.
@@ -33,19 +32,20 @@ import java.util.HashSet;
 public class ManageProjectScene {
 
 
-
+    private String projectName;
     private static final String CURR_DIR = "src/main/resources";
     private static final String TXT_FILE_DESC = "txt files (*.txt)";
     private static final String TXT_FILE_EXT = "*.txt";
-    private HashSet<Project> hashSetProjectNames;
     private VBox vBoxMiddlePane;
-    private static int SCENE_WIDTH = 1000;
-    private static int PANE_WIDTH = 300;
+    private ObservableList<CheckBox> checkBoxList;
+    private Button buttonDelete;
+
 
     private Mediator mediator;
 
     public ManageProjectScene(Mediator mediator) {
         this.mediator = mediator;
+        checkBoxList = FXCollections.observableArrayList();
     }
 
 
@@ -57,10 +57,10 @@ public class ManageProjectScene {
         borderPane.setRight(createRightPane());
         borderPane.setBottom(createBottomPane());
 
-
+        int sceneWidth = 1000;
         Scene scene = new Scene(
                 borderPane,
-                SCENE_WIDTH, Consts.APP_HEIGHT);
+                sceneWidth, Consts.APP_HEIGHT);
 
         scene.getStylesheets().add("/stylesheet.css");
         stage.setScene(scene);
@@ -78,8 +78,9 @@ public class ManageProjectScene {
         buttonOpen.setOnAction(event -> openDocument());
         Button buttonViewStage = new Button("View Stage");
         Button buttonRename = new Button("Rename");
-        Button buttonDelete = new Button("Delete");
 
+        buttonDelete = new Button("Delete");
+        buttonDelete.setOnAction(event -> deleteProject());
 
         ObservableList<Button> buttonList =
                 FXCollections.observableArrayList(buttonOpen, buttonViewStage, buttonRename, buttonDelete);
@@ -88,7 +89,6 @@ public class ManageProjectScene {
             button.setFocusTraversable(false);
             button.setMinWidth(150);
             VBox.setMargin(button, new Insets(0, 37.5, 50, 37.5));
-
         }
 
         Label labelOperations = new Label("Operations:");
@@ -102,27 +102,34 @@ public class ManageProjectScene {
     }
 
 
+
+
     private ScrollPane createMiddlePane() {
+
         vBoxMiddlePane = new VBox();
         vBoxMiddlePane.getStyleClass().add("hbox_middle");
-        vBoxMiddlePane.setMinWidth(PANE_WIDTH);
+        int paneWidth = 300;
+        vBoxMiddlePane.setMinWidth(paneWidth);
 
-        Label label = new Label("Select project:");
-
-        vBoxMiddlePane.getChildren().add(label);
-
+        Label labelName = new Label("Name");
+        Label labelDateModified = new Label("Date Modified");
+        HBox.setMargin(labelName, new Insets(10, 0, 0, 35));
+        HBox.setMargin(labelDateModified, new Insets(10, 0, 0, 135));
+        HBox hBox = new HBox();
+        hBox.getChildren().addAll(labelName, labelDateModified);
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(hBox, vBoxMiddlePane);
 
         createCheckboxArray();
-
-        VBox.setMargin(label, new Insets(30, 0, 10, 10));
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setContent(vBoxMiddlePane);
+        scrollPane.setContent(vBox);
 
         return scrollPane;
     }
+
 
 
     /**
@@ -132,21 +139,20 @@ public class ManageProjectScene {
      */
     private void createCheckboxArray() {
 
-        ArrayList<CheckBox> checkBoxList = new ArrayList<>();
-        ArrayList<Project> projects = DBController.getInstance().selectRecords();
+        ArrayList<Project> projectArrayList = DBController.getInstance().selectRecords();
 
-        for(Project project : projects) {
+
+        for(Project project : projectArrayList) {
 
             CheckBox checkBox = new CheckBox(project.getName());
 
             Label label = new Label(project.getFormattedDate());
-            label.getStyleClass().add("label_padding");
-
 
             checkBoxList.add(checkBox);
-            checkBox.getStyleClass().add("checkbox_padding");
 
             HBox hBox = new HBox();
+            label.getStyleClass().add("label_padding");
+            checkBox.getStyleClass().add("checkbox_padding");
             hBox.getChildren().addAll(checkBox, label);
 
             vBoxMiddlePane.getChildren().add(hBox);
@@ -154,8 +160,20 @@ public class ManageProjectScene {
         }
 
 
-
+        getProjectName();
     }
+
+
+
+    private String getProjectName() {
+        for(CheckBox checkBox : checkBoxList) {
+            checkBox.setOnAction(event -> projectName =  checkBox.getText());
+        }
+        return projectName;
+    }
+
+    // 'deleteButton' listener which calls the Controller to remove the selected project from the database
+    private void deleteProject() { DBController.getInstance().deleteProject(getProjectName()); }
 
 
 
@@ -206,7 +224,7 @@ public class ManageProjectScene {
 
     private void openDocument() {
 
-        File myFile = null;
+        File myFile;
 
         FileChooser fileChooser = new FileChooser();
 

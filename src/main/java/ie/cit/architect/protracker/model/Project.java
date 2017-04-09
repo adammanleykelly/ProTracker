@@ -25,16 +25,12 @@ public class Project implements IProject{
 
     public Project() {}
 
-    public Project(String name, Date date) {
+    public Project(int projectId, String name, Date date) {
+        this.projectId = Project.next_id.incrementAndGet();
         this.name = name;
         this.date = date;
-
     }
 
-//    public Project(String name) {
-//        projectId = ++count;
-//        this.name = name;
-//    }
 
     public Project(String name, String author, String location, String clientName) {
         this.projectId = Project.next_id.incrementAndGet();

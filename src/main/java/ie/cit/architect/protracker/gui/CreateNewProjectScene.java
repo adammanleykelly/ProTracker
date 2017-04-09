@@ -254,7 +254,6 @@ public class CreateNewProjectScene {
 
         Date date = new Date();
         date.getTime();
-        System.out.println(date.toString());
 
         // values from TextFields stored as strings
         getUserInput();

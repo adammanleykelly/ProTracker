@@ -165,6 +165,13 @@ public class MySQLPersistor implements IPersistor{
 
 
 
+    @Override
+    public void deleteProject(String projectName) {
+
+
+
+    }
+
 
 
 

@@ -135,7 +135,6 @@ public class CustomArchitectDialog
             userPass = emailPassword.getValue();
         });
 
-
         Platform.runLater(() -> addUserToDB());
 
         return dialog;

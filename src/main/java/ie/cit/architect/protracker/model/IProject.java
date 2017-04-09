@@ -27,6 +27,10 @@ public interface IProject {
 
    void setClientName(String clientName);
 
+   int getProjectId();
+
+   void setProjectId(int projectId);
+
 
 
 }

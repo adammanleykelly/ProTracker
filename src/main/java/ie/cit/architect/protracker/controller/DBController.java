@@ -23,11 +23,13 @@ public class DBController {
     private IPersistor persistor;
     private UserList userList;
     private ProjectList projectList;
+    private Project project;
 
 
     private DBController() {
         this.userList = new UserList();
         this.projectList = new ProjectList();
+        this.project = new Project();
     }
 
 
@@ -54,7 +56,6 @@ public class DBController {
     // user
     public User addUser(User user) {
         this.userList.add(user);
-
         return user;
     }
 
@@ -74,7 +75,10 @@ public class DBController {
 
     public ArrayList<Project> selectRecords() {
         return this.persistor.getProjectNameList();
+    }
 
+    public void deleteProject(String project) {
+        this.persistor.deleteProject(project);
     }
 
 
