@@ -1,13 +1,11 @@
 package ie.cit.architect.protracker.persistors;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import ie.cit.architect.protracker.helpers.Credentials;
 import ie.cit.architect.protracker.model.*;
 import javafx.application.Platform;
 import org.bson.Document;
@@ -24,10 +22,10 @@ public class MongoDBPersistor implements IPersistor {
 
     private MongoClient mongoClientConn;
     private MongoCollection collectionUsers, collectionProjects;
-//    private DB database;
     private MongoDatabase database;
 
     private ArrayList<Project> orderedArrayList;
+    private String DB_NAME = "protracker";
 
     private static int count = 0;
 
@@ -38,13 +36,13 @@ public class MongoDBPersistor implements IPersistor {
         try {
 
             //local database
-//            mongoClientConn = new MongoClient("localhost", 27017);
+            mongoClientConn = new MongoClient("localhost", 27017);
 
             // remote database
-            String mongoURI = "mongodb://" + Credentials.DB_MONGO_USER + ":" + Credentials.DB_MONGO_PASS + "@" +
-                    Credentials.DB_MONGO_IP +"/" + Credentials.DB_NAME;
-
-            mongoClientConn = new MongoClient( new MongoClientURI(mongoURI));
+//            String mongoURI = "mongodb://" + Credentials.DB_MONGO_USER + ":" + Credentials.DB_MONGO_PASS + "@" +
+//                    Credentials.DB_MONGO_IP +"/" + Credentials.DB_NAME;
+//
+//            mongoClientConn = new MongoClient( new MongoClientURI(mongoURI));
 
 
             if(mongoClientConn != null) System.out.println("Connected to MongoDB!");
@@ -53,7 +51,7 @@ public class MongoDBPersistor implements IPersistor {
 
             //Get Database
             // if database doesn't exist, mongoDB will create it for you
-            database = mongoClientConn.getDatabase(Credentials.DB_NAME);
+            database = mongoClientConn.getDatabase(DB_NAME);
 
 
             //Get Collection / Table from 'protracker'
@@ -188,7 +186,6 @@ public class MongoDBPersistor implements IPersistor {
             } else if (p1.getDate().after(p2.getDate())) {
                 return -1;
             }
-
             return 0;
         });
     }

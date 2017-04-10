@@ -38,7 +38,9 @@ public class ManageProjectScene {
     private static final String TXT_FILE_EXT = "*.txt";
     private VBox vBoxMiddlePane;
     private ObservableList<CheckBox> checkBoxList;
+    private ObservableList<Label> labelList;
     private Button buttonDelete;
+    private Label labelDate;
 
 
     private Mediator mediator;
@@ -46,6 +48,7 @@ public class ManageProjectScene {
     public ManageProjectScene(Mediator mediator) {
         this.mediator = mediator;
         checkBoxList = FXCollections.observableArrayList();
+        labelList = FXCollections.observableArrayList();
     }
 
 
@@ -141,39 +144,54 @@ public class ManageProjectScene {
 
         ArrayList<Project> projectArrayList = DBController.getInstance().selectRecords();
 
-
         for(Project project : projectArrayList) {
 
             CheckBox checkBox = new CheckBox(project.getName());
 
-            Label label = new Label(project.getFormattedDate());
+            labelDate = new Label(project.getFormattedDate());
 
             checkBoxList.add(checkBox);
+            labelList.add(labelDate);
 
             HBox hBox = new HBox();
-            label.getStyleClass().add("label_padding");
+            labelDate.getStyleClass().add("label_padding");
             checkBox.getStyleClass().add("checkbox_padding");
-            hBox.getChildren().addAll(checkBox, label);
+            hBox.getChildren().addAll(checkBox, labelDate);
 
             vBoxMiddlePane.getChildren().add(hBox);
-
         }
 
 
         getProjectName();
+
     }
 
 
+    // 'deleteButton' listener which calls the Controller to remove the selected project from the database
+    private void deleteProject() {
+        DBController.getInstance().deleteProject(getProjectName());
+    }
 
     private String getProjectName() {
         for(CheckBox checkBox : checkBoxList) {
             checkBox.setOnAction(event -> projectName =  checkBox.getText());
+
+            removeControlsFromScrollPane();
         }
         return projectName;
     }
 
-    // 'deleteButton' listener which calls the Controller to remove the selected project from the database
-    private void deleteProject() { DBController.getInstance().deleteProject(getProjectName()); }
+
+    private void removeControlsFromScrollPane() {
+        for (int i = 0; i < checkBoxList.size(); i++) {
+            if(checkBoxList.get(i).isSelected()) {
+                checkBoxList.get(i).setVisible(false);
+                checkBoxList.get(i).setManaged(false);
+                labelList.get(i).setVisible(false);
+                labelList.get(i).setManaged(false);
+            }
+        }
+    }
 
 
 
