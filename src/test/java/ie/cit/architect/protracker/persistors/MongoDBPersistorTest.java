@@ -21,7 +21,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class MongoDBPersistorTest {
 
-
     private MongoCollection collectionUsers, collectionProjects;
     private MongoDatabase database;
 
@@ -61,7 +60,7 @@ public class MongoDBPersistorTest {
         document1.put("name", user1.getEmailAddress());
         document1.put("password", user1.getPassword());
 
-        IUser user2 = new User("Grace", "mpass");
+        IUser user2 = new User("grace@email.com", "mpass");
         Document document2 = new Document();
         document2.put("_id", 22);
         document2.put("name", user2.getEmailAddress());
@@ -80,5 +79,40 @@ public class MongoDBPersistorTest {
     }
 
 
+    @Test
+    public void updateProject() throws Exception {
+
+
+
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -7,12 +7,12 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import ie.cit.architect.protracker.model.*;
-import javafx.application.Platform;
 import org.bson.Document;
 
 import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
+import static javafx.application.Platform.runLater;
 
 
 /**
@@ -20,7 +20,6 @@ import static com.mongodb.client.model.Filters.eq;
  */
 public class MongoDBPersistor implements IPersistor {
 
-    private MongoClient mongoClientConn;
     private MongoCollection collectionUsers, collectionProjects;
     private MongoDatabase database;
 
@@ -36,7 +35,7 @@ public class MongoDBPersistor implements IPersistor {
         try {
 
             //local database
-            mongoClientConn = new MongoClient("localhost", 27017);
+            MongoClient mongoClientConn = new MongoClient("localhost", 27017);
 
             // remote database
 //            String mongoURI = "mongodb://" + Credentials.DB_MONGO_USER + ":" + Credentials.DB_MONGO_PASS + "@" +
@@ -73,12 +72,11 @@ public class MongoDBPersistor implements IPersistor {
         Document document = new Document();
         try {
             for (IUser currUser : users.getUsers()) {
-                //key value pair
                 document.put("email", currUser.getEmailAddress());
                 document.put("password", currUser.getPassword());
             }
 
-            Platform.runLater(() -> collectionUsers.insertOne(document));
+            runLater(() -> collectionUsers.insertOne(document));
 
         } catch (MongoException e) {
             e.printStackTrace();
@@ -103,8 +101,8 @@ public class MongoDBPersistor implements IPersistor {
 
                 //A unique index ensures that the indexed fields do not store duplicate values
                 // https://docs.mongodb.com/v3.2/core/index-unique/
-                Document indexOption = new Document();
-                indexOption.put("unique", true);
+//                Document indexOption = new Document();
+//                indexOption.put("unique", true);
             }
 
             collectionProjects.insertOne(document);
@@ -166,13 +164,16 @@ public class MongoDBPersistor implements IPersistor {
     private ArrayList<Project> sortedProjects(Set<Project> projectNameHashSet) {
 
         orderedArrayList = new ArrayList();
-        for (Project project : projectNameHashSet) {
-            orderedArrayList.add(project);
-        }
+
+        orderedArrayList.addAll(projectNameHashSet);
+
+//        for (Project project : projectNameHashSet) {
+//            orderedArrayList.add(project);
+//        }
 
         /**
          * Using our Comparator method to sort the list how we choose.
-         * Other sorting methods below
+         * Other sorting method options below
          * @see #sortProjectsDateAscending(ArrayList)
          * @see #sortProjectsAlphabetically(ArrayList)
          * @see #sortProjectsById(ArrayList)
@@ -186,7 +187,7 @@ public class MongoDBPersistor implements IPersistor {
 
 
     private void sortProjectsDateDescending(ArrayList<Project> list) {
-        Collections.sort(list, (p1, p2) -> {
+        list.sort((p1, p2) -> {
 
             if (p1.getDate().before(p2.getDate())) {
                 return 1;
