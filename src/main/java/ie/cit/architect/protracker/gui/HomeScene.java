@@ -10,6 +10,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -52,8 +54,8 @@ public class HomeScene {
         gridPane.setPadding(new Insets(20, 0, 20, 20));
         gridPane.setVgap(20);
 
-        Label labelTitle = new Label(Consts.APPLICATION_TITLE.toUpperCase());
-        labelTitle.getStyleClass().add("label_title");
+        Image logo = new Image(this.getClass().getResource("/Protracker_big.png").toString());
+        ImageView iview1 = new ImageView(logo);
 
         Label labelSubTitle = new Label("Welcome");
         labelSubTitle.getStyleClass().add("label_subtitle");
@@ -76,16 +78,16 @@ public class HomeScene {
         buttonSignInArchitect.setOnAction(event -> mediator.changeToArchitectCustomDialog());
 
 
-        gridPane.add(labelTitle, 0, 1);
-        GridPane.setHalignment(labelTitle, HPos.CENTER);
+        gridPane.add(iview1, 0, 1);
+        GridPane.setHalignment(iview1, HPos.CENTER);
 
         gridPane.add(labelSubTitle, 0, 2);
         GridPane.setHalignment(labelSubTitle, HPos.CENTER);
 
-        gridPane.add(buttonSignInClient, 0, 6);
+        gridPane.add(buttonSignInClient, 0, 5);
         GridPane.setHalignment(buttonSignInClient, HPos.CENTER);
 
-        gridPane.add(buttonSignInArchitect, 0, 8);
+        gridPane.add(buttonSignInArchitect, 0, 6);
         GridPane.setHalignment(buttonSignInArchitect, HPos.CENTER);
 
 
