@@ -123,6 +123,13 @@ public class MongoDBPersistor implements IPersistor {
 
 
     @Override
+    public void updateProject(String currentProjectName, String upDatedProjectName) {
+        collectionProjects.updateOne(eq("name", currentProjectName),
+                new Document("$set", new Document("name", upDatedProjectName)));
+    }
+
+
+    @Override
     public ArrayList<Project> getProjectNameList() {
 
         Set<Project> projectNameHashSet = new HashSet<>();

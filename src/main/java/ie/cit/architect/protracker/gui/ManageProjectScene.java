@@ -11,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.*;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -25,6 +26,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * Created by brian on 27/02/17.
@@ -39,8 +41,10 @@ public class ManageProjectScene {
     private VBox vBoxMiddlePane;
     private ObservableList<CheckBox> checkBoxList;
     private ObservableList<Label> labelList;
-    private Button buttonDelete;
+    private Button buttonDelete, buttonRename;
     private Label labelDate;
+    private String editDialogInput;
+    private HBox hBoxProject;
 
 
     private Mediator mediator;
@@ -80,7 +84,9 @@ public class ManageProjectScene {
         Button buttonOpen = new Button("Open");
         buttonOpen.setOnAction(event -> openDocument());
         Button buttonViewStage = new Button("View Stage");
-        Button buttonRename = new Button("Rename");
+        buttonRename = new Button("Rename");
+        buttonRename.setOnAction(event -> updateNameDialog());
+        buttonRename.setDisable(true);
 
         buttonDelete = new Button("Delete");
         buttonDelete.setOnAction(event -> deleteProject());
@@ -153,28 +159,27 @@ public class ManageProjectScene {
             checkBoxList.add(checkBox);
             labelList.add(labelDate);
 
-            HBox hBox = new HBox();
+            hBoxProject = new HBox();
             labelDate.getStyleClass().add("label_padding");
+
             checkBox.getStyleClass().add("checkbox_padding");
-            hBox.getChildren().addAll(checkBox, labelDate);
+            hBoxProject.getChildren().addAll(checkBox, labelDate);
 
-            vBoxMiddlePane.getChildren().add(hBox);
+            vBoxMiddlePane.getChildren().add(hBoxProject);
         }
-
 
         getProjectName();
 
     }
 
 
-    // 'deleteButton' listener which calls the Controller to remove the selected project from the database
-    private void deleteProject() {
-        DBController.getInstance().deleteProject(getProjectName());
-    }
 
     private String getProjectName() {
         for(CheckBox checkBox : checkBoxList) {
-            checkBox.setOnAction(event -> projectName =  checkBox.getText());
+            checkBox.setOnAction(event -> {
+                buttonRename.setDisable(false);
+                projectName =  checkBox.getText();
+            });
 
             removeControlsFromScrollPane();
         }
@@ -192,6 +197,39 @@ public class ManageProjectScene {
             }
         }
     }
+
+
+    private void updateNameDialog() {
+        Dialog dialog = new TextInputDialog();
+        dialog.setTitle("Edit Project Name");
+        dialog.setHeaderText("Enter the new project name");
+
+        Optional<String> result = dialog.showAndWait();
+
+        if(result.isPresent()) {
+            editDialogInput = result.get();
+            System.out.println(editDialogInput);
+        }
+
+        editProjectName();
+
+
+        vBoxMiddlePane.getChildren().clear();
+
+        createCheckboxArray();
+    }
+
+
+    // Update
+    private void editProjectName() { DBController.getInstance().updateProjectName(projectName, editDialogInput); }
+
+
+    // Delete
+    // 'deleteButton' listener which calls the Controller to remove the selected project from the database
+    private void deleteProject() {
+        DBController.getInstance().deleteProject(getProjectName());
+    }
+
 
 
 
@@ -219,7 +257,7 @@ public class ManageProjectScene {
 
         Button buttonContinue = new Button("Continue");
         buttonContinue.setOnAction(event -> {
-
+            mediator.changeToArchitectMenuScene();
         });
 
         Button buttonCancel = new Button("Cancel");

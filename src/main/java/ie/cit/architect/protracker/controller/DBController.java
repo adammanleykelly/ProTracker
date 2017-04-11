@@ -6,7 +6,6 @@ import ie.cit.architect.protracker.model.User;
 import ie.cit.architect.protracker.model.UserList;
 import ie.cit.architect.protracker.persistors.IPersistor;
 import ie.cit.architect.protracker.persistors.MongoDBPersistor;
-import ie.cit.architect.protracker.persistors.MySQLPersistor;
 
 import java.util.ArrayList;
 
@@ -42,7 +41,7 @@ public class DBController {
 
     public void setPersistenceMode(PersistenceMode mode) {
         if(mode.equals(MYSQL)) {
-            this.persistor = new MySQLPersistor();
+//            this.persistor = new MySQLPersistor();
         }
         else if(mode.equals(MONGODB)) {
             this.persistor = new MongoDBPersistor();
@@ -77,10 +76,15 @@ public class DBController {
         return this.persistor.getProjectNameList();
     }
 
+
     public void deleteProject(String project) {
         this.persistor.deleteProject(project);
     }
 
+
+    public void updateProjectName(String currentProjectName, String upDatedProjectName) {
+        this.persistor.updateProject(currentProjectName,  upDatedProjectName);
+    }
 
 }
 

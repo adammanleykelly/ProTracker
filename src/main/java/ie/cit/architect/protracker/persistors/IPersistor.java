@@ -19,5 +19,7 @@ public interface IPersistor {
 
     void deleteProject(String projectName);
 
+    void updateProject(String currentProjectName, String upDatedProjectName);
+
 
 }

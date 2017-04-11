@@ -4,7 +4,6 @@ import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.controller.PersistenceMode;
 import ie.cit.architect.protracker.helpers.Consts;
-import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -31,6 +30,8 @@ public class HomeScene {
 
 
     public void start(Stage stage) throws Exception {
+
+        DBController.getInstance().setPersistenceMode(PersistenceMode.MONGODB);
 
         // check the Operating System
         System.out.println(System.getProperty("os.name"));
@@ -62,14 +63,14 @@ public class HomeScene {
         buttonSignInClient.setMinWidth(150);
         buttonSignInArchitect.setMinWidth(150);
 
-        buttonMySQL = new Button("MySQL");
-        buttonMySQL.setOnAction(event ->
-                DBController.getInstance().setPersistenceMode(PersistenceMode.MYSQL));
-
-        buttonMongoDB = new Button("MongoDB");
-
-        Platform.runLater(() -> buttonMongoDB.setOnAction(event ->
-                DBController.getInstance().setPersistenceMode(PersistenceMode.MONGODB)));
+//        buttonMySQL = new Button("MySQL");
+//        buttonMySQL.setOnAction(event ->
+//                DBController.getInstance().setPersistenceMode(PersistenceMode.MYSQL));
+//
+//        buttonMongoDB = new Button("MongoDB");
+//
+//        Platform.runLater(() -> buttonMongoDB.setOnAction(event ->
+//                DBController.getInstance().setPersistenceMode(PersistenceMode.MONGODB)));
 
         buttonSignInClient.setOnAction(event -> mediator.changeToClientCustomDialog());
         buttonSignInArchitect.setOnAction(event -> mediator.changeToArchitectCustomDialog());
@@ -88,9 +89,9 @@ public class HomeScene {
         GridPane.setHalignment(buttonSignInArchitect, HPos.CENTER);
 
 
-        //test
-        gridPane.add(buttonMySQL, 0, 10);
-        gridPane.add(buttonMongoDB, 1, 10);
+//        //test
+//        gridPane.add(buttonMySQL, 0, 10);
+//        gridPane.add(buttonMongoDB, 1, 10);
 
 
 

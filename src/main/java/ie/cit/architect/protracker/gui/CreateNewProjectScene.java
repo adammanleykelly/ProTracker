@@ -124,7 +124,7 @@ public class CreateNewProjectScene {
         List<Label> labelList = Arrays.asList(lbProjectName, lbProjectAuthor, lbProjectClient, lbProjectLocation);
 
         for (Label label : labelList) {
-            label.getStyleClass().add("lable_padding");
+            label.getStyleClass().add("label_padding");
         }
 
         VBox.setMargin(lbProjectName, new Insets(10, 0, 0, 0));
