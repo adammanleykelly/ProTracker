@@ -12,21 +12,44 @@
     </script>
     <script type="text/javascript">
         function initialize() {
+
+            var contentString = '<div id="content">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h1 id="firstHeading" class="firstHeading">Coveney Architects</h1>'+
+                '<div id="bodyContent">'+
+                '<p>Coveney Architects is a family business based in Monkstown, Co. Cork. We are a ' +
+                '<a href="http://www.riai.ie/practice_directory/detail/coveney_associates"><b>RIAI</b></a> ' +
+                '(Royal Institute of the Architects of Ireland) registered practice.</p>'+
+                '</div>'+
+                '</div>';
+
             var location = new google.maps.LatLng(51.849591, -8.333677)
-            var label = 'Coveney & Associates';
+
             var mapOptions = {
                 center: location,
                 zoom: 15,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+
             var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
-            new google.maps.Marker({
+
+
+            var marker = new google.maps.Marker({
                 position: location,
                 map: map,
-                lable: label
+                title: 'Coveney & Associates'
+            });
 
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
             });
         }
     </script>
