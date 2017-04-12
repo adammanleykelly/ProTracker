@@ -9,12 +9,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
+
+import java.net.URL;
 
 /**
  * Created by Adam on 06/03/2017.
@@ -81,7 +82,22 @@ public class ClientContact
         mapV.setFitWidth(354);
         mapV.setFitHeight(245);
         map.setFont(new Font("Arial", 30));
-        VBox vbMap = new VBox(map, mapV);
+
+
+//        VBox vbMap = new VBox(map, mapV);
+
+        Browser browser = new Browser();
+
+        //we need a StackPane to customise our browser
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().add(browser);
+        stackPane.setPrefHeight(300);
+        stackPane.setPrefWidth(400);
+
+        VBox vbMap = new VBox(stackPane);
+
+
+
         vbMap.setSpacing(15);
         vbMap.setPadding(new Insets(1));
         vbMap.setAlignment(Pos.TOP_RIGHT);
@@ -166,5 +182,27 @@ public class ClientContact
         hb.setAlignment(Pos.TOP_RIGHT);
 
         return hb;
+    }
+
+
+    class Browser extends StackPane {
+
+
+        final WebView browser = new WebView();
+        final WebEngine webEngine = browser.getEngine();
+
+        public Browser() {
+
+            getStyleClass().add("browser");
+
+            final URL urlGoogleMaps = getClass().getResource("/GoogleMapsV3.html");
+            webEngine.load(urlGoogleMaps.toExternalForm());
+            webEngine.setJavaScriptEnabled(true);
+
+
+
+            getChildren().add(browser);
+
+        }
     }
 }

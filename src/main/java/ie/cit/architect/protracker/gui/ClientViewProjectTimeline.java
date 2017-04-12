@@ -9,12 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.net.URL;
 
 /**
  * Created by Adam on 04/03/2017.
@@ -33,8 +32,6 @@ public class ClientViewProjectTimeline
         BorderPane pane = new BorderPane();
         pane.setTop(homeButtonContainer());
 
-        pane.setCenter(new Browser());
-        pane.setPrefSize(300, 300);
 
         pane.setBottom(navButtonContainer());
 
@@ -144,25 +141,7 @@ public class ClientViewProjectTimeline
         return vb1;
     }
 
-    class Browser extends Region {
 
-
-        final WebView browser = new WebView();
-        final WebEngine webEngine = browser.getEngine();
-
-        public Browser() {
-
-            getStyleClass().add("browser");
-
-            final URL urlGoogleMaps = getClass().getResource("/GoogleMapsV3.html");
-            webEngine.load(urlGoogleMaps.toExternalForm());
-            webEngine.setJavaScriptEnabled(true);
-
-
-            getChildren().add(browser);
-
-        }
-    }
 }
 
 
