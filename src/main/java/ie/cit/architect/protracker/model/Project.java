@@ -41,6 +41,10 @@ public class Project implements IProject{
         this.clientName = clientName;
     }
 
+    public Project(String name) {
+        this.name = name;
+    }
+
     public ArrayList<Project> getProjectNames() {
         return projectNames;
     }

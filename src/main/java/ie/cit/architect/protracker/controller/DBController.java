@@ -1,9 +1,6 @@
 package ie.cit.architect.protracker.controller;
 
-import ie.cit.architect.protracker.model.Project;
-import ie.cit.architect.protracker.model.ProjectList;
-import ie.cit.architect.protracker.model.User;
-import ie.cit.architect.protracker.model.UserList;
+import ie.cit.architect.protracker.model.*;
 import ie.cit.architect.protracker.persistors.IPersistor;
 import ie.cit.architect.protracker.persistors.MongoDBPersistor;
 
@@ -83,6 +80,13 @@ public class DBController {
 
 
     public void updateProjectName(String currentProjectName, String upDatedProjectName) {
+
+        for(IProject project : this.projectList.getProjects()) {
+            if(project.getName().equals(currentProjectName)) {
+                project.setName(upDatedProjectName);
+            }
+        }
+
         this.persistor.updateProject(currentProjectName,  upDatedProjectName);
     }
 
