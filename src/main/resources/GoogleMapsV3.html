@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        html { height: 100% }
+        body { height: 100%; margin: 0; padding: 0 }
+        #map_canvas { height: 100% }
+    </style>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZj4CsOZWwx0UZeLHNwO5iOQsfchBNAlM&sensor=false">
+    </script>
+    <script type="text/javascript">
+        function initialize() {
+            var location = new google.maps.LatLng(51.849591, -8.333677)
+            var label = 'Coveney & Associates';
+            var mapOptions = {
+                center: location,
+                zoom: 15,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+            new google.maps.Marker({
+                position: location,
+                map: map,
+                lable: label
+
+            });
+        }
+    </script>
+</head>
+<body onload="initialize()">
+<div id="map_canvas" style="width:400px; height:300px"></div>
+</body>
+</html>

@@ -76,7 +76,7 @@ public class ClientContact
 
         //Map info
         Label map = new Label("Map");
-        Image map1 = new Image(this.getClass().getResource("/map.png").toString());
+        Image map1 = new Image(this.getClass().getResource("/map.PNG").toString());
         ImageView mapV = new ImageView(map1);
         mapV.setFitWidth(354);
         mapV.setFitHeight(245);

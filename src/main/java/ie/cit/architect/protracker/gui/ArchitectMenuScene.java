@@ -6,9 +6,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.Arrays;
@@ -49,7 +52,7 @@ public class ArchitectMenuScene {
     }
 
 
-    private GridPane architectMenu() {
+    private VBox architectMenu() {
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -83,12 +86,20 @@ public class ArchitectMenuScene {
             });
         }
 
+        Image imageLogo = new Image(this.getClass().getResource("/Protracker_big.png").toString());
+        ImageView imageViewLogo = new ImageView(imageLogo);
+
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+
         gridPane.add(btn1, 0, 1);
         gridPane.add(btn2, 0, 2);
         gridPane.add(btn3, 0, 3);
         gridPane.add(btn4, 0, 4);
 
-        return gridPane;
+        vBox.getChildren().addAll(imageViewLogo, gridPane);
+
+        return vBox;
     }
 
 

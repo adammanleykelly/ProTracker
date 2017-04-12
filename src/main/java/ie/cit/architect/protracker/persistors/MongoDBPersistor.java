@@ -14,7 +14,6 @@ import org.bson.Document;
 import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
-import static javafx.application.Platform.runLater;
 
 
 /**
@@ -68,6 +67,16 @@ public class MongoDBPersistor implements IPersistor {
     }
 
 
+    // for JUnit tests
+    public User getDbUser(User user) {
+        return user;
+    }
+
+    public Project getDbProject(Project project) {
+        return project;
+    }
+
+
     @Override
     public void writeUsers(UserList users) {
         Document document = new Document();
@@ -77,7 +86,8 @@ public class MongoDBPersistor implements IPersistor {
                 document.put("password", currUser.getPassword());
             }
 
-            runLater(() -> collectionUsers.insertOne(document));
+//            runLater(() -> collectionUsers.insertOne(document));
+            collectionUsers.insertOne(document);
 
         } catch (MongoException e) {
             e.printStackTrace();

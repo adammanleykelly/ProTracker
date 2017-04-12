@@ -6,11 +6,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.control.Label;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+
+import java.net.URL;
 
 /**
  * Created by Adam on 04/03/2017.
@@ -28,7 +32,10 @@ public class ClientViewProjectTimeline
     {
         BorderPane pane = new BorderPane();
         pane.setTop(homeButtonContainer());
-        pane.setCenter(createProjectTimeline());
+
+        pane.setCenter(new Browser());
+        pane.setPrefSize(300, 300);
+
         pane.setBottom(navButtonContainer());
 
         Scene scene = new Scene(pane, Consts.APP_WIDTH, Consts.APP_HEIGHT);
@@ -37,6 +44,8 @@ public class ClientViewProjectTimeline
         stage.setTitle(Consts.APPLICATION_TITLE + "Project Timeline");
         stage.show();
     }
+
+
 
     private Pane createProjectTimeline()
     {
@@ -134,4 +143,70 @@ public class ClientViewProjectTimeline
 
         return vb1;
     }
+
+    class Browser extends Region {
+
+
+        final WebView browser = new WebView();
+        final WebEngine webEngine = browser.getEngine();
+
+        public Browser() {
+
+            getStyleClass().add("browser");
+
+            final URL urlGoogleMaps = getClass().getResource("/GoogleMapsV3.html");
+            webEngine.load(urlGoogleMaps.toExternalForm());
+            webEngine.setJavaScriptEnabled(true);
+
+
+            getChildren().add(browser);
+
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
