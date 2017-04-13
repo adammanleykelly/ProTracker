@@ -79,7 +79,7 @@ public class DBController {
     }
 
 
-    public void updateProjectName(String currentProjectName, String upDatedProjectName) {
+    public Project updateProjectName(String currentProjectName, String upDatedProjectName) {
 
         for(IProject project : this.projectList.getProjects()) {
             if(project.getName().equals(currentProjectName)) {
@@ -87,7 +87,7 @@ public class DBController {
             }
         }
 
-        this.persistor.updateProject(currentProjectName,  upDatedProjectName);
+        return this.persistor.updateProject(currentProjectName,  upDatedProjectName);
     }
 
 }

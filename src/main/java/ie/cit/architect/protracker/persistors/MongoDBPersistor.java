@@ -133,9 +133,14 @@ public class MongoDBPersistor implements IPersistor {
 
 
     @Override
-    public void updateProject(String currentProjectName, String upDatedProjectName) {
+    public Project updateProject(String currentProjectName, String upDatedProjectName) {
+
+        Project project = new Project(currentProjectName);
         collectionProjects.updateOne(eq("name", currentProjectName),
                 new Document("$set", new Document("name", upDatedProjectName)));
+        project.setName(upDatedProjectName);
+
+        return project;
     }
 
 

@@ -76,28 +76,17 @@ public class ClientContact
         vbO.setAlignment(Pos.CENTER_LEFT);
 
         //Map info
-        Label map = new Label("Map");
-        Image map1 = new Image(this.getClass().getResource("/map.PNG").toString());
-        ImageView mapV = new ImageView(map1);
-        mapV.setFitWidth(354);
-        mapV.setFitHeight(245);
-        map.setFont(new Font("Arial", 30));
 
-
-//        VBox vbMap = new VBox(map, mapV);
-
+        // Create our browser which contains the Google Map
         Browser browser = new Browser();
 
-        //we need a StackPane to customise our browser
+        //we need a StackPane to customise our browser's size
         StackPane stackPane = new StackPane();
         stackPane.getChildren().add(browser);
         stackPane.setPrefHeight(300);
         stackPane.setPrefWidth(400);
 
         VBox vbMap = new VBox(stackPane);
-
-
-
         vbMap.setSpacing(15);
         vbMap.setPadding(new Insets(1));
         vbMap.setAlignment(Pos.TOP_RIGHT);

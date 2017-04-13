@@ -41,7 +41,7 @@ public class MongoDBPersistorTest {
 
     private MongoDBPersistor mongoDBPersistor;
     private User mUser;
-    private Project mProject;
+
 
     @Before
     public void setUp() throws Exception {
@@ -153,6 +153,7 @@ public class MongoDBPersistorTest {
         String newProjectName = "Apartment";
         String updatedProjectName = null;
 
+        /** the project's object name is first set to "House" **/
         Project project = new Project(currProjectName);
 
         Document document = new Document();
@@ -170,11 +171,9 @@ public class MongoDBPersistorTest {
         FindIterable<Document> databaseRecords = database.getCollection("projects").find();
         MongoCursor<Document> cursor = databaseRecords.iterator();
 
-        Project projectUpdated = new Project();
-
         try {
             updatedProjectName = cursor.next().getString("name");
-            projectUpdated.setName(updatedProjectName);
+            project.setName(updatedProjectName);
         } finally {
             cursor.close();
         }
@@ -185,13 +184,14 @@ public class MongoDBPersistorTest {
         assertThat(updatedProjectName, is(not("House")));
 
 
-        // When  (testing the actual method)
-        mongoDBPersistor.updateProject(currProjectName, newProjectName);
 
-        mProject = mongoDBPersistor.getDbProject(projectUpdated);
+        // When  (testing the actual method)
+
+        /** the project's object name is then updated to "Apartment" **/
+        project = mongoDBPersistor.updateProject(currProjectName, newProjectName);
 
         // Then
-        assertThat("Apartment", is(mProject.getName()));
+        assertThat(project.getName(), is("Apartment"));
 
 
         // cleanup
