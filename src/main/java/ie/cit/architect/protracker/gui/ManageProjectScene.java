@@ -84,6 +84,9 @@ public class ManageProjectScene {
         Button buttonOpen = new Button("Open");
         buttonOpen.setOnAction(event -> openDocument());
         Button buttonViewStage = new Button("View Stage");
+        buttonViewStage.setOnAction(event -> mediator.changeToViewTimelineScene());
+
+
         buttonRename = new Button("Rename");
         buttonRename.setOnAction(event -> updateNameDialog());
         buttonRename.setDisable(true);
