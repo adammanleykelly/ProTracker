@@ -1,13 +1,11 @@
 package ie.cit.architect.protracker.persistors;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import ie.cit.architect.protracker.helpers.Credentials;
 import ie.cit.architect.protracker.model.*;
 import org.bson.Document;
 
@@ -35,13 +33,13 @@ public class MongoDBPersistor implements IPersistor {
         try {
 
             //local database
-//            MongoClient mongoClientConn = new MongoClient("localhost", 27017);
+            MongoClient mongoClientConn = new MongoClient("localhost", 27017);
 
             // remote database
-            String mongoURI = "mongodb://" + Credentials.DB_MONGO_USER + ":" + Credentials.DB_MONGO_PASS + "@" +
-                    Credentials.DB_MONGO_IP +"/" + Credentials.DB_NAME;
-
-            MongoClient mongoClientConn = new MongoClient( new MongoClientURI(mongoURI));
+//            String mongoURI = "mongodb://" + Credentials.DB_MONGO_USER + ":" + Credentials.DB_MONGO_PASS + "@" +
+//                    Credentials.DB_MONGO_IP +"/" + Credentials.DB_NAME;
+//
+//            MongoClient mongoClientConn = new MongoClient( new MongoClientURI(mongoURI));
 
 
             if(mongoClientConn != null) System.out.println("Connected to MongoDB!");

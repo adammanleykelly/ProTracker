@@ -6,15 +6,20 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import javafx.scene.text.Font;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
@@ -53,9 +58,26 @@ public class ClientContact
         Label email = new Label ("e-mail: protracker@hotmail.com");
         Label cNumber = new Label ("Contact Number:(021) 4667788");
         Label address = new Label("Address: Monkstown, Cork,");
-        Label site = new Label("Website: www.protracker.com");
 
-        VBox vb = new VBox(cinfo, email, cNumber, address, site);
+        Hyperlink hyperlink = new Hyperlink();
+        hyperlink.setText("www.coveneyarchitects.com");
+        hyperlink.setOnAction(event -> {
+
+
+            try {
+                Desktop.getDesktop()
+                        .browse(new URI("https://briancoveney.github.io/CoveneyArch/index.html"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+
+
+        VBox vb = new VBox(cinfo, email, cNumber, address, hyperlink);
         vb.setSpacing(5);
         vb.setPadding(new Insets(1));
         vb.setAlignment(Pos.CENTER_LEFT);

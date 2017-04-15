@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -79,12 +80,18 @@ public class ArchitectMenuScene {
                 } else if (event.getSource().equals(btn2)) {
                     mediator.changeToManageProjectScene();
                 } else if (event.getSource().equals(btn3)) {
-                    System.out.println("Billing");
+                    try {
+                        Utility.CreatePDF.createPdf();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else if (event.getSource().equals(btn4)) {
                     mediator.changeToViewMessagesScene();
                 }
             });
         }
+
+
 
         Image imageLogo = new Image(this.getClass().getResource("/Protracker_big.png").toString());
         ImageView imageViewLogo = new ImageView(imageLogo);

@@ -37,7 +37,9 @@ public class ManageProjectScene {
     private String projectName;
     private static final String CURR_DIR = "src/main/resources";
     private static final String TXT_FILE_DESC = "txt files (*.txt)";
+    private static final String PDF_FILE_DESC = "pdf files (*.pdf)";
     private static final String TXT_FILE_EXT = "*.txt";
+    private static final String PDF_FILE_EXTENSION = "*.pdf";
     private VBox vBoxMiddlePane;
     private ObservableList<CheckBox> checkBoxList;
     private ObservableList<Label> labelList;
@@ -141,6 +143,7 @@ public class ManageProjectScene {
 
         return scrollPane;
     }
+
 
 
 
@@ -283,22 +286,27 @@ public class ManageProjectScene {
 
     private void openDocument() {
 
-        File myFile;
+        File file;
 
         FileChooser fileChooser = new FileChooser();
 
-        FileChooser.ExtensionFilter extFiltertxt =
-                new FileChooser.ExtensionFilter(TXT_FILE_DESC, TXT_FILE_EXT);
-        fileChooser.getExtensionFilters().addAll(extFiltertxt);
+//        FileChooser.ExtensionFilter extensionFilterText =
+//                new FileChooser.ExtensionFilter(TXT_FILE_DESC, TXT_FILE_EXT);
+
+        FileChooser.ExtensionFilter extensionFilterText =
+                new FileChooser.ExtensionFilter(PDF_FILE_DESC, PDF_FILE_EXTENSION);
+
+
+        fileChooser.getExtensionFilters().addAll(extensionFilterText);
 
         // open my resource directory, which contains the text files.
         fileChooser.setInitialDirectory(
                 new java.io.File(CURR_DIR));
 
-        myFile = fileChooser.showOpenDialog(null);
+        file = fileChooser.showOpenDialog(null);
 
-        if (myFile != null) {
-            openFile(myFile);
+        if (file != null) {
+            openFile(file);
         }
     }
 
