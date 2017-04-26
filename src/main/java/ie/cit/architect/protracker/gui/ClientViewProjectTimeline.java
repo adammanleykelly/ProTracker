@@ -31,7 +31,7 @@ public class ClientViewProjectTimeline
     {
         BorderPane pane = new BorderPane();
         pane.setTop(homeButtonContainer());
-
+        pane.setCenter(createBarChart);
 
         pane.setBottom(navButtonContainer());
 
