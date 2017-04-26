@@ -31,7 +31,7 @@ public class Mediator extends Application {
     private Stage primaryStage;
 
 
-    private static final int COUNT_LIMIT = 250000;
+    private static final int COUNT_LIMIT = 25000;
     private static int stepCount = 1;
 
 
@@ -48,11 +48,11 @@ public class Mediator extends Application {
         System.out.println(Mediator.STEP() + "MyApplication#init (doing some heavy lifting), thread: " + Thread.currentThread().getName());
 
         // Perform some heavy lifting (i.e. database start, check for application updates, etc. )
-        for (int i = 0; i < COUNT_LIMIT; i++) {
+        for (int i = 0; i < COUNT_LIMIT; i++)
+        {
             double progress = (100 * i) / COUNT_LIMIT;
             LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(progress));
         }
-
     }
 
 

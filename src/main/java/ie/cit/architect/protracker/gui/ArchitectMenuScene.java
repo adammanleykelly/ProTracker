@@ -82,6 +82,7 @@ public class ArchitectMenuScene {
                 } else if (event.getSource().equals(btn3)) {
                     try {
                         Utility.CreatePDF.createPdf();
+                        MessageBox.show("Invoice Saved to Desktop", "Saved");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

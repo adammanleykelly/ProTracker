@@ -13,6 +13,8 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
  * Created by Adam on 05/03/2017.
  */
@@ -126,7 +128,13 @@ public class ClientBilling
 
         buttonSaveInvoice.setOnAction(event -> {
             try {
-                mainMediator.changeToClientMenuScene();
+                try {
+                    Utility.CreatePDF.createPdf();
+                    MessageBox.show("Invoice Saved to Desktop", "Saved");
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
