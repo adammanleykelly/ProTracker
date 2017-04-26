@@ -167,6 +167,7 @@ public class MongoDBPersistorTest {
                 new Document("$set", new Document("name", newProjectName)));
 
 
+
         // find the documents updated value and pass is to the String newProjectName
         FindIterable<Document> databaseRecords = database.getCollection("projects").find();
         MongoCursor<Document> cursor = databaseRecords.iterator();
@@ -185,13 +186,17 @@ public class MongoDBPersistorTest {
 
 
 
+        //**********************************************************************
+
+        Project project1;
+
         // When  (testing the actual method)
 
         /** the project's object name is then updated to "Apartment" **/
-        project = mongoDBPersistor.updateProject(currProjectName, newProjectName);
+        project1 = mongoDBPersistor.updateProject(currProjectName, newProjectName);
 
         // Then
-        assertThat(project.getName(), is("Apartment"));
+        assertThat(project1.getName(), is("Apartment"));
 
 
         // cleanup
