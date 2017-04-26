@@ -43,11 +43,36 @@
             <artifactId>mongo-java-driver</artifactId>
             <version>3.4.1</version>
         </dependency>
+
+        <!-- iText 7-->
+        <!-- always needed -->
         <dependency>
             <groupId>com.itextpdf</groupId>
-            <artifactId>itext7-core</artifactId>
+            <artifactId>kernel</artifactId>
             <version>7.0.2</version>
         </dependency>
+
+        <!-- always needed -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>io</artifactId>
+            <version>7.0.2</version>
+        </dependency>
+
+        <!-- always needed -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>layout</artifactId>
+            <version>7.0.2</version>
+        </dependency>
+
+        <!-- only needed for PDF/A -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>pdfa</artifactId>
+            <version>7.0.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
