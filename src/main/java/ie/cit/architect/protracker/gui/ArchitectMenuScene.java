@@ -2,6 +2,7 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.helpers.CreatePDF;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -81,8 +82,12 @@ public class ArchitectMenuScene {
                     mediator.changeToManageProjectScene();
                 } else if (event.getSource().equals(btn3)) {
                     try {
-                        Utility.CreatePDF.createPdf();
+
+                        CreatePDF.createPdf();
+
+                        CreatePDF.createPdf();
                         MessageBox.show("Invoice Saved to Desktop", "Saved");
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

@@ -1,8 +1,9 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
+import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.helpers.Consts;
-
+import ie.cit.architect.protracker.model.ChatMessage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,8 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -29,8 +30,7 @@ public class ClientMessages {
         this.mainMediator = mainMediator;
     }
 
-    public void start(Stage stage)
-    {
+    public void start(Stage stage) {
         BorderPane pane = new BorderPane();
         pane.setTop(homeButtonContainer());
         pane.setCenter(MessagesPane());
@@ -43,60 +43,10 @@ public class ClientMessages {
         stage.show();
     }
 
-    private Pane MessagesPane()
-    {
+    private Pane MessagesPane() {
         BorderPane pane = new BorderPane();
-        pane.setLeft(createLeftPane());
-        pane.setCenter(createMiddlePane());
         pane.setRight(createRightPane());
-
         return pane;
-    }
-
-    private VBox createLeftPane() {
-        VBox vBox = new VBox();
-        vBox.setMinWidth(Consts.PANE_WIDTH);
-
-        Label label = new Label("Employee: Georgia");
-
-        TextArea textArea = new TextArea();
-        textArea.setMaxWidth(200);
-        textArea.setPrefHeight(200);
-        textArea.setWrapText(true);
-        textArea.setText("@Joe - Hello Joe, how can I help");
-        textArea.appendText("you today?");
-
-        VBox.setMargin(label, new Insets(30,0,0,40));
-        VBox.setMargin(textArea, new Insets(0,0,0,40));
-
-        vBox.getChildren().addAll(label, textArea);
-
-        return vBox;
-    }
-
-
-    private VBox createMiddlePane() {
-        VBox vBox = new VBox();
-        vBox.setMinWidth(Consts.PANE_WIDTH);
-
-        Label label = new Label("Client: Joe");
-
-        TextArea textArea = new TextArea();
-        textArea.setMaxWidth(200);
-        textArea.setPrefHeight(200);
-        textArea.setWrapText(true);
-        textArea.setText("@Georgia - Hi Georgia, I'm looking");
-        textArea.appendText("to make an appointm to discuss ");
-        textArea.appendText("the next stage of the project.");
-
-
-        VBox.setMargin(label, new Insets(30,0,0,40));
-        VBox.setMargin(textArea, new Insets(0,0,0,40));
-
-
-        vBox.getChildren().addAll(label, textArea);
-
-        return vBox;
     }
 
 
@@ -104,25 +54,30 @@ public class ClientMessages {
         VBox vBox = new VBox();
         vBox.setMinWidth(Consts.PANE_WIDTH);
 
-        Label label = new Label("Compose Message:");
+        Label label = new Label("Compose ChatMessage:");
 
         TextArea textArea = new TextArea();
         textArea.setMaxWidth(200);
         textArea.setPrefHeight(200);
         textArea.setWrapText(true);
-        textArea.setText("@Joe - Let me have a quick look to see");
-        textArea.appendText("what days we have available.");
 
-        VBox.setMargin(label, new Insets(30,0,0,40));
-        VBox.setMargin(textArea, new Insets(0,0,0,40));
+        // read chat message from the message saved in ArchitectsMenuScene
+        // and have the ChatMessage object reference it
+        ChatMessage chatMessage = DBController.getInstance().readMessage();
+
+        // set the TextArea with this reference
+        textArea.setText(chatMessage.getMessage());
+
+        VBox.setMargin(label, new Insets(30, 0, 0, 40));
+        VBox.setMargin(textArea, new Insets(0, 0, 0, 40));
 
         vBox.getChildren().addAll(label, textArea);
 
         return vBox;
     }
 
-    public HBox homeButtonContainer()
-    {
+
+    public HBox homeButtonContainer() {
         Button buttonHome = new Button("Home");
         Image logo = new Image(this.getClass().getResource("/Protracker_big.png").toString());
         ImageView iview1 = new ImageView(logo);
@@ -155,10 +110,9 @@ public class ClientMessages {
         return hb2;
     }
 
-    public HBox navButtonContainer()
-    {
+    public HBox navButtonContainer() {
         Button buttonCancel = new Button("Cancel");
-        Button buttonContinue= new Button("Continue");
+        Button buttonContinue = new Button("Continue");
 
         buttonCancel.setOnAction(event -> {
             try {

@@ -79,7 +79,7 @@ public class ViewTimelineScene {
         series2.setName("Tender");
         series3.setName("Construction");
 
-        // Timeline Animation of the project progress, which is displayed as a percentage.
+        // Timeline Animation of the project progress, which is displayed as a percentage on the Y-Axis.
         // The animation is run only once - when the user enters the scene.
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(new KeyFrame(Duration.millis(500),

@@ -2,6 +2,7 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.helpers.CreatePDF;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,7 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -129,7 +133,7 @@ public class ClientBilling
         buttonSaveInvoice.setOnAction(event -> {
             try {
                 try {
-                    Utility.CreatePDF.createPdf();
+                    CreatePDF.createPdf();
                     MessageBox.show("Invoice Saved to Desktop", "Saved");
                 }catch (IOException e) {
                     e.printStackTrace();
