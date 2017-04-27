@@ -82,7 +82,12 @@ public class ArchitectMenuScene {
                     mediator.changeToManageProjectScene();
                 } else if (event.getSource().equals(btn3)) {
                     try {
+
                         CreatePDF.createPdf();
+
+                        CreatePDF.createPdf();
+                        MessageBox.show("Invoice Saved to Desktop", "Saved");
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

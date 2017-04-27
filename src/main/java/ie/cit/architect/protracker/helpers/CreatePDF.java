@@ -25,7 +25,8 @@ public class CreatePDF {
 
     private static final String SEPARATOR = File.separator;
     private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + SEPARATOR + "Desktop" + SEPARATOR + "invoice.pdf";
-    private static final String LOGO = "/home/brian/workspace/pdf/src/main/resources/companylogo.png";
+   //private static final String LOGO = "/home/brian/workspace/pdf/src/main/resources/companylogo.png";
+    private static final String LOGO = "./src/main/resources/companylogo.png";
     private static Date mDate;
 
 
