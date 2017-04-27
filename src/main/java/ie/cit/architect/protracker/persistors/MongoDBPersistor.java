@@ -19,7 +19,7 @@ import static com.mongodb.client.model.Filters.eq;
  */
 public class MongoDBPersistor implements IPersistor {
 
-    private MongoCollection collectionUsers, collectionProjects;
+    private MongoCollection collectionUsers, collectionProjects, collectionMessages;
     private MongoDatabase database;
 
     private ArrayList<Project> orderedArrayList;
@@ -32,18 +32,13 @@ public class MongoDBPersistor implements IPersistor {
 
         try {
 
-            //local database
-            MongoClient mongoClientConn = new MongoClient("localhost", 27017);
+            // Comment / Un-comment either of the below Objects for localhost / AWS MongoDB
+
+            // local database
+//            MongoClient mongoClientConn = MongoLocalConnector.databaseConnectionLocal();
 
             // remote database
-//            String mongoURI = "mongodb://" + Credentials.DB_MONGO_USER + ":" + Credentials.DB_MONGO_PASS + "@" +
-//                    Credentials.DB_MONGO_IP +"/" + Credentials.DB_NAME;
-//
-//            MongoClient mongoClientConn = new MongoClient( new MongoClientURI(mongoURI));
-
-
-            if(mongoClientConn != null) System.out.println("Connected to MongoDB!");
-            else System.out.println("Connection to MongoDB Failed!");
+            MongoClient mongoClientConn = MongoRemoteConnector.databaseConnectionRemote();
 
 
             //Get Database
@@ -58,6 +53,10 @@ public class MongoDBPersistor implements IPersistor {
             // create another table
             collectionProjects = database.getCollection("projects");
 
+            // create another table
+            collectionMessages = database.getCollection("messages");
+
+
 
         } catch (MongoException e) {
             e.printStackTrace();
@@ -65,13 +64,45 @@ public class MongoDBPersistor implements IPersistor {
     }
 
 
-    // for JUnit tests
-    public User getDbUser(User user) {
-        return user;
+
+    @Override
+    public void writeMessages(ChatMessage chatMessages) {
+        Document document = new Document();
+        try {
+
+            document.put("message", chatMessages.getMessage());
+
+            collectionMessages.insertOne(document);
+
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
     }
 
-    public Project getDbProject(Project project) {
-        return project;
+
+    @Override
+    public ChatMessage readMessage() {
+
+        ChatMessage chatMessage = null;
+        FindIterable<Document> databaseRecords = database.getCollection("messages").find();
+        MongoCursor<Document> cursor = databaseRecords.iterator();
+
+        try{
+
+            while (cursor.hasNext()) {
+                Document document = cursor.next();
+
+                String mMessage = document.getString("message");
+
+                chatMessage = new ChatMessage(mMessage);
+            }
+
+        } finally {
+            cursor.close();
+        }
+
+        return chatMessage;
+
     }
 
 
@@ -84,7 +115,6 @@ public class MongoDBPersistor implements IPersistor {
                 document.put("password", currUser.getPassword());
             }
 
-//            runLater(() -> collectionUsers.insertOne(document));
             collectionUsers.insertOne(document);
 
         } catch (MongoException e) {
@@ -140,6 +170,8 @@ public class MongoDBPersistor implements IPersistor {
 
         return project;
     }
+
+
 
 
     @Override
@@ -243,6 +275,16 @@ public class MongoDBPersistor implements IPersistor {
         });
 
 
+    }
+
+
+    // for JUnit tests
+    public User getDbUser(User user) {
+        return user;
+    }
+
+    public Project getDbProject(Project project) {
+        return project;
     }
 
 }

@@ -31,7 +31,7 @@ public class Mediator extends Application {
     private Stage primaryStage;
 
 
-    private static final int COUNT_LIMIT = 250000;
+    private static final int COUNT_LIMIT = 25000;
     private static int stepCount = 1;
 
 

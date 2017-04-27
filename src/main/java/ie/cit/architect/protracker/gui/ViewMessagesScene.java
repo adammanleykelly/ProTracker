@@ -1,7 +1,9 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
+import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.model.ChatMessage;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,8 +31,6 @@ public class ViewMessagesScene {
     public void start(Stage stage) {
 
         BorderPane borderPane = new BorderPane();
-        borderPane.setLeft(createLeftPane());
-        borderPane.setCenter(createMiddlePane());
         borderPane.setRight(createRightPane());
         borderPane.setBottom(createBottomPane());
 
@@ -45,70 +45,40 @@ public class ViewMessagesScene {
 
 
 
-    public VBox createLeftPane() {
-        VBox vBoxLeftPane = new VBox();
-        vBoxLeftPane.setMinWidth(Consts.PANE_WIDTH);
-
-        Label label = new Label("Employee: Georgia");
-
-        TextArea textArea = new TextArea();
-        textArea.setMaxWidth(200);
-        textArea.setPrefHeight(200);
-        textArea.setWrapText(true);
-        textArea.setText("@Joe - Hello Joe, how can I help");
-        textArea.appendText("you today?");
-
-        VBox.setMargin(label, new Insets(30,0,0,40));
-        VBox.setMargin(textArea, new Insets(0,0,0,40));
-
-        vBoxLeftPane.getChildren().addAll(label, textArea);
-
-        return vBoxLeftPane;
-    }
-
-
-    private VBox createMiddlePane() {
-        VBox vBox = new VBox();
-        vBox.setMinWidth(Consts.PANE_WIDTH);
-
-        Label label = new Label("Client: Joe");
-
-        TextArea textArea = new TextArea();
-        textArea.setMaxWidth(200);
-        textArea.setPrefHeight(200);
-        textArea.setWrapText(true);
-        textArea.setText("@Georgia - Hi Georgia, I'm looking");
-        textArea.appendText("to make an appointm to discuss ");
-        textArea.appendText("the next stage of the project.");
-
-
-        VBox.setMargin(label, new Insets(30,0,0,40));
-        VBox.setMargin(textArea, new Insets(0,0,0,40));
-
-
-        vBox.getChildren().addAll(label, textArea);
-
-        return vBox;
-    }
-
-
     private VBox createRightPane() {
         VBox vBox = new VBox();
         vBox.setMinWidth(Consts.PANE_WIDTH);
 
-        Label label = new Label("Compose Message:");
+        Label label = new Label("Compose ChatMessage:");
 
         TextArea textArea = new TextArea();
         textArea.setMaxWidth(200);
         textArea.setPrefHeight(200);
         textArea.setWrapText(true);
-        textArea.setText("@Joe - Let me have a quick look to see");
-        textArea.appendText("what days we have available.");
+
+        Button sendButton = new Button("Send");
+
+
+        sendButton.setOnAction(event -> {
+
+            String input = textArea.getText();
+
+            // create ChatMessage object with TextArea input as its message
+            ChatMessage message = new ChatMessage(input);
+
+            // save the message in MongoDB
+            DBController.getInstance().saveMessage(message);
+
+        });
+
+
 
         VBox.setMargin(label, new Insets(30,0,0,40));
         VBox.setMargin(textArea, new Insets(0,0,0,40));
+        VBox.setMargin(sendButton, new Insets(0,0,0,40));
 
-        vBox.getChildren().addAll(label, textArea);
+
+        vBox.getChildren().addAll(label, textArea, sendButton);
 
         return vBox;
     }

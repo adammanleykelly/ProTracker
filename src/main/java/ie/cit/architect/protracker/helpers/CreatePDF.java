@@ -1,4 +1,4 @@
-package Utility;
+package ie.cit.architect.protracker.helpers;
 
 import com.itextpdf.io.font.FontConstants;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -14,12 +14,9 @@ import com.itextpdf.layout.property.TextAlignment;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by brian on 15/04/17.
@@ -72,7 +69,7 @@ public class CreatePDF {
         double archFees = 50000.0;
         double vatCharged = 11500.0;
         double totalCharged = 61500.0;
-        String date = getFormattedDate();
+        String date = FormatDate.formatDate(mDate);
         String fees = "€"+String.valueOf(archFees);
         String vat = "€"+String.valueOf(vatCharged);
         String total = "€"+String.valueOf(totalCharged);
@@ -103,27 +100,6 @@ public class CreatePDF {
         document.close();
     }
 
-    public static String getFormattedDate() {
 
-        String inputPattern = "E MMM dd HH:mm:ss z yyyy";
-        String outputPattern = "dd/MM/yyyy";
-        String dateFormatted = "";
-        Date currentDate;
-        try {
-
-            String d = String.valueOf(mDate);
-            SimpleDateFormat sdf = new SimpleDateFormat(inputPattern, Locale.ENGLISH);
-            currentDate = sdf.parse(d);
-
-            SimpleDateFormat sdf2 = new SimpleDateFormat(outputPattern);
-            dateFormatted = sdf2.format(currentDate);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return dateFormatted;
-
-    }
 
 }

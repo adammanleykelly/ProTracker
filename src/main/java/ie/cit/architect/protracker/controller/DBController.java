@@ -20,12 +20,14 @@ public class DBController {
     private UserList userList;
     private ProjectList projectList;
     private Project project;
+    private ChatMessage chatMessage;
 
 
     private DBController() {
         this.userList = new UserList();
         this.projectList = new ProjectList();
         this.project = new Project();
+        this.chatMessage = new ChatMessage();
     }
 
 
@@ -88,6 +90,15 @@ public class DBController {
         }
 
         return this.persistor.updateProject(currentProjectName,  upDatedProjectName);
+    }
+
+    public void saveMessage(ChatMessage chatMessage) {
+        this.persistor.writeMessages(chatMessage);
+    }
+
+    public ChatMessage readMessage() {
+        ChatMessage chatM = this.persistor.readMessage();
+        return chatM;
     }
 
 }
