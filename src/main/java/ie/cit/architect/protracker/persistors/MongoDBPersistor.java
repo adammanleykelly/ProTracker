@@ -35,10 +35,10 @@ public class MongoDBPersistor implements IPersistor {
             // Comment / Un-comment either of the below Objects for localhost / AWS MongoDB
 
             // local database
-//            MongoClient mongoClientConn = MongoLocalConnector.databaseConnectionLocal();
+            MongoClient mongoClientConn = MongoLocalConnector.databaseConnectionLocal();
 
             // remote database
-            MongoClient mongoClientConn = MongoRemoteConnector.databaseConnectionRemote();
+//            MongoClient mongoClientConn = MongoRemoteConnector.databaseConnectionRemote();
 
 
             //Get Database

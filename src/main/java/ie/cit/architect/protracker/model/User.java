@@ -27,15 +27,6 @@ public class User implements IUser{
 
     }
 
-    @Override
-    public void setProject(IProject project) {
-        this.project = project;
-    }
-
-    @Override
-    public IProject getProject() {
-        return project;
-    }
 
     @Override
     public String getName() {
