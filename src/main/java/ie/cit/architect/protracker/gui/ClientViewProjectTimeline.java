@@ -2,19 +2,9 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.helpers.Consts;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -23,6 +13,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import java.util.List;
+import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -60,7 +59,9 @@ public class ClientViewProjectTimeline
     {
         Label pTimeline = new Label("View Project Timeline");
 
-        VBox vb = new VBox(pTimeline);
+        Group rootGroup = new Group();
+        VBox vb = new VBox(rootGroup);
+        applyAnimation(rootGroup);
         vb.setSpacing(15);
         vb.setPadding(new Insets(1));
         vb.setAlignment(Pos.CENTER);
@@ -71,9 +72,74 @@ public class ClientViewProjectTimeline
         return pane;
     }
 
+    //Adjustable path for shape per point on timeline
+    private Path generateStraightPath()
+    {
+        final Path path = new Path();
+        path.getElements().add(new MoveTo(20,200));
+        path.getElements().add(new LineTo(600,200));
+        path.setOpacity(1.0);
+        return path;
+    }
+
+    //Underlying Straight Path
+    private Path generateStraightPath2()
+    {
+        final Path path = new Path();
+        path.getElements().add(new MoveTo(20,200));
+        path.getElements().add(new LineTo(700,200));
+        path.setOpacity(1.0);
+        return path;
+    }
+
+    private PathTransition generatePathTransition(final Shape shape, final Path path)
+    {
+        final PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.seconds(4.0));
+        pathTransition.setDelay(Duration.seconds(0.5));
+        pathTransition.setPath(path);
+        pathTransition.setNode(shape);
+        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.setCycleCount(1);
+        pathTransition.setAutoReverse(true);
+        return pathTransition;
+    }
+
+    private double determinePathOpacity()
+    {
+        double pathOpacity = 1.0;
+        return pathOpacity;
+    }
+
+    private void applyAnimation(final Group group)
+    {
+        final Circle circle = new Circle(20, 200, 15);
+        circle.setFill(Color.BLUE);
+        final Path path = generateStraightPath();
+        final Path path2 = generateStraightPath2();
+        group.getChildren().add(path);
+        group.getChildren().add(path2);
+        group.getChildren().add(circle);
+        //a
+        group.getChildren().add(new Circle(20, 200, 5));
+        //b
+        group.getChildren().add(new Circle(200, 200, 5));
+        //c
+        group.getChildren().add(new Circle(400, 200, 5));
+        //d
+        group.getChildren().add(new Circle(500, 200, 5));
+        //e
+        group.getChildren().add(new Circle(600, 200, 5));
+        //f
+        group.getChildren().add(new Circle(700, 200, 5));
+        final PathTransition transition = generatePathTransition(circle, path);
+        transition.play();
+    }
+
     public HBox homeButtonContainer()
     {
         Button buttonHome = new Button("Home");
+
         Image logo = new Image(this.getClass().getResource("/Protracker_big.png").toString());
         ImageView iview1 = new ImageView(logo);
         iview1.setFitWidth(236.25);
