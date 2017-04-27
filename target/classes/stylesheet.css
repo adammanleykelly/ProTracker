@@ -10,7 +10,7 @@
     -fx-background-position: center center;
     -fx-font-size: 14px;
 
-}
+}*/
 .button{
     -fx-background-color:
             #090a0c,
@@ -33,7 +33,7 @@
 {
     -fx-background-color: #090a0c, linear-gradient( #191d22 100%, #1f2429 20%,#38424b 0%),linear-gradient(#191d22, #20262b),
     radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
-}*/
+}
 
 .label_title {
     -fx-font-family: "Arial Black";

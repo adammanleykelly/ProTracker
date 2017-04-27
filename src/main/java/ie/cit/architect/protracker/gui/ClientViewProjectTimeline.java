@@ -54,7 +54,6 @@ public class ClientViewProjectTimeline
         stage.show();
     }
 
-
     private Pane createProjectTimeline()
     {
         Label pTimeline = new Label("View Project Timeline");
@@ -105,32 +104,51 @@ public class ClientViewProjectTimeline
         return pathTransition;
     }
 
-    private double determinePathOpacity()
-    {
-        double pathOpacity = 1.0;
-        return pathOpacity;
-    }
-
     private void applyAnimation(final Group group)
     {
-        final Circle circle = new Circle(20, 200, 15);
+        final Circle circle = new Circle(20, 200, 10);
         circle.setFill(Color.BLUE);
         final Path path = generateStraightPath();
         final Path path2 = generateStraightPath2();
         group.getChildren().add(path);
         group.getChildren().add(path2);
         group.getChildren().add(circle);
+
         //a
+        Label a1 = new Label("Project Begins");
+        a1.setTranslateY(170);
+        a1.setTranslateX(-10);
+        group.getChildren().add(a1);
         group.getChildren().add(new Circle(20, 200, 5));
         //b
+        Label a2 = new Label("Design");
+        a2.setTranslateY(170);
+        a2.setTranslateX(180);
+        group.getChildren().add(a2);
         group.getChildren().add(new Circle(200, 200, 5));
         //c
+        Label a3 = new Label("Planning");
+        a3.setTranslateY(170);
+        a3.setTranslateX(380);
+        group.getChildren().add(a3);
         group.getChildren().add(new Circle(400, 200, 5));
         //d
+        Label a4 = new Label("Tender");
+        a4.setTranslateY(170);
+        a4.setTranslateX(480);
+        group.getChildren().add(a4);
         group.getChildren().add(new Circle(500, 200, 5));
         //e
+        Label a5 = new Label("Construction");
+        a5.setTranslateY(170);
+        a5.setTranslateX(570);
+        group.getChildren().add(a5);
         group.getChildren().add(new Circle(600, 200, 5));
         //f
+        Label a6 = new Label("Completion");
+        a6.setTranslateY(170);
+        a6.setTranslateX(670);
+        group.getChildren().add(a6);
         group.getChildren().add(new Circle(700, 200, 5));
         final PathTransition transition = generatePathTransition(circle, path);
         transition.play();
