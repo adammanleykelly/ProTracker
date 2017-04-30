@@ -10,4 +10,8 @@ public interface IUser {
     String getEmailAddress();
 
     String getPassword();
+
+    boolean isEmployeeEmail(String email);
+
+    boolean isEmployeePassword(String password);
 }

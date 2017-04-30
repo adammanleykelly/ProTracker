@@ -55,8 +55,24 @@ public class User implements IUser{
     }
 
 
-    boolean isEmailValid(String eMail) {
+    @Override
+    public boolean isEmployeeEmail(String email) {
+        if(emailAddress.equals(Consts.MANAGER_EMAIL) || emailAddress.equals(Consts.EMPLOYEE_EMAIL)) {
+            return true;
+        }
+        return false;
+    }
 
+    @Override
+    public boolean isEmployeePassword(String password) {
+        if (password.equals(Consts.EMPLOYEE_PASS)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean isEmailValid(String eMail) {
         if(eMail != null) {
             Pattern pattern = Pattern.compile(Consts.VALID_EMAIL_REGEX);
             Matcher matcher = pattern.matcher(eMail);
@@ -66,7 +82,7 @@ public class User implements IUser{
     }
 
 
-    boolean isNameValid() {
+    public boolean isNameValid() {
         if (getName().matches(Consts.VALID_NAME)) {
             return true;
         }
