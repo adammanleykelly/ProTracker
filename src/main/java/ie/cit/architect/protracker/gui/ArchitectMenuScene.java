@@ -84,8 +84,6 @@ public class ArchitectMenuScene {
                     try {
 
                         CreatePDF.createPdf();
-
-                        CreatePDF.createPdf();
                         MessageBox.show("Invoice Saved to Desktop", "Saved");
 
                     } catch (IOException e) {

@@ -84,12 +84,11 @@ public class Project implements IProject{
         return author;
     }
 
-    @Override
+
     public void setAuthor(String author) {
         this.author = author;
     }
 
-    @Override
     public void setLocation(String location) {
         this.location = location;
     }
@@ -99,14 +98,16 @@ public class Project implements IProject{
         return clientName;
     }
 
-    @Override
+
     public void setClientName(String clientName) {
         this.clientName = clientName;
     }
 
+
     public int getProjectId() {
         return projectId;
     }
+
 
     public void setProjectId(int projectId) {
         this.projectId = projectId;

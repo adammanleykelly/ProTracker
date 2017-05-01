@@ -13,5 +13,8 @@ public final class Consts {
 
     // ref: http://howtodoinjava.com/regex/java-regex-validate-email-address/
     public static final String VALID_EMAIL_REGEX = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+    public static final String MANAGER_EMAIL = "coveneyarch@eircom.net";
+    public static final String EMPLOYEE_EMAIL = "coveneygeorgia@hotmail.com";
+
 
 }

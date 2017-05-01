@@ -5,16 +5,6 @@ package ie.cit.architect.protracker.model;
  */
 public interface IUser {
 
-    // project
-
-    void setProject(IProject project);
-
-    IProject getProject();
-
-
-
-    // user
-
     String getName();
 
     String getEmailAddress();

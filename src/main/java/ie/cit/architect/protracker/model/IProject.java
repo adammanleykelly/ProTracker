@@ -9,8 +9,6 @@ public interface IProject {
 
    String getLocation();
 
-   void setLocation(String location);
-
    String getName();
 
    void setName(String name);
@@ -21,15 +19,10 @@ public interface IProject {
 
    String getAuthor();
 
-   void setAuthor(String author);
-
    String getClientName();
-
-   void setClientName(String clientName);
 
    int getProjectId();
 
-   void setProjectId(int projectId);
 
 
 

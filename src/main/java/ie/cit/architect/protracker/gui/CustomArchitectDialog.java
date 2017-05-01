@@ -3,6 +3,7 @@ package ie.cit.architect.protracker.gui;
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.Controller;
 import ie.cit.architect.protracker.controller.DBController;
+import ie.cit.architect.protracker.helpers.Consts;
 import ie.cit.architect.protracker.model.IUser;
 import ie.cit.architect.protracker.model.User;
 import javafx.application.Platform;
@@ -28,6 +29,10 @@ public class CustomArchitectDialog
     private Dialog<Pair<String, String>> dialog;
     private String userEmail;
     private String userPass;
+    private String passwordTextField;
+    private String emailTextField;
+    private String editDialogInput;
+
 
 
     public CustomArchitectDialog(Mediator mediator) {
@@ -82,8 +87,7 @@ public class CustomArchitectDialog
         gridPane.getColumnConstraints().addAll(col1, col2);
 
 
-        Button button = (Button) dialog.getDialogPane().lookupButton(loginButtonType);
-        button.setOnAction(event -> mediator.changeToArchitectMenuScene());
+
 
         // Enable/Disable login button depending on whether a username was entered.
         Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
@@ -91,14 +95,14 @@ public class CustomArchitectDialog
 
 
         //TODO : change to true and uncomment code after testing
-        loginButton.setDisable(false);
-        // disable the Login button and set prompt, if user enters incorrect email address
-        //Off for testing
+//        loginButton.setDisable(false);
+//        // disable the Login button and set prompt, if user enters incorrect emailTextField address
+//        //Off for testing
 //        textFieldEmail.textProperty().addListener((observable, oldValue, newValue) -> {
 //
 //            if (!(newValue.trim().matches(Consts.VALID_EMAIL_REGEX))) {
 //                loginButton.setDisable(true);
-//                labelCheckEmail.setText("enter a valid email"); // display error message
+//                labelCheckEmail.setText("enter a valid emailTextField"); // display error message
 //                labelCheckEmail.setTextFill(Color.RED);
 //            } else {
 //                loginButton.setDisable(false);
@@ -122,10 +126,17 @@ public class CustomArchitectDialog
 
             if (dialogButton == loginButtonType) {
 
-                mediator.changeToArchitectMenuScene();
+                passwordTextField = password.getText();
+                emailTextField = textFieldEmail.getText();
 
-                return new Pair<>(textFieldEmail.getText(), password.getText());
+                Button buttonLogin = (Button) dialog.getDialogPane().lookupButton(loginButtonType);
+                buttonLogin.setOnAction(event -> validateEmployeeEmail());
+
+
+                return new Pair<>(emailTextField, passwordTextField);
             }
+
+
 
             return null;
         });
@@ -137,10 +148,37 @@ public class CustomArchitectDialog
             userPass = emailPassword.getValue();
         });
 
+
+
+
         Platform.runLater(() -> addUserToDB());
 
         return dialog;
 
+    }
+
+    // if email matches an employees email - open Architect Menu Scene
+    // else display error message and return to Home Scene
+    private void validateEmployeeEmail() {
+        if(emailTextField.equals(Consts.MANAGER_EMAIL) || emailTextField.equals(Consts.EMPLOYEE_EMAIL)) {
+            mediator.changeToArchitectMenuScene();
+        } else {
+            Platform.runLater(() -> {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Email Address Not Recognised!");
+                alert.setHeaderText(null);
+                alert.setContentText("Please sign in with your employee email, or as a client. thank you");
+                alert.showAndWait();
+
+                try {
+                    mediator.changeToHomeScene();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            });
+        }
     }
 
     public void addUserToDB() {
