@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 /**
  * Created by brian on 06/02/17.
  */
-public class User implements IUser{
+public class User{
 
     private String name;
     private String password;
@@ -28,7 +28,6 @@ public class User implements IUser{
     }
 
 
-    @Override
     public String getName() {
         return name;
     }
@@ -45,7 +44,6 @@ public class User implements IUser{
         this.password = password;
     }
 
-    @Override
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -55,21 +53,6 @@ public class User implements IUser{
     }
 
 
-    @Override
-    public boolean isEmployeeEmail(String email) {
-        if(emailAddress.equals(Consts.MANAGER_EMAIL) || emailAddress.equals(Consts.EMPLOYEE_EMAIL)) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isEmployeePassword(String password) {
-        if (password.equals(Consts.EMPLOYEE_PASS)) {
-            return true;
-        }
-        return false;
-    }
 
 
     public boolean isEmailValid(String eMail) {

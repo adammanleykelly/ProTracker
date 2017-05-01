@@ -3,7 +3,7 @@
 //import ie.cit.architect.protracker.model.Project;
 //import ie.cit.architect.protracker.model.ProjectList;
 //import ie.cit.architect.protracker.model.User;
-//import ie.cit.architect.protracker.model.UserList;
+//import ie.cit.architect.protracker.model.EmployeeList;
 //
 //import java.sql.*;
 //import java.util.ArrayList;
@@ -61,7 +61,7 @@
 //
 //
 //    @Override
-//    public void writeUsers(UserList users) {
+//    public void writeEmployeeUsers(EmployeeList users) {
 //        try {
 //            for (User currUser : users.getUsers()) {
 //                PreparedStatement preparedStatement =

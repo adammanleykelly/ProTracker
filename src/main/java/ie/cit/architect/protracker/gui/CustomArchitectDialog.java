@@ -3,8 +3,8 @@ package ie.cit.architect.protracker.gui;
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.Controller;
 import ie.cit.architect.protracker.controller.DBController;
-import ie.cit.architect.protracker.model.IUser;
-import ie.cit.architect.protracker.model.User;
+import ie.cit.architect.protracker.model.Employee;
+import ie.cit.architect.protracker.model.IEmployee;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -30,7 +30,7 @@ public class CustomArchitectDialog
     private String userPass;
     private String passwordTextField;
     private String emailTextField;
-    private String editDialogInput;
+
 
 
 
@@ -161,12 +161,12 @@ public class CustomArchitectDialog
 
         Platform.runLater(() -> {
 
-            IUser user = new User(emailTextField, passwordTextField);
+            IEmployee employeeUser = new Employee(emailTextField, passwordTextField);
 
-            if (!user.isEmployeeEmail(user.getEmailAddress())) {
+            if (!employeeUser.isEmployeeEmail(employeeUser.getEmailAddress())) {
                 createEmailErrorDialog();
                 mediator.changeToArchitectCustomDialog();
-            } else if (!user.isEmployeePassword(user.getPassword())) {
+            } else if (!employeeUser.isEmployeePassword(employeeUser.getPassword())) {
                 createPasswordErrorDialog();
                 mediator.changeToArchitectCustomDialog();
             } else {
@@ -200,13 +200,13 @@ public class CustomArchitectDialog
 
     public void addUserToDB() {
 
-        IUser user = Controller.getInstance().createUser(userEmail, userPass);
+        IEmployee employeeUser = Controller.getInstance().createEmployeeUser(userEmail, userPass);
 
-        if (user != null) {
-            DBController.getInstance().addUser((User) user);
+        if (employeeUser != null) {
+            DBController.getInstance().addUser((Employee) employeeUser);
         }
 
-        DBController.getInstance().saveUser();
+        DBController.getInstance().saveEmployeeUser();
 
     }
 }

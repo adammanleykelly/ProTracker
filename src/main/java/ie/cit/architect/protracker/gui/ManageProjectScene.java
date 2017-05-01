@@ -180,7 +180,7 @@ public class ManageProjectScene {
 
 
 
-    private String getProjectName() {
+    private Project getProjectName() {
         for(CheckBox checkBox : checkBoxList) {
             checkBox.setOnAction(event -> {
                 buttonRename.setDisable(false);
@@ -189,7 +189,10 @@ public class ManageProjectScene {
 
             removeControlsFromScrollPane();
         }
-        return projectName;
+        Project project = new Project();
+        project.setName(projectName);
+
+        return project;
     }
 
 

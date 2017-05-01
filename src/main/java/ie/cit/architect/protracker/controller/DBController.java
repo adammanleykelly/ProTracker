@@ -17,14 +17,16 @@ public class DBController {
     private static DBController instance;
     private PersistenceMode persistenceMode;
     private IPersistor persistor;
-    private UserList userList;
+    private EmployeeList employeeList;
+    private ClientList clientList;
     private ProjectList projectList;
     private Project project;
     private ChatMessage chatMessage;
 
 
     private DBController() {
-        this.userList = new UserList();
+        this.employeeList = new EmployeeList();
+        this.clientList = new ClientList();
         this.projectList = new ProjectList();
         this.project = new Project();
         this.chatMessage = new ChatMessage();
@@ -51,14 +53,23 @@ public class DBController {
         this.persistor = persistor;
     }
 
-    // user
-    public User addUser(User user) {
-        this.userList.add(user);
+
+    public Employee addUser(Employee user) {
+        this.employeeList.add(user);
         return user;
     }
 
-    public void saveUser() {
-        this.persistor.writeUsers(this.userList);
+    public Client addUser(Client user) {
+        this.clientList.add(user);
+        return user;
+    }
+
+    public void saveEmployeeUser() {
+        this.persistor.writeEmployeeUsers(this.employeeList);
+    }
+
+    public void saveClientUser() {
+        this.persistor.writeClientUsers(this.clientList);
     }
 
     // projects
@@ -76,7 +87,7 @@ public class DBController {
     }
 
 
-    public void deleteProject(String project) {
+    public void deleteProject(Project project) {
         this.persistor.deleteProject(project);
     }
 
