@@ -1,7 +1,9 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
-import ie.cit.architect.protracker.model.User;
+import ie.cit.architect.protracker.controller.Controller;
+import ie.cit.architect.protracker.controller.DBController;
+import ie.cit.architect.protracker.model.*;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -19,6 +21,11 @@ import java.util.Optional;
 public class CustomClientDialog
 {
     private Mediator mediator;
+    private Dialog<Pair<String, String>> dialog;
+    private String userEmail;
+    private String userPass;
+    private String passwordTextField;
+    private String emailTextField;
 
 
     public CustomClientDialog(Mediator mediator) {
@@ -30,7 +37,7 @@ public class CustomClientDialog
     public Dialog<Pair<String, String>> signInClientDialog() {
 
         // Create the custom dialog.
-        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog = new Dialog<>();
         dialog.setTitle("Login Client");
         dialog.setHeaderText("Please Sign In");
 
@@ -104,34 +111,92 @@ public class CustomClientDialog
 
         // Convert the result to a username-password-pair when the login button is clicked.
         dialog.setResultConverter(dialogButton -> {
+
+
             if (dialogButton == loginButtonType) {
-                return new Pair<>(textFieldEmail.getText(), password.getText());
+
+                passwordTextField = password.getText();
+                emailTextField = textFieldEmail.getText();
+
+                Button buttonLogin = (Button) dialog.getDialogPane().lookupButton(loginButtonType);
+                buttonLogin.setOnAction(event -> validateClientCredentials());
+
+
+                return new Pair<>(emailTextField, passwordTextField);
             }
+
+
+
             return null;
         });
 
-
         Optional<Pair<String, String>> result = dialog.showAndWait();
 
-        result.ifPresent(emailPass -> {
-
-            String userEmail = emailPass.getKey();
-            String userPass = emailPass.getValue();
-
-            User user = new User(userEmail, userPass);
-
-
-            mediator.changeToClientMenuScene();
-
-
-
-            if (user != null)
-                System.out.println(user.toString());
-
+        result.ifPresent(emailPassword -> {
+            userEmail = emailPassword.getKey();
+            userPass = emailPassword.getValue();
         });
+
+
+
+
 
         return dialog;
 
     }
 
+    // If email and password do not match employee credentials - display error message, then the sign in dialog again.
+    // Otherwise open the Architect Menu Scene
+    private void validateClientCredentials() {
+
+        Platform.runLater(() -> {
+
+            IClient user = new Client(emailTextField, passwordTextField);
+
+            if (!user.isClientEmail(user.getEmailAddress())) {
+                createEmailErrorDialog();
+                mediator.changeToClientCustomDialog();
+            } else if (!user.isClientPassword(user.getPassword())) {
+                createPasswordErrorDialog();
+                mediator.changeToClientCustomDialog();
+            } else {
+                Platform.runLater(() -> addUserToDB());
+                mediator.changeToClientMenuScene();
+            }
+        });
+
+    }
+
+
+    private Dialog createEmailErrorDialog() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Email Address Not Recognised!");
+        alert.setHeaderText(null);
+        alert.setContentText("Please check your email!");
+        alert.showAndWait();
+        return alert;
+    }
+
+
+    private Dialog createPasswordErrorDialog() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Password Not Recognised!");
+        alert.setHeaderText(null);
+        alert.setContentText("Please check your password!");
+        alert.showAndWait();
+        return alert;
+    }
+
+
+    public void addUserToDB() {
+
+        IClient clientUser = Controller.getInstance().createClientUser(userEmail, userPass);
+
+        if (clientUser != null) {
+            DBController.getInstance().addUser((Client) clientUser);
+        }
+
+        DBController.getInstance().saveClientUser();
+
+    }
 }

@@ -7,10 +7,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import ie.cit.architect.protracker.model.IUser;
-import ie.cit.architect.protracker.model.Project;
-import ie.cit.architect.protracker.model.User;
-import ie.cit.architect.protracker.model.UserList;
+import ie.cit.architect.protracker.model.*;
 import org.bson.Document;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +28,7 @@ import static org.hamcrest.core.IsNot.not;
  */
 public class MongoDBPersistorTest {
 
-    private MongoCollection collectionUsers, collectionProjects;
+    private MongoCollection collectionEmployees, collectionClientsTest, collectionProjects;
     private MongoDatabase database;
 
     private static String DB_MONGO_PASS = "topdog12";
@@ -61,7 +58,9 @@ public class MongoDBPersistorTest {
 
             database = mongoClientConn.getDatabase(DB_NAME);
 
-            collectionUsers = database.getCollection("users");
+            collectionEmployees = database.getCollection("employees");
+
+            collectionClientsTest = database.getCollection("clients");
 
             collectionProjects = database.getCollection("projects");
 
@@ -76,18 +75,18 @@ public class MongoDBPersistorTest {
     public void writeOneUser() throws Exception {
 
         // Given
-        IUser user1 = new User("pete@email.com", "passwd");
+        IEmployee employee = new Employee("pete@email.com", "passwd");
         Document document = new Document();
-        document.put("email", user1.getEmailAddress());
-        document.put("password", user1.getPassword());
+        document.put("email", employee.getEmailAddress());
+        document.put("password", employee.getPassword());
 
         // When
-        collectionUsers.insertOne(document);
+        collectionEmployees.insertOne(document);
 
         // Then
-        assertThat(collectionUsers.count(), is(1L));
+        assertThat(collectionEmployees.count(), is(1L));
 
-        collectionUsers.deleteOne(eq("email", "pete@email.com"));
+        collectionEmployees.deleteOne(eq("email", "pete@email.com"));
 
 
     }
@@ -97,37 +96,36 @@ public class MongoDBPersistorTest {
     public void writeManyUsers() throws Exception {
 
         // Given
-        User user1 = new User("frank@email.com", "passwd");
+        Employee user1 = new Employee("frank@email.com", "passwd");
         Document document1 = new Document();
         document1.put("_id", 11);
         document1.put("email", user1.getEmailAddress());
         document1.put("password", user1.getPassword());
 
-        User user2 = new User("grace@email.com", "mpass");
+        Employee user2 = new Employee("grace@email.com", "mpass");
         Document document2 = new Document();
         document2.put("_id", 22);
         document2.put("email", user2.getEmailAddress());
         document2.put("password", user2.getPassword());
-
 
         List<Document> docList = new ArrayList<>();
         docList.add(document1);
         docList.add(document2);
 
         // When
-        collectionUsers.insertMany(docList);
+        collectionEmployees.insertMany(docList);
 
         // Then
-        assertThat(collectionUsers.count(), is(2L));
+        assertThat(collectionEmployees.count(), is(2L));
 
 
         // Given
-        UserList userList = new UserList();
-        userList.add(user1);
-        userList.add(user2);
+        EmployeeList employeeList = new EmployeeList();
+        employeeList.add(user1);
+        employeeList.add(user2);
 
         // When
-        mongoDBPersistor.writeUsers(userList);
+        mongoDBPersistor.writeEmployeeUsers(employeeList);
 
         mUser = mongoDBPersistor.getDbUser(user1);
 
@@ -138,9 +136,74 @@ public class MongoDBPersistorTest {
 
 
         // clean up
-        collectionUsers.deleteOne(eq("email", "frank@email.com"));
-        collectionUsers.deleteOne(eq("email", "grace@email.com"));
+        collectionEmployees.deleteOne(eq("email", "frank@email.com"));
+        collectionEmployees.deleteOne(eq("email", "grace@email.com"));
 
+    }
+
+
+    @Test
+    public void writeClientUser(){
+
+        Client client1 = new Client("ben@email.com", "passwd");
+        ClientList clientList = new ClientList();
+        clientList.add(client1);
+
+
+        // This is the same as MongoDBPersistor#writeClientUsers(ClientList clientUsers)
+        // If we called the method from MongoDBPersistor, then we would be writing to the production database.
+        // Here we are writing to our test database.
+        Document document = new Document();
+        try {
+            for (IClient currClientUser : clientList.getClients()) {
+                document.put("email", currClientUser.getEmailAddress());
+                document.put("password", currClientUser.getPassword());
+            }
+
+            collectionClientsTest.insertOne(document);
+
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+
+        // verifies count of Client Collection is 1
+        assertThat(collectionClientsTest.count(), is(1L));
+
+        // clean up
+        collectionClientsTest.deleteOne(eq("email", "ben@email.com"));
+
+    }
+
+
+    @Test
+    public void writeEmployeeUser(){
+
+        Employee employee = new Employee("mary@email.com", "passwd");
+        EmployeeList employeeList = new EmployeeList();
+        employeeList.add(employee);
+
+
+        // This is the same as MongoDBPersistor#writeClientUsers(ClientList clientUsers)
+        // If we called the method from MongoDBPersistor, then we would be writing to the production database.
+        // Here we are writing to our test database.
+        Document document = new Document();
+        try {
+            for (IEmployee currEmployeeUser : employeeList.getEmployeeUsers()) {
+                document.put("email", currEmployeeUser.getEmailAddress());
+                document.put("password", currEmployeeUser.getPassword());
+            }
+
+            collectionEmployees.insertOne(document);
+
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+
+        // verifies count of Client Collection is 1
+        assertThat(collectionEmployees.count(), is(1L));
+
+        // clean up
+        collectionEmployees.deleteOne(eq("email", "mary@email.com"));
 
     }
 

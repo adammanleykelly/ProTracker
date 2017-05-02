@@ -1,9 +1,6 @@
 package ie.cit.architect.protracker.persistors;
 
-import ie.cit.architect.protracker.model.ChatMessage;
-import ie.cit.architect.protracker.model.Project;
-import ie.cit.architect.protracker.model.ProjectList;
-import ie.cit.architect.protracker.model.UserList;
+import ie.cit.architect.protracker.model.*;
 
 import java.util.ArrayList;
 
@@ -12,13 +9,15 @@ import java.util.ArrayList;
  */
 public interface IPersistor {
 
-    void writeUsers(UserList users);
+    void writeEmployeeUsers(EmployeeList users);
+
+    void writeClientUsers(ClientList users);
 
     void writeProjects(ProjectList projects);
 
     ArrayList<Project> getProjectNameList();
 
-    void deleteProject(String projectName);
+    void deleteProject(Project projectName);
 
     Project updateProject(String currentProjectName, String upDatedProjectName);
 

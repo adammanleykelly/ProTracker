@@ -111,7 +111,13 @@ public class Mediator extends Application {
 
     public void changeToClientCustomDialog() { customClientDialog.signInClientDialog(); }
 
-    public void changeToHomeScene() throws Exception { homeMenuScene.start(primaryStage); }
+    public void changeToHomeScene()  {
+        try {
+            homeMenuScene.start(primaryStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void changeToClientTimeline() throws Exception { clientViewProjectTimeline.start(primaryStage); }
 

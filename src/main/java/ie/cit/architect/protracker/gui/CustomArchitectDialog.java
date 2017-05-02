@@ -3,9 +3,8 @@ package ie.cit.architect.protracker.gui;
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.Controller;
 import ie.cit.architect.protracker.controller.DBController;
-import ie.cit.architect.protracker.helpers.Consts;
-import ie.cit.architect.protracker.model.IUser;
-import ie.cit.architect.protracker.model.User;
+import ie.cit.architect.protracker.model.Employee;
+import ie.cit.architect.protracker.model.IEmployee;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -31,7 +30,7 @@ public class CustomArchitectDialog
     private String userPass;
     private String passwordTextField;
     private String emailTextField;
-    private String editDialogInput;
+
 
 
 
@@ -130,7 +129,7 @@ public class CustomArchitectDialog
                 emailTextField = textFieldEmail.getText();
 
                 Button buttonLogin = (Button) dialog.getDialogPane().lookupButton(loginButtonType);
-                buttonLogin.setOnAction(event -> validateEmployeeEmail());
+                buttonLogin.setOnAction(event -> validateEmployeeCredentials());
 
 
                 return new Pair<>(emailTextField, passwordTextField);
@@ -151,45 +150,63 @@ public class CustomArchitectDialog
 
 
 
-        Platform.runLater(() -> addUserToDB());
 
         return dialog;
 
     }
 
-    // if email matches an employees email - open Architect Menu Scene
-    // else display error message and return to Home Scene
-    private void validateEmployeeEmail() {
-        if(emailTextField.equals(Consts.MANAGER_EMAIL) || emailTextField.equals(Consts.EMPLOYEE_EMAIL)) {
-            mediator.changeToArchitectMenuScene();
-        } else {
-            Platform.runLater(() -> {
+    // If email and password do not match employee credentials - display error message, then the sign in dialog again.
+    // Otherwise open the Architect Menu Scene
+    private void validateEmployeeCredentials() {
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Email Address Not Recognised!");
-                alert.setHeaderText(null);
-                alert.setContentText("Please sign in with your employee email, or as a client. thank you");
-                alert.showAndWait();
+        Platform.runLater(() -> {
 
-                try {
-                    mediator.changeToHomeScene();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            IEmployee employeeUser = new Employee(emailTextField, passwordTextField);
 
-            });
-        }
+            if (!employeeUser.isEmployeeEmail(employeeUser.getEmailAddress())) {
+                createEmailErrorDialog();
+                mediator.changeToArchitectCustomDialog();
+            } else if (!employeeUser.isEmployeePassword(employeeUser.getPassword())) {
+                createPasswordErrorDialog();
+                mediator.changeToArchitectCustomDialog();
+            } else {
+                Platform.runLater(() -> addUserToDB());
+                mediator.changeToArchitectMenuScene();
+            }
+        });
+
     }
+
+
+    private Dialog createEmailErrorDialog() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Email Address Not Recognised!");
+        alert.setHeaderText(null);
+        alert.setContentText("Please check your email!");
+        alert.showAndWait();
+        return alert;
+    }
+
+
+    private Dialog createPasswordErrorDialog() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Password Not Recognised!");
+        alert.setHeaderText(null);
+        alert.setContentText("Please check your password!");
+        alert.showAndWait();
+        return alert;
+    }
+
 
     public void addUserToDB() {
 
-        IUser user = Controller.getInstance().createUser(userEmail, userPass);
+        IEmployee employeeUser = Controller.getInstance().createEmployeeUser(userEmail, userPass);
 
-        if (user != null) {
-            DBController.getInstance().addUser((User) user);
+        if (employeeUser != null) {
+            DBController.getInstance().addUser((Employee) employeeUser);
         }
 
-        DBController.getInstance().saveUser();
+        DBController.getInstance().saveEmployeeUser();
 
     }
 }

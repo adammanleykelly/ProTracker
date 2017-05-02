@@ -19,7 +19,7 @@ import static com.mongodb.client.model.Filters.eq;
  */
 public class MongoDBPersistor implements IPersistor {
 
-    private MongoCollection collectionUsers, collectionProjects, collectionMessages;
+    private MongoCollection collectionEmployees, collectionClients, collectionProjects, collectionMessages;
     private MongoDatabase database;
 
     private ArrayList<Project> orderedArrayList;
@@ -48,7 +48,10 @@ public class MongoDBPersistor implements IPersistor {
 
             //Get Collection / Table from 'protracker'
             //if collection doesn't exist, mongoDB will create it for you
-            collectionUsers = database.getCollection("users");
+            collectionEmployees = database.getCollection("employees");
+
+            collectionClients = database.getCollection("clients");
+
 
             // create another table
             collectionProjects = database.getCollection("projects");
@@ -107,15 +110,32 @@ public class MongoDBPersistor implements IPersistor {
 
 
     @Override
-    public void writeUsers(UserList users) {
+    public void writeEmployeeUsers(EmployeeList employeeUsers) {
         Document document = new Document();
         try {
-            for (IUser currUser : users.getUsers()) {
+            for (IEmployee currUser : employeeUsers.getEmployeeUsers()) {
                 document.put("email", currUser.getEmailAddress());
                 document.put("password", currUser.getPassword());
             }
 
-            collectionUsers.insertOne(document);
+            collectionEmployees.insertOne(document);
+
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void writeClientUsers(ClientList clientUsers) {
+        Document document = new Document();
+        try {
+            for (IClient currUser : clientUsers.getClients()) {
+                document.put("email", currUser.getEmailAddress());
+                document.put("password", currUser.getPassword());
+            }
+
+            collectionClients.insertOne(document);
 
         } catch (MongoException e) {
             e.printStackTrace();
@@ -155,8 +175,8 @@ public class MongoDBPersistor implements IPersistor {
 
 
     @Override
-    public void deleteProject(String projectName) {
-        collectionProjects.deleteOne(eq("name", projectName));
+    public void deleteProject(Project projectName) {
+        collectionProjects.deleteOne(eq("name", projectName.getName()));
     }
 
 
