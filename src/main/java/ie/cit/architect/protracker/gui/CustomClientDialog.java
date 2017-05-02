@@ -3,7 +3,8 @@ package ie.cit.architect.protracker.gui;
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.Controller;
 import ie.cit.architect.protracker.controller.DBController;
-import ie.cit.architect.protracker.model.*;
+import ie.cit.architect.protracker.model.ClientUser;
+import ie.cit.architect.protracker.model.IUser;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -38,7 +39,7 @@ public class CustomClientDialog
 
         // Create the custom dialog.
         dialog = new Dialog<>();
-        dialog.setTitle("Login Client");
+        dialog.setTitle("Login ClientUser");
         dialog.setHeaderText("Please Sign In");
 
         // Set the icon (must be included in the project).
@@ -151,15 +152,17 @@ public class CustomClientDialog
 
         Platform.runLater(() -> {
 
-            IClient user = new Client(emailTextField, passwordTextField);
+            IUser user = new ClientUser(emailTextField, passwordTextField);
 
-            if (!user.isClientEmail(user.getEmailAddress())) {
+            if (!user.validateEmailCredentials(user.getEmailAddress())) {
                 createEmailErrorDialog();
                 mediator.changeToClientCustomDialog();
-            } else if (!user.isClientPassword(user.getPassword())) {
+            }
+            else if (!user.validatePasswordCredentials(user.getPassword())) {
                 createPasswordErrorDialog();
                 mediator.changeToClientCustomDialog();
-            } else {
+            }
+            else {
                 Platform.runLater(() -> addUserToDB());
                 mediator.changeToClientMenuScene();
             }
@@ -190,10 +193,10 @@ public class CustomClientDialog
 
     public void addUserToDB() {
 
-        IClient clientUser = Controller.getInstance().createClientUser(userEmail, userPass);
+        IUser clientUser = Controller.getInstance().createClientUser(userEmail, userPass);
 
         if (clientUser != null) {
-            DBController.getInstance().addUser((Client) clientUser);
+            DBController.getInstance().addUser((ClientUser) clientUser);
         }
 
         DBController.getInstance().saveClientUser();

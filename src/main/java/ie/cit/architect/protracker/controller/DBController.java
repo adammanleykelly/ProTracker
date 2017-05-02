@@ -54,12 +54,12 @@ public class DBController {
     }
 
 
-    public Employee addUser(Employee user) {
+    public EmployeeUser addUser(EmployeeUser user) {
         this.employeeList.add(user);
         return user;
     }
 
-    public Client addUser(Client user) {
+    public ClientUser addUser(ClientUser user) {
         this.clientList.add(user);
         return user;
     }
@@ -83,7 +83,7 @@ public class DBController {
 
 
     public ArrayList<Project> selectRecords() {
-        return this.persistor.getProjectNameList();
+        return this.persistor.readProjects();
     }
 
 

@@ -31,13 +31,13 @@ public class Controller {
     }
 
 
-    public IClient createClientUser(String emailAddress, String password) {
-        return new Client(emailAddress, password);
+    public IUser createClientUser(String emailAddress, String password) {
+        return new ClientUser(emailAddress, password);
     }
 
 
-    public IEmployee createEmployeeUser(String emailAddress, String password) {
-        return new Employee(emailAddress, password);
+    public IUser createEmployeeUser(String emailAddress, String password) {
+        return new EmployeeUser(emailAddress, password);
     }
 
 

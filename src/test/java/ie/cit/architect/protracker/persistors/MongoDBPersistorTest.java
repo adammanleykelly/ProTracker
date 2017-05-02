@@ -37,7 +37,7 @@ public class MongoDBPersistorTest {
     private static String DB_NAME = "protrackerdev";
 
     private MongoDBPersistor mongoDBPersistor;
-    private User mUser;
+    private IUser mUser;
 
 
     @Before
@@ -75,7 +75,7 @@ public class MongoDBPersistorTest {
     public void writeOneUser() throws Exception {
 
         // Given
-        IEmployee employee = new Employee("pete@email.com", "passwd");
+        IUser employee = new EmployeeUser("pete@email.com", "passwd");
         Document document = new Document();
         document.put("email", employee.getEmailAddress());
         document.put("password", employee.getPassword());
@@ -96,13 +96,13 @@ public class MongoDBPersistorTest {
     public void writeManyUsers() throws Exception {
 
         // Given
-        Employee user1 = new Employee("frank@email.com", "passwd");
+        EmployeeUser user1 = new EmployeeUser("frank@email.com", "passwd");
         Document document1 = new Document();
         document1.put("_id", 11);
         document1.put("email", user1.getEmailAddress());
         document1.put("password", user1.getPassword());
 
-        Employee user2 = new Employee("grace@email.com", "mpass");
+        EmployeeUser user2 = new EmployeeUser("grace@email.com", "mpass");
         Document document2 = new Document();
         document2.put("_id", 22);
         document2.put("email", user2.getEmailAddress());
@@ -145,9 +145,9 @@ public class MongoDBPersistorTest {
     @Test
     public void writeClientUser(){
 
-        Client client1 = new Client("ben@email.com", "passwd");
+        ClientUser clientUser1 = new ClientUser("ben@email.com", "passwd");
         ClientList clientList = new ClientList();
-        clientList.add(client1);
+        clientList.add(clientUser1);
 
 
         // This is the same as MongoDBPersistor#writeClientUsers(ClientList clientUsers)
@@ -155,7 +155,7 @@ public class MongoDBPersistorTest {
         // Here we are writing to our test database.
         Document document = new Document();
         try {
-            for (IClient currClientUser : clientList.getClients()) {
+            for (IUser currClientUser : clientList.getClientUsers()) {
                 document.put("email", currClientUser.getEmailAddress());
                 document.put("password", currClientUser.getPassword());
             }
@@ -166,7 +166,7 @@ public class MongoDBPersistorTest {
             e.printStackTrace();
         }
 
-        // verifies count of Client Collection is 1
+        // verifies count of ClientUser Collection is 1
         assertThat(collectionClientsTest.count(), is(1L));
 
         // clean up
@@ -178,9 +178,9 @@ public class MongoDBPersistorTest {
     @Test
     public void writeEmployeeUser(){
 
-        Employee employee = new Employee("mary@email.com", "passwd");
+        EmployeeUser employeeUser = new EmployeeUser("mary@email.com", "passwd");
         EmployeeList employeeList = new EmployeeList();
-        employeeList.add(employee);
+        employeeList.add(employeeUser);
 
 
         // This is the same as MongoDBPersistor#writeClientUsers(ClientList clientUsers)
@@ -188,7 +188,7 @@ public class MongoDBPersistorTest {
         // Here we are writing to our test database.
         Document document = new Document();
         try {
-            for (IEmployee currEmployeeUser : employeeList.getEmployeeUsers()) {
+            for (IUser currEmployeeUser : employeeList.getEmployeeUserUsers()) {
                 document.put("email", currEmployeeUser.getEmailAddress());
                 document.put("password", currEmployeeUser.getPassword());
             }
@@ -199,7 +199,7 @@ public class MongoDBPersistorTest {
             e.printStackTrace();
         }
 
-        // verifies count of Client Collection is 1
+        // verifies count of ClientUser Collection is 1
         assertThat(collectionEmployees.count(), is(1L));
 
         // clean up

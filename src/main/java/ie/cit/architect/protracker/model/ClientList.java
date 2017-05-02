@@ -7,20 +7,20 @@ import java.util.ArrayList;
  */
 public class ClientList {
 
-    private ArrayList<Client> clients;
+    private ArrayList<ClientUser> clientUsers;
 
     public ClientList() {
-        this.clients = new ArrayList<>();
+        this.clientUsers = new ArrayList<>();
     }
 
-    public ArrayList<Client> getClients() {
-        return clients;
+    public ArrayList<ClientUser> getClientUsers() {
+        return clientUsers;
     }
 
-    public void setClients(ArrayList<Client> clients) {
-        this.clients = clients;
+    public void setClientUsers(ArrayList<ClientUser> clientUsers) {
+        this.clientUsers = clientUsers;
     }
 
-    public void add(Client client) { this.clients.add(client); }
+    public void add(ClientUser clientUser) { this.clientUsers.add(clientUser); }
 
 }

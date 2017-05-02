@@ -14,13 +14,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class UserTest {
 
 
-    private User user;
+    private EmployeeUser user;
     private String name = "Joe";
     private String email = "joe@aol.ie";
 
     @Before
     public void setUp() throws Exception {
-        user = new User(email, name);
+        IUser user = new EmployeeUser(email, name);
         user.setName("Joe");
     }
 

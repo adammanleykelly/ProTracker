@@ -134,7 +134,7 @@ public class ManageProjectScene {
         VBox vBox = new VBox();
         vBox.getChildren().addAll(hBox, vBoxMiddlePane);
 
-        createCheckboxArray();
+        addProjectsToMiddlePane();
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
@@ -150,19 +150,18 @@ public class ManageProjectScene {
     /**
      * CheckBoxes populated with the project 'name' field from MongoDB
      * @see DBController#selectRecords()
-     * @see MongoDBPersistor#getProjectNameList()
+     * @see MongoDBPersistor#readProjects()
      */
-    private void createCheckboxArray() {
+    private void addProjectsToMiddlePane() {
 
         ArrayList<Project> projectArrayList = DBController.getInstance().selectRecords();
 
         for(Project project : projectArrayList) {
 
             CheckBox checkBox = new CheckBox(project.getName());
+            checkBoxList.add(checkBox);
 
             labelDate = new Label(project.getFormattedDate());
-
-            checkBoxList.add(checkBox);
             labelList.add(labelDate);
 
             hBoxProject = new HBox();
@@ -225,7 +224,7 @@ public class ManageProjectScene {
 
         vBoxMiddlePane.getChildren().clear();
 
-        createCheckboxArray();
+        addProjectsToMiddlePane();
     }
 
 

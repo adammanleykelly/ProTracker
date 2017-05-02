@@ -13,12 +13,19 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,6 +43,7 @@ public class CreateNewProjectScene {
     private static final String FILE_SEP = File.separator;
     private static final String DOUBLE_FILE_SEP = FILE_SEP + FILE_SEP;
     private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + FILE_SEP + "Desktop" + FILE_SEP;
+    private String subDirectory;
 
     private ArrayList<String> directoryArrayList = new ArrayList<>();
     private CheckBox[] checkboxList = new CheckBox[10];
@@ -95,7 +103,7 @@ public class CreateNewProjectScene {
 
         ObservableList<TextField> textFieldList =
                 FXCollections.observableArrayList(tfProjectName, tfProjectAuthor, tfProjectClient, tfProjectLocation);
-        List<String> text = Arrays.asList("Project Name", "Name of Author", "Name of Client", "Project Location");
+        List<String> text = Arrays.asList("Project Name", "Name of Author", "Name of ClientUser", "Project Location");
 
         for (int i = 0; i < textFieldList.size(); i++) {
             textFieldList.get(i).setPromptText(text.get(i));
@@ -107,13 +115,6 @@ public class CreateNewProjectScene {
             VBox.setMargin(textField, new Insets(0, 37.5, 0, 37.5));
         }
 
-//        Button buttonCreate = new Button("Create");
-//        buttonCreate.setOnAction(event -> {
-//            createProject();
-//            createDirectories();
-//        });
-
-//        VBox.setMargin(buttonCreate, new Insets(30,37.5,0,37.5));
 
         // Labels
         Label lbProjectName = new Label("Name of project");
@@ -129,9 +130,15 @@ public class CreateNewProjectScene {
 
         VBox.setMargin(lbProjectName, new Insets(10, 0, 0, 0));
 
+        Button buttonCreate = new Button("Create Project");
+        buttonCreate.setOnAction(event -> {
+                    createProject();
+                    createDirectories();
+        });
+
         // add controls to VBox
         vBox.getChildren().addAll(lbProjectName, tfProjectName, lbProjectAuthor, tfProjectAuthor,
-                lbProjectClient, tfProjectClient, lbProjectLocation, tfProjectLocation);
+                lbProjectClient, tfProjectClient, lbProjectLocation, tfProjectLocation, buttonCreate);
 
         return vBox;
     }
@@ -157,13 +164,13 @@ public class CreateNewProjectScene {
 
     private void createDirectories() {
         try {
-            String projectName = tfProjectName.getText();
+//            String projectName = tfProjectName.getText();
             Path path1 = Paths.get(PATH_TO_DESKTOP + projectName + DOUBLE_FILE_SEP);
             Files.createDirectories(path1);
 
             if (!projectName.isEmpty()) {
                 for (int i = 0; i < directoryArrayList.size(); i++) {
-                    String subDirectory = directoryArrayList.get(i);
+                    subDirectory = directoryArrayList.get(i);
                     Path path2 = Paths.get(PATH_TO_DESKTOP + projectName + DOUBLE_FILE_SEP + subDirectory);
                     Files.createDirectories(path2);
                 }
@@ -205,6 +212,9 @@ public class CreateNewProjectScene {
 
         Label label = new Label("Description:");
 
+        Button buttonOpen = new Button("Open");
+        buttonOpen.setOnAction(event -> openDocument());
+
         TextArea textArea = new TextArea();
         textArea.setPrefWidth(200);
 
@@ -212,7 +222,7 @@ public class CreateNewProjectScene {
         vBox.getStyleClass().add("hbox_right");
         vBox.setMinWidth(Consts.PANE_WIDTH);
         VBox.setMargin(label, new Insets(30, 0, 0, 0));
-        vBox.getChildren().addAll(label, textArea);
+        vBox.getChildren().addAll(buttonOpen, textArea);
 
         return vBox;
     }
@@ -280,6 +290,44 @@ public class CreateNewProjectScene {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+    }
+
+
+    private void openDocument() {
+
+        File file;
+
+        FileChooser fileChooser = new FileChooser();
+
+
+        // open create project directory
+        fileChooser.setInitialDirectory(
+                new java.io.File(PATH_TO_DESKTOP + projectName + DOUBLE_FILE_SEP));
+
+        file = fileChooser.showOpenDialog(null);
+
+        if (file != null) {
+            openFile(file);
+        }
+    }
+
+
+    // solves JavaFX Freezing on Desktop.open(file) Ref: http://stackoverflow.com/a/34429067/5942254
+    private void openFile(File file) {
+
+        if (Desktop.isDesktopSupported()) {
+
+            new Thread(() -> {
+                try {
+                    Desktop.getDesktop().open(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }).start();
+
         }
 
     }

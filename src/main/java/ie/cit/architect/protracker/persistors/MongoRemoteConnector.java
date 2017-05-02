@@ -6,7 +6,8 @@ import com.mongodb.MongoException;
 import ie.cit.architect.protracker.helpers.Credentials;
 
 /**
- * Created by brian on 27/04/17.
+ * Author Brian Coveney
+ * Date:  27/04/17.
  */
 public class MongoRemoteConnector {
 
@@ -16,7 +17,6 @@ public class MongoRemoteConnector {
         MongoClient dbConnection = null;
 
         try {
-
             String mongoURI = "mongodb://" + Credentials.DB_MONGO_USER + ":" + Credentials.DB_MONGO_PASS + "@" +
                     Credentials.DB_MONGO_IP +"/" + Credentials.DB_NAME;
 

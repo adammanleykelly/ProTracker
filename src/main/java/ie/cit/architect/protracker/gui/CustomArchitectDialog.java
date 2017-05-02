@@ -3,11 +3,10 @@ package ie.cit.architect.protracker.gui;
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.Controller;
 import ie.cit.architect.protracker.controller.DBController;
-import ie.cit.architect.protracker.model.Employee;
-import ie.cit.architect.protracker.model.IEmployee;
+import ie.cit.architect.protracker.model.EmployeeUser;
+import ie.cit.architect.protracker.model.IUser;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -87,29 +86,6 @@ public class CustomArchitectDialog
 
 
 
-
-        // Enable/Disable login button depending on whether a username was entered.
-        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
-
-
-
-        //TODO : change to true and uncomment code after testing
-//        loginButton.setDisable(false);
-//        // disable the Login button and set prompt, if user enters incorrect emailTextField address
-//        //Off for testing
-//        textFieldEmail.textProperty().addListener((observable, oldValue, newValue) -> {
-//
-//            if (!(newValue.trim().matches(Consts.VALID_EMAIL_REGEX))) {
-//                loginButton.setDisable(true);
-//                labelCheckEmail.setText("enter a valid emailTextField"); // display error message
-//                labelCheckEmail.setTextFill(Color.RED);
-//            } else {
-//                loginButton.setDisable(false);
-//                labelCheckEmail.setText("");
-//            }
-//        });
-
-
         dialog.getDialogPane().setContent(gridPane);
 
         // colour the dialogs header
@@ -121,7 +97,6 @@ public class CustomArchitectDialog
 
         // Convert the result to a username-password-pair when the login button is clicked.
         dialog.setResultConverter(dialogButton -> {
-
 
             if (dialogButton == loginButtonType) {
 
@@ -135,8 +110,6 @@ public class CustomArchitectDialog
                 return new Pair<>(emailTextField, passwordTextField);
             }
 
-
-
             return null;
         });
 
@@ -146,10 +119,6 @@ public class CustomArchitectDialog
             userEmail = emailPassword.getKey();
             userPass = emailPassword.getValue();
         });
-
-
-
-
 
         return dialog;
 
@@ -161,12 +130,12 @@ public class CustomArchitectDialog
 
         Platform.runLater(() -> {
 
-            IEmployee employeeUser = new Employee(emailTextField, passwordTextField);
+            IUser employeeUser = new EmployeeUser(emailTextField, passwordTextField);
 
-            if (!employeeUser.isEmployeeEmail(employeeUser.getEmailAddress())) {
+            if (!employeeUser.validateEmailCredentials(employeeUser.getEmailAddress())) {
                 createEmailErrorDialog();
                 mediator.changeToArchitectCustomDialog();
-            } else if (!employeeUser.isEmployeePassword(employeeUser.getPassword())) {
+            } else if (!employeeUser.validatePasswordCredentials(employeeUser.getPassword())) {
                 createPasswordErrorDialog();
                 mediator.changeToArchitectCustomDialog();
             } else {
@@ -200,10 +169,10 @@ public class CustomArchitectDialog
 
     public void addUserToDB() {
 
-        IEmployee employeeUser = Controller.getInstance().createEmployeeUser(userEmail, userPass);
+        IUser employeeUser = Controller.getInstance().createEmployeeUser(userEmail, userPass);
 
         if (employeeUser != null) {
-            DBController.getInstance().addUser((Employee) employeeUser);
+            DBController.getInstance().addUser((EmployeeUser) employeeUser);
         }
 
         DBController.getInstance().saveEmployeeUser();
