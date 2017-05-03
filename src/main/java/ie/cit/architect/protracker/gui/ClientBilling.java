@@ -54,8 +54,8 @@ public class ClientBilling
         Label accNum = new Label ("Account Number: +{account number}");
         Label cName = new Label ("Company Name: +{company name}");
         Label cAddress = new Label("Company Address: +{company address}");
-        Label clName = new Label("Client Name: + {client name}");
-        Label clAddress = new Label("Client Address: +{client address}");
+        Label clName = new Label("ClientUser Name: + {client name}");
+        Label clAddress = new Label("ClientUser Address: +{client address}");
 
         VBox vb = new VBox(ainfo, accNum, cName, cAddress, clName, clAddress);
         vb.setSpacing(5);

@@ -115,7 +115,7 @@
 //
 //
 //    @Override
-//    public ArrayList<Project> getProjectNameList() {
+//    public ArrayList<Project> readProjects() {
 //
 //        ArrayList<Project> pNameList = new ArrayList<>();
 //

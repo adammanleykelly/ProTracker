@@ -5,57 +5,67 @@ import ie.cit.architect.protracker.helpers.Consts;
 /**
  * Created by brian on 01/05/17.
  */
-public class Employee extends User implements IEmployee{
+public class ClientUser implements IUser{
 
     private String name;
     private String password;
     private String emailAddress;
 
-    public Employee() {
+
+    public ClientUser() {
     }
 
-    public Employee(String emailAddress) {
-        super(emailAddress);
+
+    public ClientUser(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
-    public Employee(String emailAddress, String password) {
+
+    public ClientUser(String emailAddress, String password) {
         super();
         this.emailAddress = emailAddress;
         this.password = password;
     }
 
+
     @Override
-    public boolean isEmployeeEmail(String email) {
-        if(emailAddress.equals(Consts.MANAGER_EMAIL) || emailAddress.equals(Consts.EMPLOYEE_EMAIL)) {
+    public boolean validateEmailCredentials(String email) {
+        if(emailAddress.equals(Consts.CLIENT_EMAIL_1)
+                || emailAddress.equals(Consts.CLIENT_EMAIL_2)
+                || emailAddress.equals(Consts.CLIENT_EMAIL_3)) {
             return true;
         }
         return false;
     }
 
+
     @Override
-    public boolean isEmployeePassword(String password) {
-        if (password.equals(Consts.EMPLOYEE_PASS)) {
+    public boolean validatePasswordCredentials(String password) {
+        if (password.equals(Consts.USER_PASS)) {
             return true;
         }
         return false;
     }
+
 
     @Override
     public String getName() {
         return name;
     }
 
+
     @Override
     public void setName(String name) {
         this.name = name;
     }
+
 
     @Override
     public String getPassword() {
         return password;
     }
 
-    @Override
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -65,7 +75,7 @@ public class Employee extends User implements IEmployee{
         return emailAddress;
     }
 
-    @Override
+
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
