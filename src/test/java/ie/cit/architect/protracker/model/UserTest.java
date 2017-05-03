@@ -20,7 +20,7 @@ public class UserTest {
 
     @Before
     public void setUp() throws Exception {
-        IUser user = new EmployeeUser(email, name);
+        user = new EmployeeUser(email, name);
         user.setName("Joe");
     }
 

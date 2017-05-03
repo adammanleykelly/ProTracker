@@ -1,5 +1,6 @@
 package ie.cit.architect.protracker.persistors;
 
+import com.mongodb.client.MongoCollection;
 import ie.cit.architect.protracker.model.*;
 
 import java.util.ArrayList;
@@ -24,6 +25,10 @@ public interface IPersistor {
     void writeMessages(ChatMessage chatMessages);
 
     ChatMessage readMessage();
+
+    Project readProject(MongoCollection collection);
+
+    void deleteUser(IUser user);
 
 
 }

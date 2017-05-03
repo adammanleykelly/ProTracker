@@ -37,7 +37,7 @@ public class MongoDBPersistor implements IPersistor {
             MongoClient mongoClientConn = MongoLocalConnector.databaseConnectionLocal();
 
             // remote database
-//            MongoClient mongoClientConn = MongoRemoteConnector.databaseConnectionRemote();
+//            MongoClient mongoClientConn = MongoRemoteConnector.databaseConnectionRemote()
 
 
             //Get Database
@@ -89,23 +89,38 @@ public class MongoDBPersistor implements IPersistor {
         FindIterable<Document> databaseRecords = database.getCollection("messages").find();
         MongoCursor<Document> cursor = databaseRecords.iterator();
 
-        try{
-
+        try {
             while (cursor.hasNext()) {
                 Document document = cursor.next();
-
                 String mMessage = document.getString("message");
-
                 chatMessage = new ChatMessage(mMessage);
             }
-
         } finally {
             cursor.close();
         }
-
         return chatMessage;
-
     }
+
+
+    @Override
+    public Project readProject(MongoCollection collection) {
+
+        Project project = new Project();
+        MongoCursor<Document> cursor = collection.find().iterator();
+        try {
+            while (cursor.hasNext()) {
+                Document doc = cursor.next();
+                String projectName = doc.getString("name");
+                project.setName(projectName);
+
+            }
+        } finally {
+            cursor.close();
+        };
+        return project;
+    }
+
+
 
 
     @Override
@@ -174,15 +189,61 @@ public class MongoDBPersistor implements IPersistor {
 
 
     @Override
-    public Project updateProject(String currentProjectName, String upDatedProjectName) {
+    public void deleteUser(IUser user) {
+        collectionEmployees.deleteOne(eq("email", user.getEmailAddress()));
+    }
 
-        Project project = new Project(currentProjectName);
-        collectionProjects.updateOne(eq("name", currentProjectName),
-                new Document("$set", new Document("name", upDatedProjectName)));
-        project.setName(upDatedProjectName);
+
+    // for JUnit tests
+    public IUser getDbUser(EmployeeUser user) {
+        return user;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Override
+    public Project updateProject(String currentName, String newName) {
+
+        Project project = new Project(currentName);
+
+        collectionProjects.updateOne(eq("name", currentName),
+                new Document("$set", new Document("name", newName)));
+
+
+        project.setName(newName);
 
         return project;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -293,10 +354,7 @@ public class MongoDBPersistor implements IPersistor {
     }
 
 
-    // for JUnit tests
-    public IUser getDbUser(EmployeeUser user) {
-        return user;
-    }
+
 
     public Project getDbProject(Project project) {
         return project;

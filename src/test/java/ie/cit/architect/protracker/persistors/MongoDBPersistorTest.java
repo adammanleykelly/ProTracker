@@ -1,19 +1,13 @@
 package ie.cit.architect.protracker.persistors;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import ie.cit.architect.protracker.model.*;
 import org.bson.Document;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 import static junit.framework.TestCase.assertEquals;
@@ -36,25 +30,28 @@ public class MongoDBPersistorTest {
     private static String DB_MONGO_IP = "ec2-54-202-69-181.us-west-2.compute.amazonaws.com";
     private static String DB_NAME = "protrackerdev";
 
+
     private MongoDBPersistor mongoDBPersistor;
-    private IUser mUser;
+//    private IUser user;
 
 
     @Before
     public void setUp() throws Exception {
 
         mongoDBPersistor = new MongoDBPersistor();
-
-        // local database
-//        MongoClient mongoClientConn = new MongoClient("localhost", 27017);
-//        database = mongoClientConn.getDatabase("mongotest");
-
         try {
-            // remote database
-            String mongoURI = "mongodb://" + DB_MONGO_USER + ":" + DB_MONGO_PASS + "@" +
-                    DB_MONGO_IP + "/" + DB_NAME;
 
-            MongoClient mongoClientConn = new MongoClient(new MongoClientURI(mongoURI));
+
+            // local database
+            MongoClient mongoClientConn = new MongoClient("localhost", 27017);
+            database = mongoClientConn.getDatabase("mongotest");
+
+
+            // remote database
+//            String mongoURI = "mongodb://" + DB_MONGO_USER + ":" + DB_MONGO_PASS + "@" +
+//                    DB_MONGO_IP + "/" + DB_NAME;
+//
+//            MongoClient mongoClientConn = new MongoClient(new MongoClientURI(mongoURI));
 
             database = mongoClientConn.getDatabase(DB_NAME);
 
@@ -75,7 +72,7 @@ public class MongoDBPersistorTest {
     public void writeOneUser() throws Exception {
 
         // Given
-        IUser employee = new EmployeeUser("pete@email.com", "passwd");
+        IUser employee = new EmployeeUser("jason@email.com", "passwd");
         Document document = new Document();
         document.put("email", employee.getEmailAddress());
         document.put("password", employee.getPassword());
@@ -86,7 +83,7 @@ public class MongoDBPersistorTest {
         // Then
         assertThat(collectionEmployees.count(), is(1L));
 
-        collectionEmployees.deleteOne(eq("email", "pete@email.com"));
+        collectionEmployees.deleteOne(eq("email", "jason@email.com"));
 
 
     }
@@ -96,48 +93,24 @@ public class MongoDBPersistorTest {
     public void writeManyUsers() throws Exception {
 
         // Given
-        EmployeeUser user1 = new EmployeeUser("frank@email.com", "passwd");
-        Document document1 = new Document();
-        document1.put("_id", 11);
-        document1.put("email", user1.getEmailAddress());
-        document1.put("password", user1.getPassword());
-
-        EmployeeUser user2 = new EmployeeUser("grace@email.com", "mpass");
-        Document document2 = new Document();
-        document2.put("_id", 22);
-        document2.put("email", user2.getEmailAddress());
-        document2.put("password", user2.getPassword());
-
-        List<Document> docList = new ArrayList<>();
-        docList.add(document1);
-        docList.add(document2);
-
-        // When
-        collectionEmployees.insertMany(docList);
-
-        // Then
-        assertThat(collectionEmployees.count(), is(2L));
-
-
-        // Given
+        EmployeeUser user1 = new EmployeeUser("fake@email.com", "passwd");
+        // ... add more users
         EmployeeList employeeList = new EmployeeList();
         employeeList.add(user1);
-        employeeList.add(user2);
 
         // When
         mongoDBPersistor.writeEmployeeUsers(employeeList);
 
-        mUser = mongoDBPersistor.getDbUser(user1);
+
+        IUser user = mongoDBPersistor.getDbUser(user1);
 
         // Then
-        assertTrue("Expected not null ", mUser != null);
-        assertEquals("frank@email.com", mUser.getEmailAddress());
-        assertEquals("passwd", mUser.getPassword());
-
+        assertTrue("Expected not null ", user != null);
+        assertEquals("fake@email.com", user.getEmailAddress());
+        assertEquals("passwd", user.getPassword());
 
         // clean up
-        collectionEmployees.deleteOne(eq("email", "frank@email.com"));
-        collectionEmployees.deleteOne(eq("email", "grace@email.com"));
+        mongoDBPersistor.deleteUser(user);
 
     }
 
@@ -145,7 +118,7 @@ public class MongoDBPersistorTest {
     @Test
     public void writeClientUser(){
 
-        ClientUser clientUser1 = new ClientUser("ben@email.com", "passwd");
+        ClientUser clientUser1 = new ClientUser("davey@email.com", "passwd");
         ClientList clientList = new ClientList();
         clientList.add(clientUser1);
 
@@ -170,7 +143,7 @@ public class MongoDBPersistorTest {
         assertThat(collectionClientsTest.count(), is(1L));
 
         // clean up
-        collectionClientsTest.deleteOne(eq("email", "ben@email.com"));
+        collectionClientsTest.deleteOne(eq("email", "davey@email.com"));
 
     }
 
@@ -178,7 +151,7 @@ public class MongoDBPersistorTest {
     @Test
     public void writeEmployeeUser(){
 
-        EmployeeUser employeeUser = new EmployeeUser("mary@email.com", "passwd");
+        EmployeeUser employeeUser = new EmployeeUser("mona@email.com", "passwd");
         EmployeeList employeeList = new EmployeeList();
         employeeList.add(employeeUser);
 
@@ -203,7 +176,7 @@ public class MongoDBPersistorTest {
         assertThat(collectionEmployees.count(), is(1L));
 
         // clean up
-        collectionEmployees.deleteOne(eq("email", "mary@email.com"));
+        collectionEmployees.deleteOne(eq("email", "mona@email.com"));
 
     }
 
@@ -211,65 +184,65 @@ public class MongoDBPersistorTest {
     @Test
     public void updateProject() throws Exception {
 
-        // Given
-        String currProjectName = "House";
-        String newProjectName = "Apartment";
-        String updatedProjectName = null;
+        /** Given **/
+        String originalName = "Eastside";
+        String updatedName = "Westside";
 
-        /** the project's object name is first set to "House" **/
-        Project project = new Project(currProjectName);
+        // construct a Project object with its initial name value set to "House"
+        Project project = new Project(originalName, "Brian", "Cork", "Jack");
+
+
+        // Here we are mocking steps taken in MongoDBPersistor#writeProjects(ProjectList project)
+        // Calling that method would write to the main database, this writes to our test database.
+        ProjectList projectList = new ProjectList();
+        projectList.add(project);
 
         Document document = new Document();
-        document.put("name", project.getName());
+        for (IProject currProject : projectList.getProjects()) {
+            document.put("project_id", currProject.getProjectId());
+            document.put("name", currProject.getName());
+            document.put("author", currProject.getAuthor());
+            document.put("location", currProject.getLocation());
+            document.put("client_name", currProject.getClientName());
+            document.put("create_date", currProject.getDate());
+        }
 
         collectionProjects.insertOne(document);
 
-
-        // When  (testing the implementation)
-        collectionProjects.updateOne(eq("name", currProjectName),
-                new Document("$set", new Document("name", newProjectName)));
+        // verifies collection contains a record
+        assertThat(collectionProjects.count(), is(1L));
 
 
-
-        // find the documents updated value and pass is to the String newProjectName
-        FindIterable<Document> databaseRecords = database.getCollection("projects").find();
-        MongoCursor<Document> cursor = databaseRecords.iterator();
-
-        try {
-            updatedProjectName = cursor.next().getString("name");
-            project.setName(updatedProjectName);
-        } finally {
-            cursor.close();
-        }
-
-
-        // Then
-        assertThat(updatedProjectName, is("Apartment"));
-        assertThat(updatedProjectName, is(not("House")));
+        Project project2 = mongoDBPersistor.readProject(collectionProjects);
+        assertThat(project2.getName(), is(originalName));
 
 
 
-        //**********************************************************************
 
-        Project project1;
-
-        // When  (testing the actual method)
-
-        /** the project's object name is then updated to "Apartment" **/
-        project1 = mongoDBPersistor.updateProject(currProjectName, newProjectName);
-
-        // Then
-        assertThat(project1.getName(), is("Apartment"));
+        /** When **/
+        // update the the Projects name in the database, the same as the method in MongoDBPersistor
+        collectionProjects.updateOne(eq("name", originalName),
+                new Document("$set", new Document("name", updatedName)));
 
 
-        // cleanup
-        collectionProjects.deleteOne(eq("name", updatedProjectName));
+        // this is the method in MongoDBPersistor we are testing, it returns
+        // a Project object with the updated name
+        project = mongoDBPersistor.updateProject(originalName, updatedName );
+
+
+        /** Then **/
+        assertThat(project.getName(), is(updatedName));
+        assertThat(project.getName(), is(not(originalName)));
+
+
+
+        // cleanup the db by removing the updated entry
+        collectionProjects.deleteOne(eq("name", updatedName));
 
     }
 
 
 }
-
 
 
 

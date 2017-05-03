@@ -131,6 +131,7 @@ public class CreateNewProjectScene {
         VBox.setMargin(lbProjectName, new Insets(10, 0, 0, 0));
 
         Button buttonCreate = new Button("Create Project");
+        buttonCreate.getStyleClass().add("label_padding");
         buttonCreate.setOnAction(event -> {
                     createProject();
                     createDirectories();
