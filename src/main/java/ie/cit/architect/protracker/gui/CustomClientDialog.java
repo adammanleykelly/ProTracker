@@ -166,7 +166,7 @@ public class CustomClientDialog
                 Platform.runLater(() -> addUserToDB());
                 mediator.changeToClientMenuScene();
             }
-        });
+       });
 
     }
 
