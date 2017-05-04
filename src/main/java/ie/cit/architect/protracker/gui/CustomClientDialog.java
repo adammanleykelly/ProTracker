@@ -133,15 +133,15 @@ public class CustomClientDialog
 
             if (!UserController.getInstance().isClientUserEmailValid(emailTextField)) {
                 createEmailErrorDialog();
-                mediator.changeToArchitectCustomDialog();
+                mediator.changeToClientCustomDialog();
             }
             else if(!UserController.getInstance().isUserPasswordValid(passwordTextField)) {
                 createPasswordErrorDialog();
-                mediator.changeToArchitectCustomDialog();
+                mediator.changeToClientCustomDialog();
             }
             else {
                 Platform.runLater(() -> addUserToDB());
-                mediator.changeToClientCustomDialog();
+                mediator.changeToClientMenuScene();
             }
 
         });
