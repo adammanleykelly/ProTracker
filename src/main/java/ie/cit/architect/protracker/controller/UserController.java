@@ -5,20 +5,20 @@ import ie.cit.architect.protracker.model.*;
 /**
  * Created by brian on 24/03/17.
  */
-public class Controller {
+public class UserController {
 
-    private static Controller instance;
+    private static UserController instance;
     private IProject project;
 
 
 
-    private Controller() {}
+    private UserController() {}
 
 
-    // singleton
-    public static Controller getInstance() {
+//    // singleton
+    public static UserController getInstance() {
         if(instance == null) {
-            instance = new Controller();
+            instance = new UserController();
         }
         return instance;
     }

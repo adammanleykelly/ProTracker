@@ -2,7 +2,7 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.DBController;
-import ie.cit.architect.protracker.controller.Controller;
+import ie.cit.architect.protracker.controller.UserController;
 import ie.cit.architect.protracker.helpers.Consts;
 import ie.cit.architect.protracker.model.IProject;
 import ie.cit.architect.protracker.model.Project;
@@ -258,7 +258,7 @@ public class CreateNewProjectScene {
 
     /**
      * Button 'Continue' method listener
-     * that uses the Controller class create and populate the Project object
+     * that uses the UserController class create and populate the Project object
      * @see CreateNewProjectScene#createBottomPane
      */
     private void createProject() {
@@ -269,7 +269,7 @@ public class CreateNewProjectScene {
         // values from TextFields stored as strings
         getUserInput();
 
-        project = Controller.getInstance().createProject(
+        project = UserController.getInstance().createProject(
                 projectName, projectAuthor, projectLocation, projectClient);
 
         addProjectToDB();

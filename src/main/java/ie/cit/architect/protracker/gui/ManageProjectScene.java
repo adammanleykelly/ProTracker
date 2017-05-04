@@ -233,7 +233,7 @@ public class ManageProjectScene {
 
 
     // Delete
-    // 'deleteButton' listener which calls the Controller to remove the selected project from the database
+    // 'deleteButton' listener which calls the UserController to remove the selected project from the database
     private void deleteProject() {
         DBController.getInstance().deleteProject(getProjectName());
     }
