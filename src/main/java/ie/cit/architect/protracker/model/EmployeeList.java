@@ -8,19 +8,19 @@ import java.util.ArrayList;
  */
 public class EmployeeList implements Serializable{
 
-    private ArrayList<IUser> employeeUserUsers;
+    private ArrayList<IUser> employeeUsers;
 
     public EmployeeList() {
-        this.employeeUserUsers = new ArrayList<>();
+        this.employeeUsers = new ArrayList<>();
     }
 
-    public ArrayList<IUser> getEmployeeUserUsers() {
-        return employeeUserUsers;
+    public ArrayList<IUser> getEmployeeUsers() {
+        return employeeUsers;
     }
 
-    public void setEmployeeUserUsers(ArrayList<IUser> employeeUserUsers) {
-        this.employeeUserUsers = employeeUserUsers;
+    public void setEmployeeUsers(ArrayList<IUser> employeeUsers) {
+        this.employeeUsers = employeeUsers;
     }
 
-    public void add(IUser user) { this.employeeUserUsers.add(user); }
+    public void add(IUser user) { this.employeeUsers.add(user); }
 }

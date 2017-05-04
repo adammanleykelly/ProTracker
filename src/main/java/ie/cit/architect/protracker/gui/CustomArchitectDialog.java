@@ -3,7 +3,6 @@ package ie.cit.architect.protracker.gui;
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.controller.UserController;
-import ie.cit.architect.protracker.model.IUser;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -130,21 +129,19 @@ public class CustomArchitectDialog
 
         Platform.runLater(() -> {
 
-
-            IUser employeeUser =
-                    UserController.getInstance().createEmployeeUser(emailTextField,passwordTextField);
-
-
-            if (!employeeUser.validateEmailCredentials(employeeUser.getEmailAddress())) {
+            if (!UserController.getInstance().isEmployeeUserEmailValid(emailTextField)) {
                 createEmailErrorDialog();
                 mediator.changeToArchitectCustomDialog();
-            } else if (!employeeUser.validatePasswordCredentials(employeeUser.getPassword())) {
+            }
+            else if(!UserController.getInstance().isUserPasswordValid(passwordTextField)) {
                 createPasswordErrorDialog();
                 mediator.changeToArchitectCustomDialog();
-            } else {
+            }
+            else {
                 Platform.runLater(() -> addUserToDB());
                 mediator.changeToArchitectMenuScene();
             }
+
         });
 
     }
@@ -173,7 +170,6 @@ public class CustomArchitectDialog
     // Following the MVC Pattern - we are delegating creation of objects to the controller.
     // The Controller create a User with values passed into it from this View class.
     public void addUserToDB() {
-
 
         DBController.getInstance().addUser(userEmail, userPass);
 

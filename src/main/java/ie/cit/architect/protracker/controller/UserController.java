@@ -1,5 +1,6 @@
 package ie.cit.architect.protracker.controller;
 
+import ie.cit.architect.protracker.helpers.Consts;
 import ie.cit.architect.protracker.model.*;
 
 /**
@@ -15,7 +16,7 @@ public class UserController {
     private UserController() {}
 
 
-//    // singleton
+    // singleton
     public static UserController getInstance() {
         if(instance == null) {
             instance = new UserController();
@@ -38,6 +39,29 @@ public class UserController {
 
     public IUser createEmployeeUser(String emailAddress, String password) {
         return new EmployeeUser(emailAddress, password);
+    }
+
+    public boolean isEmployeeUserEmailValid(String emailAddress) {
+        if(emailAddress.equals(Consts.MANAGER_EMAIL_1) || emailAddress.equals(Consts.MANAGER_EMAIL_2)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isClientUserEmailValid(String emailAddress) {
+        if(emailAddress.equals(Consts.CLIENT_EMAIL_1)
+                || emailAddress.equals(Consts.CLIENT_EMAIL_2)
+                || emailAddress.equals(Consts.CLIENT_EMAIL_3)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isUserPasswordValid(String password) {
+        if (password.equals(Consts.USER_PASS)) {
+            return true;
+        }
+        return false;
     }
 
 
