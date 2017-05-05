@@ -105,8 +105,22 @@ public class DBController {
             }
         }
 
-        return this.persistor.updateProject(currentProjectName,  upDatedProjectName);
+        return this.persistor.updateProjectName(currentProjectName,  upDatedProjectName);
     }
+
+
+
+    public Project updateProjectFee(double currentFee, double updatedFee) {
+
+        for(IProject project : this.projectList.getProjects()) {
+            if(project.getFee() == currentFee) {
+                project.setFee(updatedFee);
+            }
+        }
+
+        return this.persistor.updateProjectFee(currentFee, updatedFee);
+    }
+
 
     public void saveMessage(ChatMessage chatMessage) {
         this.persistor.writeMessages(chatMessage);

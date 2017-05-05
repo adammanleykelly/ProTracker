@@ -169,6 +169,7 @@ public class MongoDBPersistor implements IPersistor {
                 document.put("author", currProject.getAuthor());
                 document.put("location", currProject.getLocation());
                 document.put("client_name", currProject.getClientName());
+                document.put("fee_tendered", currProject.getFee());
                 document.put("create_date", currProject.getDate());
 
             }
@@ -206,20 +207,27 @@ public class MongoDBPersistor implements IPersistor {
 
 
 
+    @Override
+    public Project updateProjectFee(double currentFee, double updatedFee) {
+
+        Project project = new Project();
+
+        collectionProjects.updateOne(eq("fee_tendered", currentFee),
+            new Document("$set", new Document("fee_tendered", updatedFee)));
 
 
-
-
-
+        return project;
+    }
 
 
 
 
 
     @Override
-    public Project updateProject(String currentName, String newName) {
+    public Project updateProjectName(String currentName, String newName) {
 
-        Project project = new Project(currentName);
+        Project project = new Project();
+
 
         collectionProjects.updateOne(eq("name", currentName),
                 new Document("$set", new Document("name", newName)));
@@ -229,6 +237,9 @@ public class MongoDBPersistor implements IPersistor {
 
         return project;
     }
+
+
+
 
 
 

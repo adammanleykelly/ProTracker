@@ -33,8 +33,12 @@ public class Controller {
     }
 
 
-    public Project createProject(String name, String author, String location, String client) {
-        return new Project(name, author, location, client);
+    public Project createProject(String name, String author, String location, String client, double fee) {
+        return new Project(name, author, location, client, fee);
+    }
+
+    public Project createProject(String name, String client, double fee) {
+        return new Project(name, client, fee);
     }
 
 

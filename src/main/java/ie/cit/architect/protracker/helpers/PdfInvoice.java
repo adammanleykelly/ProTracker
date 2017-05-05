@@ -11,6 +11,10 @@ import com.itextpdf.layout.Style;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.property.TabAlignment;
 import com.itextpdf.layout.property.TextAlignment;
+import ie.cit.architect.protracker.controller.Controller;
+import ie.cit.architect.protracker.model.IProject;
+import ie.cit.architect.protracker.model.Project;
+import ie.cit.architect.protracker.model.ProjectList;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +33,7 @@ public class PdfInvoice {
    //private static final String LOGO = "/home/brian/workspace/PdfInvoice/src/main/resources/companylogo.png";
     private static final String LOGO = "./src/main/resources/companylogo.png";
     private static Date mDate;
+
 
 
     private PdfInvoice() {
@@ -85,22 +90,32 @@ public class PdfInvoice {
         document.add(paragraphTitle);
 
 
-        mDate = new Date();
-//        String projectName = "APARTMENTS";
-        double archFees = 50000.0;
-        double vatCharged = 11500.0;
-        double totalCharged = 61500.0;
-        String date = FormatDate.formatDate(mDate);
-        String bill = "€"+String.valueOf(fee);
-        String vat = "€"+String.valueOf(vatCharged);
-        String total = "€"+String.valueOf(totalCharged);
+        String date = FormatDate.formatDate(new Date());
         String vatNum = "000000000";
 
-        ArrayList<String> details = new ArrayList<>(Arrays.asList(clientName, date, projectName, bill, vat, total, vatNum));
+
+        IProject project = Controller.getInstance().createProject(projectName, clientName, fee);
+
+
+        ArrayList<String> details =
+                new ArrayList<>(Arrays.asList(
+                        project.getClientName(),
+                        date,
+                        project.getName(),
+                        String.valueOf(project.getFee()),
+                        String.valueOf(project.getVat()),
+                        String.valueOf(project.getTotal()),
+                        vatNum));
 
 
 
-        Paragraph p1 = new Paragraph(new Text("TO:").addStyle(normal));
+        ProjectList projectList = new ProjectList();
+        projectList.add((Project) project);
+
+
+
+
+        Paragraph p1 = new Paragraph(new Text("TO: ").addStyle(normal));
         Paragraph p2 = new Paragraph(new Text("DATE:").addStyle(normal));
         Paragraph p3 = new Paragraph(new Text("RE:").addStyle(normal));
         Paragraph p4 = new Paragraph(new Text("ARCHITECTS FEE:").addStyle(normal));
@@ -108,7 +123,7 @@ public class PdfInvoice {
         Paragraph p6 = new Paragraph(new Text("TOTAL:").addStyle(normal));
         Paragraph p7 = new Paragraph(new Text("VAT NO").addStyle(normal));
 
-        ArrayList<Paragraph> paragraphList = new ArrayList<Paragraph>( Arrays.asList(p1, p2, p3, p4, p5, p6, p7));
+        ArrayList<Paragraph> paragraphList = new ArrayList<>( Arrays.asList(p1, p2, p3, p4, p5, p6, p7));
 
 
         for(int i = 0; i < paragraphList.size(); i++) {
@@ -116,8 +131,11 @@ public class PdfInvoice {
             paragraphList.get(i).add(new Tab());
             paragraphList.get(i).addTabStops(new TabStop(220, TabAlignment.LEFT));
             paragraphList.get(i).add(details.get(i));
+
             document.add(paragraphList.get(i));
         }
+
+
 
 
         document.close();

@@ -19,6 +19,7 @@ public final class Consts {
     public static final String CLIENT_EMAIL_2 = "ger@email.com";
     public static final String CLIENT_EMAIL_3 = "ken@email.com";
     public static final String USER_PASS = "pass";
+    public static final double IRISH_VAT = 0.225;
 
 
 }

@@ -49,7 +49,9 @@ public class CreateNewProjectScene {
     private TextField tfProjectAuthor = new TextField();
     private TextField tfProjectClient = new TextField();
     private TextField tfProjectLocation;
+    private TextField tfProjectFee;
     private String projectName, projectDate, projectAuthor, projectLocation, projectClient;
+    private double projectFee;
     private IProject project;
     private Mediator mediator;
 
@@ -81,6 +83,7 @@ public class CreateNewProjectScene {
         projectAuthor = tfProjectAuthor.getText();
         projectLocation = tfProjectLocation.getText();
         projectClient = tfProjectClient.getText();
+        projectFee = Double.parseDouble(tfProjectFee.getText());
     }
 
 
@@ -100,10 +103,11 @@ public class CreateNewProjectScene {
         vBox.setMinWidth(Consts.PANE_WIDTH);
 
         tfProjectLocation = new TextField();
+        tfProjectFee = new TextField();
 
         ObservableList<TextField> textFieldList =
-                FXCollections.observableArrayList(tfProjectName, tfProjectAuthor, tfProjectClient, tfProjectLocation);
-        List<String> text = Arrays.asList("Project Name", "Name of Author", "Name of ClientUser", "Project Location");
+                FXCollections.observableArrayList(tfProjectName, tfProjectAuthor, tfProjectClient, tfProjectLocation, tfProjectFee);
+        List<String> text = Arrays.asList("Project Name", "Name of Author", "Name of ClientUser", "Project Location", "Project Fee");
 
         for (int i = 0; i < textFieldList.size(); i++) {
             textFieldList.get(i).setPromptText(text.get(i));
@@ -121,8 +125,9 @@ public class CreateNewProjectScene {
         Label lbProjectAuthor = new Label("Name of author");
         Label lbProjectClient = new Label("Name of client");
         Label lbProjectLocation = new Label("Location");
+        Label lbProjectFee = new Label("Project Fee");
 
-        List<Label> labelList = Arrays.asList(lbProjectName, lbProjectAuthor, lbProjectClient, lbProjectLocation);
+        List<Label> labelList = Arrays.asList(lbProjectName, lbProjectAuthor, lbProjectClient, lbProjectLocation, lbProjectFee);
 
         for (Label label : labelList) {
             label.getStyleClass().add("label_padding");
@@ -137,12 +142,12 @@ public class CreateNewProjectScene {
                     createDirectories();
         });
 
-        VBox.setMargin(buttonCreate, new Insets(40, 37.5, 0, 80));
+        VBox.setMargin(buttonCreate, new Insets(25, 37.5, 0, 80));
 
 
         // add controls to VBox
         vBox.getChildren().addAll(lbProjectName, tfProjectName, lbProjectAuthor, tfProjectAuthor,
-                lbProjectClient, tfProjectClient, lbProjectLocation, tfProjectLocation, buttonCreate);
+                lbProjectClient, tfProjectClient, lbProjectLocation, tfProjectLocation, lbProjectFee, tfProjectFee, buttonCreate);
 
         return vBox;
     }
@@ -213,10 +218,10 @@ public class CreateNewProjectScene {
         Button buttonOpen = new Button("Open");
         buttonOpen.setOnAction(event -> openDocument());
 
-        Button buttonInvoice = new Button("Billing");
+        Button buttonInvoice = new Button("Create Invoice");
         buttonInvoice.setOnAction(event -> createInvoice());
 
-        Button buttonUpdateInvoice = new Button("Change Billing");
+        Button buttonUpdateInvoice = new Button("Change Fee");
         buttonUpdateInvoice.setOnAction(event -> editBilling());
 
         VBox vBox = new VBox();
@@ -275,7 +280,7 @@ public class CreateNewProjectScene {
         getUserInput();
 
         project = Controller.getInstance().createProject(
-                projectName, projectAuthor, projectLocation, projectClient);
+                projectName, projectAuthor, projectLocation, projectClient, projectFee);
 
         addProjectToDB();
 
@@ -304,36 +309,26 @@ public class CreateNewProjectScene {
 
 
 
-
-
-
     // Billing
     private void createInvoice() {
 
-        Controller.getInstance().createInvoice(projectName, projectClient, enterFeeDialog());
-    }
-
-
-    public Double enterFeeDialog() {
-        javafx.scene.control.Dialog dialog = new TextInputDialog();
-        dialog.setTitle("Project Fee");
-        dialog.setHeaderText("Enter the project fee");
-
-        Optional<String> result = dialog.showAndWait();
-
-        if (result.isPresent()) {
-            editDialogInput = Double.valueOf(result.get());
-        }
-        return editDialogInput;
+        Controller.getInstance().createInvoice(projectName, projectClient, projectFee);
     }
 
 
 
     private void editBilling() {
 
-       Controller.getInstance().editBilling(projectName, projectClient, updateFeeDialog());
+       double newFee =  updateFeeDialog();
+
+       Controller.getInstance().editBilling(projectName, projectClient, newFee);
+
+       DBController.getInstance().updateProjectFee(projectFee, newFee);
+
+       tfProjectFee.clear();
 
     }
+
 
 
     public Double updateFeeDialog() {

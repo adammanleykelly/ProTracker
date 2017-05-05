@@ -1,5 +1,7 @@
 package ie.cit.architect.protracker.model;
 
+import ie.cit.architect.protracker.helpers.Consts;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +22,9 @@ public class Project implements IProject{
     private String author;
     private String location;
     private String clientName;
+    private double fee;
+    private double vat;
+    private double total;
     private ArrayList<Project> projectNames;
 
 
@@ -32,13 +37,24 @@ public class Project implements IProject{
     }
 
 
-    public Project(String name, String author, String location, String clientName) {
+    public Project(String name, String clientName, double fee) {
+        this.name = name;
+        this.clientName = clientName;
+        this.fee = fee;
+        setVat();
+        setTotal();
+
+    }
+
+
+    public Project(String name, String author, String location, String clientName, double fee) {
         this.projectId = Project.next_id.incrementAndGet();
         this.name = name;
         setDate(new Date());
         this.author = author;
         this.location = location;
         this.clientName = clientName;
+        this.fee = fee;
     }
 
     public Project(String name) {
@@ -113,6 +129,32 @@ public class Project implements IProject{
         this.projectId = projectId;
     }
 
+    @Override
+    public double getFee() {
+        return fee;
+    }
+
+    @Override
+    public void setFee(double fee) {
+        this.fee = fee;
+    }
+
+
+    public double getVat() {
+        return vat;
+    }
+
+    public void setVat() {
+        this.vat = fee * Consts.IRISH_VAT;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal() {
+        this.total = fee + vat;
+    }
 
     public String getFormattedDate() {
 

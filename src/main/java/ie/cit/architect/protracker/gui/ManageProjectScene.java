@@ -233,6 +233,7 @@ public class ManageProjectScene {
             editDialogInput = result.get();
         }
 
+
         editProjectName();
 
 

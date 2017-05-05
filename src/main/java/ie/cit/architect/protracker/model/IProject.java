@@ -7,24 +7,33 @@ import java.util.Date;
  */
 public interface IProject {
 
-   String getLocation();
+    String getLocation();
 
-   String getName();
+    String getName();
 
-   void setName(String name);
+    void setName(String name);
 
-   Date getDate();
+    Date getDate();
 
-   void setDate(Date date);
+    void setDate(Date date);
 
-   String getAuthor();
+    String getAuthor();
 
-   String getClientName();
+    String getClientName();
 
-   int getProjectId();
+    int getProjectId();
 
+    double getFee();
 
+    void setFee(double fee);
 
+    double getVat();
+
+    double getTotal();
+
+    void setVat();
+
+    void setTotal();
 
 
 }

@@ -20,7 +20,10 @@ public interface IPersistor {
 
     void deleteProject(Project projectName);
 
-    Project updateProject(String currentProjectName, String upDatedProjectName);
+    Project updateProjectName(String currentProjectName, String upDatedProjectName);
+
+    Project updateProjectFee(double currentFee, double updatedFee);
+
 
     void writeMessages(ChatMessage chatMessages);
 

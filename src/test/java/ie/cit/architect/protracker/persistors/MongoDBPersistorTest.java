@@ -189,7 +189,7 @@ public class MongoDBPersistorTest {
         String updatedName = "Westside";
 
         // construct a Project object with its initial name value set to "House"
-        Project project = new Project(originalName, "Brian", "Cork", "Jack");
+        Project project = new Project(originalName, "Brian", "Cork", "Jack", 20000.0);
 
 
         // Here we are mocking steps taken in MongoDBPersistor#writeProjects(ProjectList project)
@@ -227,7 +227,7 @@ public class MongoDBPersistorTest {
 
         // this is the method in MongoDBPersistor we are testing, it returns
         // a Project object with the updated name
-        project = mongoDBPersistor.updateProject(originalName, updatedName );
+        project = mongoDBPersistor.updateProjectName(originalName, updatedName );
 
 
         /** Then **/
