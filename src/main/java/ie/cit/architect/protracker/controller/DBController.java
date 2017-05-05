@@ -58,7 +58,7 @@ public class DBController {
     public void addUser(String email, String password) {
 
         IUser employeeUser =
-                UserController.getInstance().createEmployeeUser(email, password);
+                Controller.getInstance().createEmployeeUser(email, password);
 
         this.employeeList.add(employeeUser);
     }

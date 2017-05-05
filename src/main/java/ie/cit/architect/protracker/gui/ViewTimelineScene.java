@@ -28,11 +28,7 @@ public class ViewTimelineScene {
 
 
     private Mediator mediator;
-    final static String austria = "Austria";
-    final static String brazil = "Brazil";
-    final static String france = "France";
-    final static String italy = "Italy";
-    final static String usa = "USA";
+
 
     public ViewTimelineScene(Mediator mediator) {
         this.mediator = mediator;

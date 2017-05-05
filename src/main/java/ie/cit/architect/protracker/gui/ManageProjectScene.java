@@ -35,6 +35,9 @@ public class ManageProjectScene {
 
 
     private String projectName;
+    private static final String FILE_SEP = File.separator;
+    private static final String DOUBLE_FILE_SEP = FILE_SEP + FILE_SEP;
+    private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + FILE_SEP + "Desktop" + FILE_SEP;
     private static final String CURR_DIR = "src/main/resources";
     private static final String TXT_FILE_DESC = "txt files (*.txt)";
     private static final String PDF_FILE_DESC = "PdfInvoice files (*.PdfInvoice)";
@@ -85,6 +88,10 @@ public class ManageProjectScene {
 
         Button buttonOpen = new Button("Open");
         buttonOpen.setOnAction(event -> openDocument());
+
+//        buttonOpen.setOnAction(event -> createInvoice());
+
+
         Button buttonViewStage = new Button("View Stage");
         buttonViewStage.setOnAction(event -> mediator.changeToViewTimelineScene());
 
@@ -115,7 +122,15 @@ public class ManageProjectScene {
         return vBox;
     }
 
-
+//    private void createInvoice() {
+//
+//        try {
+//            PdfInvoice.getInstance().createPdfDocument(projectName);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
 
     private ScrollPane createMiddlePane() {
@@ -216,7 +231,6 @@ public class ManageProjectScene {
 
         if(result.isPresent()) {
             editDialogInput = result.get();
-            System.out.println(editDialogInput);
         }
 
         editProjectName();
@@ -232,12 +246,15 @@ public class ManageProjectScene {
     private void editProjectName() { DBController.getInstance().updateProjectName(projectName, editDialogInput); }
 
 
+
+
+
+
     // Delete
-    // 'deleteButton' listener which calls the UserController to remove the selected project from the database
+    // 'deleteButton' listener which calls the Controller to remove the selected project from the database
     private void deleteProject() {
         DBController.getInstance().deleteProject(getProjectName());
     }
-
 
 
 
@@ -292,18 +309,11 @@ public class ManageProjectScene {
 
         FileChooser fileChooser = new FileChooser();
 
-//        FileChooser.ExtensionFilter extensionFilterText =
-//                new FileChooser.ExtensionFilter(TXT_FILE_DESC, TXT_FILE_EXT);
 
-        FileChooser.ExtensionFilter extensionFilterText =
-                new FileChooser.ExtensionFilter(PDF_FILE_DESC, PDF_FILE_EXTENSION);
-
-
-        fileChooser.getExtensionFilters().addAll(extensionFilterText);
-
-        // open my resource directory, which contains the text files.
+        // open create project directory
         fileChooser.setInitialDirectory(
-                new java.io.File(CURR_DIR));
+                new java.io.File(PATH_TO_DESKTOP + projectName + DOUBLE_FILE_SEP));
+
 
         file = fileChooser.showOpenDialog(null);
 

@@ -28,6 +28,7 @@ public class Mediator extends Application {
     private ClientContact clientContact;
     private ViewTimelineScene viewTimelineScene;
 
+
     private Stage primaryStage;
 
 

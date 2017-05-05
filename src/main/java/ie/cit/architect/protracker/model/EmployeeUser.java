@@ -25,7 +25,6 @@ public class EmployeeUser implements IUser{
 
 
     public EmployeeUser(String emailAddress, String password) {
-        super();
         this.emailAddress = emailAddress;
         this.password = password;
     }

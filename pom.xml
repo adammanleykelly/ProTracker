@@ -73,6 +73,20 @@
             <version>7.0.2</version>
         </dependency>
 
+        <!-- resolves this error: 'Failed to load class "org.slf4j.impl.StaticLoggerBinder".'
+         see: http://stackoverflow.com/a/21787813/5942254 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

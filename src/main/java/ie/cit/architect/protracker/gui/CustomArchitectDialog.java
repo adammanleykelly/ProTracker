@@ -1,8 +1,8 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
+import ie.cit.architect.protracker.controller.Controller;
 import ie.cit.architect.protracker.controller.DBController;
-import ie.cit.architect.protracker.controller.UserController;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -13,7 +13,7 @@ import javafx.util.Pair;
 
 import java.util.Optional;
 
-//import ie.cit.architect.protracker.userController.UserController;
+//import ie.cit.architect.protracker.controller.Controller;
 
 /**
  * Created by brian on 3/2/2017.
@@ -27,8 +27,6 @@ public class CustomArchitectDialog
     private String userPass;
     private String passwordTextField;
     private String emailTextField;
-    private UserController userController;
-
 
 
 
@@ -123,17 +121,19 @@ public class CustomArchitectDialog
 
     }
 
-    // If email and password do not match employee credentials - display error message, then the sign in dialog again.
+    // If email and password do not match employee credentials - display error message
+    // and show the sign in dialog again.
     // Otherwise open the Architect Menu Scene
     private void validateEmployeeCredentials() {
 
+
         Platform.runLater(() -> {
 
-            if (!UserController.getInstance().isEmployeeUserEmailValid(emailTextField)) {
+            if (!Controller.getInstance().isEmployeeUserEmailValid(emailTextField)) {
                 createEmailErrorDialog();
                 mediator.changeToArchitectCustomDialog();
             }
-            else if(!UserController.getInstance().isUserPasswordValid(passwordTextField)) {
+            else if(!Controller.getInstance().isUserPasswordValid(passwordTextField)) {
                 createPasswordErrorDialog();
                 mediator.changeToArchitectCustomDialog();
             }
@@ -147,7 +147,7 @@ public class CustomArchitectDialog
     }
 
 
-    private Dialog createEmailErrorDialog() {
+    public Dialog createEmailErrorDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Email Address Not Recognised!");
         alert.setHeaderText(null);
@@ -157,7 +157,7 @@ public class CustomArchitectDialog
     }
 
 
-    private Dialog createPasswordErrorDialog() {
+    public Dialog createPasswordErrorDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Password Not Recognised!");
         alert.setHeaderText(null);

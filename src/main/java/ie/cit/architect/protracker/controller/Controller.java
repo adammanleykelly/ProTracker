@@ -1,34 +1,40 @@
 package ie.cit.architect.protracker.controller;
 
+import ie.cit.architect.protracker.gui.CreateNewProjectScene;
 import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.helpers.PdfInvoice;
 import ie.cit.architect.protracker.model.*;
+
+import java.io.IOException;
 
 /**
  * Created by brian on 24/03/17.
  */
-public class UserController {
+public class Controller {
 
-    private static UserController instance;
+    private static Controller instance;
     private IProject project;
+    private CreateNewProjectScene createNewProjectScene;
+
+
+    private PdfInvoice invoice;
 
 
 
-    private UserController() {}
+    private Controller() {}
 
 
     // singleton
-    public static UserController getInstance() {
+    public static Controller getInstance() {
         if(instance == null) {
-            instance = new UserController();
+            instance = new Controller();
         }
         return instance;
     }
 
 
     public Project createProject(String name, String author, String location, String client) {
-
         return new Project(name, author, location, client);
-
     }
 
 
@@ -40,6 +46,9 @@ public class UserController {
     public IUser createEmployeeUser(String emailAddress, String password) {
         return new EmployeeUser(emailAddress, password);
     }
+
+
+
 
     public boolean isEmployeeUserEmailValid(String emailAddress) {
         if(emailAddress.equals(Consts.MANAGER_EMAIL_1) || emailAddress.equals(Consts.MANAGER_EMAIL_2)) {
@@ -65,10 +74,26 @@ public class UserController {
     }
 
 
+
     public String getProject() {
         return project.getLocation();
     }
 
+
+    public void createInvoice(String projectName, String projectClient, double fee) {
+        try {
+            PdfInvoice.getInstance().createPdfDocument(projectName, projectClient,  fee);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void editBilling(String projectName, String projectClient, double fee) {
+
+        PdfInvoice.getInstance().editPdf(projectName, projectClient, fee);
+
+    }
 
 
 }

@@ -1,8 +1,8 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
+import ie.cit.architect.protracker.controller.Controller;
 import ie.cit.architect.protracker.controller.DBController;
-import ie.cit.architect.protracker.controller.UserController;
 import ie.cit.architect.protracker.helpers.Consts;
 import ie.cit.architect.protracker.model.IProject;
 import ie.cit.architect.protracker.model.Project;
@@ -13,7 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -29,9 +29,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -44,6 +42,7 @@ public class CreateNewProjectScene {
     private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + FILE_SEP + "Desktop" + FILE_SEP;
     private String subDirectory;
 
+    private Double editDialogInput;
     private ArrayList<String> directoryArrayList = new ArrayList<>();
     private CheckBox[] checkboxList = new CheckBox[10];
     private TextField tfProjectName = new TextField();
@@ -58,6 +57,8 @@ public class CreateNewProjectScene {
     public CreateNewProjectScene(Mediator mediator) {
         this.mediator = mediator;
     }
+
+    public CreateNewProjectScene(){}
 
 
     public void start(Stage stage) {
@@ -200,7 +201,7 @@ public class CreateNewProjectScene {
     private void createCheckboxArray() {
         List<String> text = Arrays.asList(
                 "SiteMaps", "ProposedDrawings", "StructuralDrawings", "SupplierDetails",
-                "FireDrawings", "Images", "Exports", "Imports", "Documents", "Emails");
+                "FireDrawings", "Images", "Exports", "Imports", "Documents", "Invoice");
 
         for (int i = 0; i < checkboxList.length; i++) {
             checkboxList[i] = new CheckBox((i + 1) + " " + text.get(i));
@@ -212,14 +213,24 @@ public class CreateNewProjectScene {
         Button buttonOpen = new Button("Open");
         buttonOpen.setOnAction(event -> openDocument());
 
+        Button buttonInvoice = new Button("Billing");
+        buttonInvoice.setOnAction(event -> createInvoice());
+
+        Button buttonUpdateInvoice = new Button("Change Billing");
+        buttonUpdateInvoice.setOnAction(event -> editBilling());
+
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_middle");
         vBox.setMinWidth(Consts.PANE_WIDTH);
         VBox.setMargin(buttonOpen, new Insets(200, 0, 0, 100));
-        vBox.getChildren().addAll(buttonOpen);
+        VBox.setMargin(buttonInvoice, new Insets(50, 0, 0, 100));
+        VBox.setMargin(buttonUpdateInvoice, new Insets(50, 0, 0, 100));
+
+        vBox.getChildren().addAll(buttonOpen, buttonInvoice, buttonUpdateInvoice);
 
         return vBox;
     }
+
 
 
 
@@ -252,7 +263,7 @@ public class CreateNewProjectScene {
 
     /**
      * Button 'Continue' method listener
-     * that uses the UserController class create and populate the Project object
+     * that uses the Controller class create and populate the Project object
      * @see CreateNewProjectScene#createBottomPane
      */
     private void createProject() {
@@ -263,7 +274,7 @@ public class CreateNewProjectScene {
         // values from TextFields stored as strings
         getUserInput();
 
-        project = UserController.getInstance().createProject(
+        project = Controller.getInstance().createProject(
                 projectName, projectAuthor, projectLocation, projectClient);
 
         addProjectToDB();
@@ -272,6 +283,7 @@ public class CreateNewProjectScene {
 
 
     private void addProjectToDB() {
+
 
         try {
             Platform.runLater(() -> {
@@ -290,14 +302,73 @@ public class CreateNewProjectScene {
     }
 
 
+
+
+
+
+
+    // Billing
+    private void createInvoice() {
+
+        Controller.getInstance().createInvoice(projectName, projectClient, enterFeeDialog());
+    }
+
+
+    public Double enterFeeDialog() {
+        javafx.scene.control.Dialog dialog = new TextInputDialog();
+        dialog.setTitle("Project Fee");
+        dialog.setHeaderText("Enter the project fee");
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+            editDialogInput = Double.valueOf(result.get());
+        }
+        return editDialogInput;
+    }
+
+
+
+    private void editBilling() {
+
+       Controller.getInstance().editBilling(projectName, projectClient, updateFeeDialog());
+
+    }
+
+
+    public Double updateFeeDialog() {
+        javafx.scene.control.Dialog dialog = new TextInputDialog();
+        dialog.setTitle("Project Fee");
+        dialog.setHeaderText("Enter the new project fee");
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+            editDialogInput = Double.valueOf(result.get());
+        }
+        return editDialogInput;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private void openDocument() {
-
         File file;
-
         FileChooser fileChooser = new FileChooser();
 
-
-        // open create project directory
+        // open created project directory
         fileChooser.setInitialDirectory(
                 new java.io.File(PATH_TO_DESKTOP + projectName + DOUBLE_FILE_SEP));
 
@@ -313,7 +384,6 @@ public class CreateNewProjectScene {
     private void openFile(File file) {
 
         if (Desktop.isDesktopSupported()) {
-
             new Thread(() -> {
                 try {
                     Desktop.getDesktop().open(file);
@@ -322,9 +392,7 @@ public class CreateNewProjectScene {
                 }
 
             }).start();
-
         }
-
     }
 
 

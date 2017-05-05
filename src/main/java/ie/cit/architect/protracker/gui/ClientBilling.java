@@ -2,7 +2,6 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.helpers.Consts;
-import ie.cit.architect.protracker.helpers.PdfInvoice;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,8 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * Created by Adam on 05/03/2017.
@@ -130,19 +127,19 @@ public class ClientBilling
             }
         });
 
-        buttonSaveInvoice.setOnAction(event -> {
-            try {
-                try {
-                    PdfInvoice.getInstance().createPdfDocument();
-                    MessageBox.show("PdfInvoice Saved to Desktop", "Saved");
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+//        buttonSaveInvoice.setOnAction(event -> {
+//            try {
+//                try {
+//                    PdfInvoice.getInstance().createPdfDocument();
+//                    MessageBox.show("PdfInvoice Saved to Desktop", "Saved");
+//                }catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
 
         buttonCancel.setOnAction(event -> {
             try {

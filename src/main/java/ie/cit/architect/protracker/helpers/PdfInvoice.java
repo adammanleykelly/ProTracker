@@ -24,7 +24,8 @@ import java.util.Date;
 public class PdfInvoice {
 
     private static final String SEPARATOR = File.separator;
-    private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + SEPARATOR + "Desktop" + SEPARATOR + "invoice.PdfInvoice";
+    private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + SEPARATOR + "Desktop";
+    private static final String FILE_NAME = "Invoice";
    //private static final String LOGO = "/home/brian/workspace/PdfInvoice/src/main/resources/companylogo.png";
     private static final String LOGO = "./src/main/resources/companylogo.png";
     private static Date mDate;
@@ -38,13 +39,24 @@ public class PdfInvoice {
         return new PdfInvoice();
     }
 
-    public void createPdfDocument() throws IOException {
+
+    public void editPdf(String pName, String cName, double fee) {
+        try {
+            createPdfDocument(pName, cName, fee);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void createPdfDocument(String projectName, String clientName, double fee) throws IOException {
 
         File file = new File(PATH_TO_DESKTOP);
         file.getParentFile().mkdirs();
 
 
-        PdfWriter writer = new PdfWriter(PATH_TO_DESKTOP);
+        PdfWriter writer = new PdfWriter(
+                PATH_TO_DESKTOP + SEPARATOR + projectName + SEPARATOR + FILE_NAME);
 
         PdfDocument pdf = new PdfDocument(writer);
 
@@ -72,19 +84,21 @@ public class PdfInvoice {
 
         document.add(paragraphTitle);
 
-        String clientName = "HENRY FORD";
+
         mDate = new Date();
-        String projectName = "APARTMENTS";
+//        String projectName = "APARTMENTS";
         double archFees = 50000.0;
         double vatCharged = 11500.0;
         double totalCharged = 61500.0;
         String date = FormatDate.formatDate(mDate);
-        String fees = "€"+String.valueOf(archFees);
+        String bill = "€"+String.valueOf(fee);
         String vat = "€"+String.valueOf(vatCharged);
         String total = "€"+String.valueOf(totalCharged);
         String vatNum = "000000000";
 
-        ArrayList<String> details = new ArrayList<String>(Arrays.asList(clientName, date, projectName, fees, vat, total, vatNum));
+        ArrayList<String> details = new ArrayList<>(Arrays.asList(clientName, date, projectName, bill, vat, total, vatNum));
+
+
 
         Paragraph p1 = new Paragraph(new Text("TO:").addStyle(normal));
         Paragraph p2 = new Paragraph(new Text("DATE:").addStyle(normal));
@@ -108,6 +122,9 @@ public class PdfInvoice {
 
         document.close();
     }
+
+
+
 
 
 

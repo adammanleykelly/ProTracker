@@ -1,8 +1,8 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
+import ie.cit.architect.protracker.controller.Controller;
 import ie.cit.architect.protracker.controller.DBController;
-import ie.cit.architect.protracker.controller.UserController;
 import ie.cit.architect.protracker.model.ClientUser;
 import ie.cit.architect.protracker.model.IUser;
 import javafx.application.Platform;
@@ -131,11 +131,11 @@ public class CustomClientDialog
 
         Platform.runLater(() -> {
 
-            if (!UserController.getInstance().isClientUserEmailValid(emailTextField)) {
+            if (!Controller.getInstance().isClientUserEmailValid(emailTextField)) {
                 createEmailErrorDialog();
                 mediator.changeToClientCustomDialog();
             }
-            else if(!UserController.getInstance().isUserPasswordValid(passwordTextField)) {
+            else if(!Controller.getInstance().isUserPasswordValid(passwordTextField)) {
                 createPasswordErrorDialog();
                 mediator.changeToClientCustomDialog();
             }
@@ -171,7 +171,7 @@ public class CustomClientDialog
 
     public void addUserToDB() {
 
-        IUser clientUser = UserController.getInstance().createClientUser(userEmail, userPass);
+        IUser clientUser = Controller.getInstance().createClientUser(userEmail, userPass);
 
         if (clientUser != null) {
             DBController.getInstance().addUser((ClientUser) clientUser);

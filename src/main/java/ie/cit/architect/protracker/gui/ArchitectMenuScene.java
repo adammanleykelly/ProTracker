@@ -2,7 +2,6 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.helpers.Consts;
-import ie.cit.architect.protracker.helpers.PdfInvoice;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,7 +14,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -81,14 +79,7 @@ public class ArchitectMenuScene {
                 } else if (event.getSource().equals(btn2)) {
                     mediator.changeToManageProjectScene();
                 } else if (event.getSource().equals(btn3)) {
-                    try {
 
-                        PdfInvoice.getInstance().createPdfDocument();
-                        MessageBox.show("PdfInvoice Saved to Desktop", "Saved");
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 } else if (event.getSource().equals(btn4)) {
                     mediator.changeToViewMessagesScene();
                 }
