@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class ControllerTest {
 
-    private String projectName = "House";
+    private String projectName = "School";
     private String projectClient = "John Murphy";
     private String projectAuthor = "Dermot Coveney";
     private String projectLocation = "Cork";
