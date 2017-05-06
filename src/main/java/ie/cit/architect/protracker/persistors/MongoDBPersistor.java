@@ -16,7 +16,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 /**
  * Author: Brian Coveney
- * Date:   13/03/17.
+ * Date:   13/03/17
  */
 public class MongoDBPersistor implements IPersistor {
 
