@@ -1,6 +1,7 @@
 package ie.cit.architect.protracker.persistors;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -43,15 +44,15 @@ public class MongoDBPersistorTest {
 
 
             // local database
-            MongoClient mongoClientConn = new MongoClient("localhost", 27017);
-            database = mongoClientConn.getDatabase("mongotest");
+//            MongoClient mongoClientConn = new MongoClient("localhost", 27017);
+//            database = mongoClientConn.getDatabase("mongotest");
 
 
             // remote database
-//            String mongoURI = "mongodb://" + DB_MONGO_USER + ":" + DB_MONGO_PASS + "@" +
-//                    DB_MONGO_IP + "/" + DB_NAME;
-//
-//            MongoClient mongoClientConn = new MongoClient(new MongoClientURI(mongoURI));
+            String mongoURI = "mongodb://" + DB_MONGO_USER + ":" + DB_MONGO_PASS + "@" +
+                    DB_MONGO_IP + "/" + DB_NAME;
+
+            MongoClient mongoClientConn = new MongoClient(new MongoClientURI(mongoURI));
 
             database = mongoClientConn.getDatabase(DB_NAME);
 

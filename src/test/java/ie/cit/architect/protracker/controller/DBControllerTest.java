@@ -1,6 +1,7 @@
 package ie.cit.architect.protracker.controller;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -34,8 +35,14 @@ public class DBControllerTest {
         try {
 
             // local database
-            MongoClient mongoClientConn = new MongoClient("localhost", 27017);
-            database = mongoClientConn.getDatabase("mongotest");
+//            MongoClient mongoClientConn = new MongoClient("localhost", 27017);
+//            database = mongoClientConn.getDatabase("mongotest");
+
+            // remote database
+            String mongoURI = "mongodb://" + DB_MONGO_USER + ":" + DB_MONGO_PASS + "@" +
+                    DB_MONGO_IP + "/" + DB_NAME;
+
+            MongoClient mongoClientConn = new MongoClient(new MongoClientURI(mongoURI));
 
             database = mongoClientConn.getDatabase(DB_NAME);
             collectionUsers = database.getCollection("users");
