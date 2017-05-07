@@ -43,6 +43,7 @@ public class Project implements IProject{
         this.fee = fee;
         setVat();
         setTotal();
+        setDate();
 
     }
 
@@ -50,7 +51,7 @@ public class Project implements IProject{
     public Project(String name, String author, String location, String clientName, double fee) {
         this.projectId = Project.next_id.incrementAndGet();
         this.name = name;
-        setDate(new Date());
+        setDate();
         this.author = author;
         this.location = location;
         this.clientName = clientName;
@@ -91,8 +92,8 @@ public class Project implements IProject{
     }
 
     @Override
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate() {
+        this.date = new Date();
     }
 
     @Override

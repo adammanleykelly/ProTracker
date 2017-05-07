@@ -15,7 +15,7 @@ public interface IProject {
 
     Date getDate();
 
-    void setDate(Date date);
+    void setDate();
 
     String getAuthor();
 

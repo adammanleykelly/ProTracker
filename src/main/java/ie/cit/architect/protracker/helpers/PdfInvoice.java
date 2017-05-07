@@ -13,8 +13,6 @@ import com.itextpdf.layout.property.TabAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import ie.cit.architect.protracker.controller.Controller;
 import ie.cit.architect.protracker.model.IProject;
-import ie.cit.architect.protracker.model.Project;
-import ie.cit.architect.protracker.model.ProjectList;
 
 import java.io.File;
 import java.io.IOException;
@@ -86,21 +84,19 @@ public class PdfInvoice {
         paragraphTitle.setTextAlignment(TextAlignment.CENTER);
         paragraphTitle.setUnderline();
         paragraphTitle.setFixedLeading(100);
-
         document.add(paragraphTitle);
 
-
-        String date = FormatDate.formatDate(new Date());
         String vatNum = "000000000";
 
 
+        // create project object
         IProject project = Controller.getInstance().createProject(projectName, clientName, fee);
 
-
+        // add project details to a list of strings. We will append these details, one by one, to the paragraphs below.
         ArrayList<String> details =
                 new ArrayList<>(Arrays.asList(
                         project.getClientName(),
-                        date,
+                        FormatDate.formatDate(project.getDate()),
                         project.getName(),
                         String.valueOf(project.getFee()),
                         String.valueOf(project.getVat()),
@@ -108,13 +104,7 @@ public class PdfInvoice {
                         vatNum));
 
 
-
-        ProjectList projectList = new ProjectList();
-        projectList.add((Project) project);
-
-
-
-
+        // the test in these paragraphs do not change
         Paragraph p1 = new Paragraph(new Text("TO: ").addStyle(normal));
         Paragraph p2 = new Paragraph(new Text("DATE:").addStyle(normal));
         Paragraph p3 = new Paragraph(new Text("RE:").addStyle(normal));
@@ -122,14 +112,17 @@ public class PdfInvoice {
         Paragraph p5 = new Paragraph(new Text("+ VAT @ 23%:").addStyle(normal));
         Paragraph p6 = new Paragraph(new Text("TOTAL:").addStyle(normal));
         Paragraph p7 = new Paragraph(new Text("VAT NO").addStyle(normal));
-
         ArrayList<Paragraph> paragraphList = new ArrayList<>( Arrays.asList(p1, p2, p3, p4, p5, p6, p7));
 
 
         for(int i = 0; i < paragraphList.size(); i++) {
+
+            // styling
             paragraphList.get(i).setFixedLeading(40);
             paragraphList.get(i).add(new Tab());
             paragraphList.get(i).addTabStops(new TabStop(220, TabAlignment.LEFT));
+
+            // append project details to each paragraph
             paragraphList.get(i).add(details.get(i));
 
             document.add(paragraphList.get(i));
