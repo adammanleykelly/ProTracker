@@ -34,7 +34,7 @@ import java.util.Optional;
 public class ManageProjectScene {
 
 
-    private String projectName;
+    private String projectName, projectName2, projectN;
     private static final String FILE_SEP = File.separator;
     private static final String DOUBLE_FILE_SEP = FILE_SEP + FILE_SEP;
     private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + FILE_SEP + "Desktop" + FILE_SEP;
@@ -89,7 +89,7 @@ public class ManageProjectScene {
         Button buttonOpen = new Button("Open");
         buttonOpen.setOnAction(event -> openDocument());
 
-//        buttonOpen.setOnAction(event -> createInvoice());
+        buttonOpen.setOnAction(event -> createInvoice());
 
 
         Button buttonViewStage = new Button("View Stage");
@@ -101,7 +101,10 @@ public class ManageProjectScene {
         buttonRename.setDisable(true);
 
         buttonDelete = new Button("Delete");
-        buttonDelete.setOnAction(event -> deleteProject());
+        buttonDelete.setOnAction(event -> {
+                deleteProject();
+                removeControlsFromScrollPane();
+        });
 
         ObservableList<Button> buttonList =
                 FXCollections.observableArrayList(buttonOpen, buttonViewStage, buttonRename, buttonDelete);
@@ -122,15 +125,24 @@ public class ManageProjectScene {
         return vBox;
     }
 
-//    private void createInvoice() {
-//
-//        try {
-//            PdfInvoice.getInstance().createPdfDocument(projectName);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+    private void createInvoice() {
+
+
+
+        Project p = getProjectName();
+        String n = p.getName();
+
+
+        Project pr = DBController.getInstance().readProjectDetails(p);
+
+        System.out.println(pr.getName());
+        System.out.println(p.getClientName());
+
+
+ 
+
+    }
+
 
 
     private ScrollPane createMiddlePane() {
@@ -188,21 +200,35 @@ public class ManageProjectScene {
             vBoxMiddlePane.getChildren().add(hBoxProject);
         }
 
-        getProjectName();
+        getProjectByName();
 
     }
-
 
 
     private Project getProjectName() {
         for(CheckBox checkBox : checkBoxList) {
             checkBox.setOnAction(event -> {
-                buttonRename.setDisable(false);
-                projectName =  checkBox.getText();
+                projectN =  checkBox.getText();
             });
-
-            removeControlsFromScrollPane();
         }
+
+        Project project = new Project();
+        project.setName(projectName);
+
+        return project;
+    }
+
+
+
+    private Project getProjectByName() {
+        for(CheckBox checkBox : checkBoxList) {
+            checkBox.setOnAction(event -> {
+                projectName =  checkBox.getText();
+                buttonRename.setDisable(false);
+
+            });
+        }
+
         Project project = new Project();
         project.setName(projectName);
 
@@ -211,6 +237,7 @@ public class ManageProjectScene {
 
 
     private void removeControlsFromScrollPane() {
+
         for (int i = 0; i < checkBoxList.size(); i++) {
             if(checkBoxList.get(i).isSelected()) {
                 checkBoxList.get(i).setVisible(false);
@@ -254,7 +281,7 @@ public class ManageProjectScene {
     // Delete
     // 'deleteButton' listener which calls the Controller to remove the selected project from the database
     private void deleteProject() {
-        DBController.getInstance().deleteProject(getProjectName());
+        DBController.getInstance().deleteProject(getProjectByName());
     }
 
 

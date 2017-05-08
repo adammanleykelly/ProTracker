@@ -102,6 +102,7 @@ public class MongoDBPersistor implements IPersistor {
     }
 
 
+    // for unit testing
     @Override
     public Project readProject(MongoCollection collection) {
 
@@ -111,8 +112,8 @@ public class MongoDBPersistor implements IPersistor {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 String projectName = doc.getString("name");
-                project.setName(projectName);
 
+                project.setName(projectName);
             }
         } finally {
             cursor.close();
@@ -120,6 +121,35 @@ public class MongoDBPersistor implements IPersistor {
         return project;
     }
 
+
+    @Override
+    public Project readProject(Project project) {
+
+        project = new Project();
+        MongoCursor<Document> cursor = collectionProjects.find().iterator();
+        try {
+            while (cursor.hasNext()) {
+                Document doc = cursor.next();
+
+                String projectName = doc.getString("name");
+
+                String projectAuthor = doc.getString("author");
+                String projectLocation = doc.getString("location");
+                String clientName = doc.getString("client_name");
+                double projectFee = doc.getDouble("fee_tendered");
+
+                project.setName(projectName);
+                project.setAuthor(projectAuthor);
+                project.setLocation(projectLocation);
+                project.setClientName(clientName);
+                project.setFee(projectFee);
+
+            }
+        } finally {
+            cursor.close();
+        };
+        return project;
+    }
 
 
 

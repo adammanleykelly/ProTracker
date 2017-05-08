@@ -18,6 +18,8 @@ public interface IPersistor {
 
     ArrayList<Project> readProjects();
 
+    Project readProject(Project project);
+
     void deleteProject(Project projectName);
 
     Project updateProjectName(String currentProjectName, String upDatedProjectName);

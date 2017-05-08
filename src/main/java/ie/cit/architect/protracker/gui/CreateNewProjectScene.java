@@ -243,8 +243,6 @@ public class CreateNewProjectScene {
 
         Button buttonContinue = new Button("Continue");
         buttonContinue.setOnAction(event -> {
-            createProject();
-            createDirectories();
             mediator.changeToArchitectMenuScene();
         });
 

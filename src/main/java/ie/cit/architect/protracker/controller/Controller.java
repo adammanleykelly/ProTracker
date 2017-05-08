@@ -52,14 +52,15 @@ public class Controller {
     }
 
 
-
-
     public boolean isEmployeeUserEmailValid(String emailAddress) {
-        if(emailAddress.equals(Consts.MANAGER_EMAIL_1) || emailAddress.equals(Consts.MANAGER_EMAIL_2)) {
+        if(emailAddress.equals(Consts.MANAGER_EMAIL_1) ||
+                emailAddress.equals(Consts.MANAGER_EMAIL_2) ||
+                emailAddress.equals(Consts.MANAGER_EMAIL_3)) {
             return true;
         }
         return false;
     }
+
 
     public boolean isClientUserEmailValid(String emailAddress) {
         if(emailAddress.equals(Consts.CLIENT_EMAIL_1)
@@ -69,6 +70,7 @@ public class Controller {
         }
         return false;
     }
+
 
     public boolean isUserPasswordValid(String password) {
         if (password.equals(Consts.USER_PASS)) {

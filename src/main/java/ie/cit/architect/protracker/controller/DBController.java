@@ -82,6 +82,7 @@ public class DBController {
         this.projectList.add(project);
     }
 
+
     public void saveProject() {
         this.persistor.writeProjects(this.projectList);
     }
@@ -119,6 +120,11 @@ public class DBController {
         }
 
         return this.persistor.updateProjectFee(currentFee, updatedFee);
+    }
+
+
+    public Project readProjectDetails(Project project) {
+        return this.persistor.readProject(project);
     }
 
 

@@ -13,6 +13,9 @@ import static org.junit.Assert.assertEquals;
  */
 public class FormatDateTest {
 
+    private static int YEAR_TWENTY_SEVENTEEN = 2017;
+    private static int MONTH_MAY = 5-1;
+    private static int DAY_FIRST = 01;
 
     @Before
     public void setUp() throws Exception {
@@ -24,10 +27,13 @@ public class FormatDateTest {
     public void formatDate() throws Exception {
 
         Calendar cal = Calendar.getInstance();
-        cal.set(2017, 5-1, 07);
+        cal.set(YEAR_TWENTY_SEVENTEEN, MONTH_MAY, DAY_FIRST);
         Date date = cal.getTime();
 
-        assertEquals(FormatDate.formatDate(date), "07/05/2017");
+        String expected = FormatDate.formatDate(date);
+        String actual = "01/05/2017";
+
+        assertEquals(expected, actual);
     }
 
 }

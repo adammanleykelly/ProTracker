@@ -43,9 +43,9 @@ public class PdfInvoice {
     }
 
 
-    public void editPdf(String pName, String cName, double fee) {
+    public void editPdf(String projectName, String clientName, double fee) {
         try {
-            createPdfDocument(pName, cName, fee);
+            createPdfDocument(projectName, clientName, fee);
         } catch (IOException e) {
             e.printStackTrace();
         }
