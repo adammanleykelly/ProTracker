@@ -89,7 +89,7 @@ public class DBController {
 
 
     public ArrayList<Project> selectRecords() {
-        return this.persistor.readProjects();
+        return this.persistor.createProjectList();
     }
 
 
@@ -123,8 +123,8 @@ public class DBController {
     }
 
 
-    public Project readProjectDetails(Project project) {
-        return this.persistor.readProject(project);
+    public Project readProjectDetails(String projectName) {
+        return this.persistor.readProject(projectName);
     }
 
 

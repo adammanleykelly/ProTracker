@@ -34,7 +34,7 @@ import java.util.Optional;
 public class ManageProjectScene {
 
 
-    private String projectName, projectName2, projectN;
+    private String projectName, projectName2;
     private static final String FILE_SEP = File.separator;
     private static final String DOUBLE_FILE_SEP = FILE_SEP + FILE_SEP;
     private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + FILE_SEP + "Desktop" + FILE_SEP;
@@ -129,14 +129,7 @@ public class ManageProjectScene {
 
 
 
-        Project p = getProjectName();
-        String n = p.getName();
-
-
-        Project pr = DBController.getInstance().readProjectDetails(p);
-
-        System.out.println(pr.getName());
-        System.out.println(p.getClientName());
+        getProjectName();
 
 
  
@@ -177,7 +170,7 @@ public class ManageProjectScene {
     /**
      * CheckBoxes populated with the project 'name' field from MongoDB
      * @see DBController#selectRecords()
-     * @see MongoDBPersistor#readProjects()
+     * @see MongoDBPersistor#createProjectList()
      */
     private void addProjectsToMiddlePane() {
 
@@ -198,6 +191,8 @@ public class ManageProjectScene {
             hBoxProject.getChildren().addAll(checkBox, labelDate);
 
             vBoxMiddlePane.getChildren().add(hBoxProject);
+
+
         }
 
         getProjectByName();
@@ -205,15 +200,21 @@ public class ManageProjectScene {
     }
 
 
+
     private Project getProjectName() {
         for(CheckBox checkBox : checkBoxList) {
             checkBox.setOnAction(event -> {
-                projectN =  checkBox.getText();
+                projectName =  checkBox.getText();
             });
         }
 
-        Project project = new Project();
-        project.setName(projectName);
+
+        Project project = DBController.getInstance().readProjectDetails(projectName);
+
+        System.out.println(project.getName());
+        System.out.println(project.getClientName());
+        System.out.println(project.getFee());
+
 
         return project;
     }

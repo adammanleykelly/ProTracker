@@ -16,9 +16,9 @@ public interface IPersistor {
 
     void writeProjects(ProjectList projects);
 
-    ArrayList<Project> readProjects();
+    ArrayList<Project> createProjectList();
 
-    Project readProject(Project project);
+    Project readProject(String projectName);
 
     void deleteProject(Project projectName);
 

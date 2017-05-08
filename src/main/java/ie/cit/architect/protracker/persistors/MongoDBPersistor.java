@@ -122,33 +122,36 @@ public class MongoDBPersistor implements IPersistor {
     }
 
 
-    @Override
-    public Project readProject(Project project) {
 
-        project = new Project();
-        MongoCursor<Document> cursor = collectionProjects.find().iterator();
+
+    // search DB for a record based on a given string value
+    @Override
+    public Project readProject(String projectName) {
+
+
+        Project project = null;
+
+        // we can find a record in the collection, passing this method's parameter to .find(eq(...))
+        FindIterable<Document> databaseRecords =
+                database.getCollection("projects").find(eq("name", projectName));
+
+        MongoCursor<Document> cursor = databaseRecords.iterator();
+
+
         try {
             while (cursor.hasNext()) {
-                Document doc = cursor.next();
+                Document document = cursor.next();
 
-                String projectName = doc.getString("name");
-
-                String projectAuthor = doc.getString("author");
-                String projectLocation = doc.getString("location");
-                String clientName = doc.getString("client_name");
-                double projectFee = doc.getDouble("fee_tendered");
-
-                project.setName(projectName);
-                project.setAuthor(projectAuthor);
-                project.setLocation(projectLocation);
-                project.setClientName(clientName);
-                project.setFee(projectFee);
-
+                String projectClient = document.getString("client_name");
+                double projectFee = document.getDouble("fee_tendered");
+                project = new Project(projectName, projectClient, projectFee);
             }
         } finally {
             cursor.close();
-        };
+        }
         return project;
+
+
     }
 
 
@@ -231,12 +234,6 @@ public class MongoDBPersistor implements IPersistor {
     }
 
 
-
-
-
-
-
-
     @Override
     public Project updateProjectFee(double currentFee, double updatedFee) {
 
@@ -248,8 +245,6 @@ public class MongoDBPersistor implements IPersistor {
 
         return project;
     }
-
-
 
 
 
@@ -271,26 +266,8 @@ public class MongoDBPersistor implements IPersistor {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
-    public ArrayList<Project> readProjects() {
+    public ArrayList<Project> createProjectList() {
 
         // HashSet so we do not store duplicate values
         Set<Project> projectNameHashSet = new HashSet<>();
