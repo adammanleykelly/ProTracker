@@ -221,17 +221,15 @@ public class CreateNewProjectScene {
         Button buttonInvoice = new Button("Create Invoice");
         buttonInvoice.setOnAction(event -> createInvoice());
 
-        Button buttonUpdateInvoice = new Button("Change Fee");
-        buttonUpdateInvoice.setOnAction(event -> editBilling());
+
 
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_middle");
         vBox.setMinWidth(Consts.PANE_WIDTH);
         VBox.setMargin(buttonOpen, new Insets(200, 0, 0, 100));
         VBox.setMargin(buttonInvoice, new Insets(50, 0, 0, 100));
-        VBox.setMargin(buttonUpdateInvoice, new Insets(50, 0, 0, 100));
 
-        vBox.getChildren().addAll(buttonOpen, buttonInvoice, buttonUpdateInvoice);
+        vBox.getChildren().addAll(buttonOpen, buttonInvoice);
 
         return vBox;
     }
@@ -306,53 +304,9 @@ public class CreateNewProjectScene {
 
 
 
-
-    // Billing
     private void createInvoice() {
-
         Controller.getInstance().createInvoice(projectName, projectClient, projectFee);
     }
-
-
-
-    private void editBilling() {
-
-       double newFee =  updateFeeDialog();
-
-       Controller.getInstance().editBilling(projectName, projectClient, newFee);
-
-       DBController.getInstance().updateProjectFee(projectFee, newFee);
-
-       tfProjectFee.clear();
-
-    }
-
-
-
-    public Double updateFeeDialog() {
-        javafx.scene.control.Dialog dialog = new TextInputDialog();
-        dialog.setTitle("Project Fee");
-        dialog.setHeaderText("Enter the new project fee");
-
-        Optional<String> result = dialog.showAndWait();
-
-        if (result.isPresent()) {
-            editDialogInput = Double.valueOf(result.get());
-        }
-        return editDialogInput;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

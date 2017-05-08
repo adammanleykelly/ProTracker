@@ -1,6 +1,7 @@
 package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
+import ie.cit.architect.protracker.controller.Controller;
 import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.helpers.Consts;
 import ie.cit.architect.protracker.model.Project;
@@ -34,7 +35,8 @@ import java.util.Optional;
 public class ManageProjectScene {
 
 
-    private String projectName, projectName2;
+    private String projectName, selectedProjectName, selectedProjectClient;
+    private double selectedProjectFee, doubleDialogInput;
     private static final String FILE_SEP = File.separator;
     private static final String DOUBLE_FILE_SEP = FILE_SEP + FILE_SEP;
     private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + FILE_SEP + "Desktop" + FILE_SEP;
@@ -86,10 +88,13 @@ public class ManageProjectScene {
         vBox.getStyleClass().add("hbox_left");
         vBox.setMinWidth(Consts.PANE_WIDTH);
 
-        Button buttonOpen = new Button("Open");
-        buttonOpen.setOnAction(event -> openDocument());
+        Button changeFee = new Button("Change Fee");
+        changeFee.setOnAction(event -> {
+            selectedProject();
 
-        buttonOpen.setOnAction(event -> createInvoice());
+            editBilling();
+
+        });;
 
 
         Button buttonViewStage = new Button("View Stage");
@@ -107,7 +112,7 @@ public class ManageProjectScene {
         });
 
         ObservableList<Button> buttonList =
-                FXCollections.observableArrayList(buttonOpen, buttonViewStage, buttonRename, buttonDelete);
+                FXCollections.observableArrayList(changeFee, buttonViewStage, buttonRename, buttonDelete);
 
         for (Button button : buttonList) {
             button.setFocusTraversable(false);
@@ -120,20 +125,9 @@ public class ManageProjectScene {
         VBox.setMargin(labelOperations, new Insets(30, 0, 50, 10));
 
         // add controls to VBox
-        vBox.getChildren().addAll(labelOperations, buttonOpen, buttonViewStage, buttonRename, buttonDelete);
+        vBox.getChildren().addAll(labelOperations, changeFee, buttonViewStage, buttonRename, buttonDelete);
 
         return vBox;
-    }
-
-    private void createInvoice() {
-
-
-
-        getProjectName();
-
-
- 
-
     }
 
 
@@ -201,7 +195,7 @@ public class ManageProjectScene {
 
 
 
-    private Project getProjectName() {
+    private Project selectedProject() {
         for(CheckBox checkBox : checkBoxList) {
             checkBox.setOnAction(event -> {
                 projectName =  checkBox.getText();
@@ -209,14 +203,42 @@ public class ManageProjectScene {
         }
 
 
+        // read the checkbox selected project from the db
         Project project = DBController.getInstance().readProjectDetails(projectName);
 
-        System.out.println(project.getName());
-        System.out.println(project.getClientName());
-        System.out.println(project.getFee());
-
+        selectedProjectName = project.getName();
+        selectedProjectClient = project.getClientName();
+        selectedProjectFee = project.getFee();
 
         return project;
+    }
+
+
+
+    private void editBilling() {
+
+        double newFee =  updateFeeDialog();
+
+        Controller.getInstance().createInvoice(selectedProjectName, selectedProjectClient, selectedProjectFee);
+
+        Controller.getInstance().editBilling(selectedProjectName, selectedProjectClient, newFee);
+
+        DBController.getInstance().updateProjectFee(selectedProjectFee, newFee);
+
+    }
+
+
+    public Double updateFeeDialog() {
+        javafx.scene.control.Dialog dialog = new TextInputDialog();
+        dialog.setTitle("Project Fee");
+        dialog.setHeaderText("Enter the new project fee");
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+            doubleDialogInput = Double.valueOf(result.get());
+        }
+        return doubleDialogInput;
     }
 
 
@@ -229,7 +251,6 @@ public class ManageProjectScene {
 
             });
         }
-
         Project project = new Project();
         project.setName(projectName);
 
@@ -273,8 +294,6 @@ public class ManageProjectScene {
 
     // Update
     private void editProjectName() { DBController.getInstance().updateProjectName(projectName, editDialogInput); }
-
-
 
 
 
