@@ -9,10 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -33,7 +30,7 @@ public class ClientBilling
         BorderPane pane = new BorderPane();
         pane.setTop(homeButtonContainer());
         pane.setCenter(createClientBilling());
-        pane.setBottom(navButtonContainer());
+        pane.setBottom(createBottomPane());
 
         Scene scene = new Scene(pane, Consts.APP_WIDTH, Consts.APP_HEIGHT);
         scene.getStylesheets().add("/stylesheet.css");
@@ -112,7 +109,7 @@ public class ClientBilling
         return hb2;
     }
 
-    public HBox navButtonContainer()
+  /*  public HBox navButtonContainer()
     {
         Button buttonCancel = new Button("Cancel");
         Button buttonContinue= new Button("Continue");
@@ -173,5 +170,69 @@ public class ClientBilling
         hb3.setAlignment(Pos.TOP_RIGHT);
 
         return hb3;
+    }*/
+    private AnchorPane createBottomPane() {
+
+        Button buttonCancel = new Button("Cancel");
+        Button buttonContinue = new Button("Continue");
+        Button buttonChat = new Button("Chat");
+        Button buttonSaveInvoice = new Button("Save PdfInvoice");
+
+
+        buttonCancel.setOnAction(event -> {
+            try {
+                mainMediator.changeToClientMenuScene();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        buttonContinue.setOnAction(event -> {
+            try {
+                mainMediator.changeToClientMenuScene();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        buttonChat.setOnAction(event -> {
+            try {
+                mainMediator.changeToClientMessages();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+//        buttonSaveInvoice.setOnAction(event -> {
+//            try {
+//                try {
+//                    PdfInvoice.getInstance().createPdfDocument();
+//                    MessageBox.show("PdfInvoice Saved to Desktop", "Saved");
+//                }catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
+        // layout
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getStyleClass().add("anchorpane_color");
+        AnchorPane.setTopAnchor(buttonCancel, 10.0);
+        AnchorPane.setBottomAnchor(buttonCancel, 10.0);
+        AnchorPane.setRightAnchor(buttonCancel, 150.0);
+
+        AnchorPane.setBottomAnchor(buttonContinue, 10.0);
+        AnchorPane.setRightAnchor(buttonContinue, 10.0);
+
+        AnchorPane.setBottomAnchor(buttonChat, 10.0);
+        AnchorPane.setRightAnchor(buttonChat, 280.0);
+
+        AnchorPane.setBottomAnchor(buttonSaveInvoice, 10.0);
+        AnchorPane.setRightAnchor(buttonSaveInvoice, 410.0);
+
+        anchorPane.getChildren().addAll(buttonCancel, buttonContinue, buttonChat, buttonSaveInvoice);
+
+        return anchorPane;
     }
 }

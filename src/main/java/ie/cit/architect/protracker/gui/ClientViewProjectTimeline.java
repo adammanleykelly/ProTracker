@@ -9,10 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.List;
 import javafx.animation.PathTransition;
@@ -44,8 +41,7 @@ public class ClientViewProjectTimeline
         BorderPane pane = new BorderPane();
         pane.setTop(homeButtonContainer());
         pane.setCenter(createProjectTimeline());
-
-        pane.setBottom(navButtonContainer());
+        pane.setBottom(createBottomPane());
 
         Scene scene = new Scene(pane, Consts.APP_WIDTH, Consts.APP_HEIGHT);
         scene.getStylesheets().add("/stylesheet.css");
@@ -56,13 +52,11 @@ public class ClientViewProjectTimeline
 
     private Pane createProjectTimeline()
     {
-        Label pTimeline = new Label("View Project Timeline");
-
         Group rootGroup = new Group();
         VBox vb = new VBox(rootGroup);
         applyAnimation(rootGroup);
         vb.setSpacing(15);
-        vb.setPadding(new Insets(1));
+        vb.setPadding(new Insets(1,1,60,1));
         vb.setAlignment(Pos.CENTER);
 
         BorderPane pane = new BorderPane();
@@ -200,11 +194,11 @@ public class ClientViewProjectTimeline
         return hb2;
     }
 
-    public VBox navButtonContainer()
-    {
-        Button buttonStage = new Button("View Current Stage");
+
+    private AnchorPane createBottomPane() {
+
         Button buttonCancel = new Button("Cancel");
-        Button buttonContinue= new Button("Continue");
+        Button buttonContinue = new Button("Continue");
 
         buttonCancel.setOnAction(event -> {
             try {
@@ -221,33 +215,19 @@ public class ClientViewProjectTimeline
                 e.printStackTrace();
             }
         });
+        // layout
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getStyleClass().add("anchorpane_color");
+        AnchorPane.setTopAnchor(buttonCancel, 10.0);
+        AnchorPane.setBottomAnchor(buttonCancel, 10.0);
+        AnchorPane.setRightAnchor(buttonCancel, 150.0);
+        AnchorPane.setBottomAnchor(buttonContinue, 10.0);
+        AnchorPane.setRightAnchor(buttonContinue, 10.0);
 
-        buttonStage.setOnAction(event -> {
-            try {
-                mainMediator.changeToClientStage();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        anchorPane.getChildren().addAll(buttonCancel, buttonContinue);
 
-        HBox hb = new HBox(buttonCancel, buttonContinue);
-        hb.setSpacing(10);
-        hb.setPadding(new Insets(10));
-        hb.setAlignment(Pos.TOP_RIGHT);
-
-        HBox hb1 = new HBox(buttonStage);
-        hb1.setSpacing(10);
-        hb1.setPadding(new Insets(10));
-        hb1.setAlignment(Pos.TOP_RIGHT);
-
-        VBox vb1 = new VBox(hb1, hb);
-        vb1.setSpacing(5);
-        vb1.setPadding(new Insets(10));
-        vb1.setAlignment(Pos.TOP_RIGHT);
-
-        return vb1;
+        return anchorPane;
     }
-
 
 }
 
