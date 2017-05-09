@@ -91,3 +91,7 @@
 .border_pane {
     -fx-background-image: none;
 }
+
+.chart-title{
+    -fx-font-size: 15px;
+}

@@ -84,7 +84,7 @@ public class Controller {
 
     public void createInvoice(String projectName, String projectClient, double fee) {
         try {
-            PdfInvoice.getInstance().createPdfDocument(projectName, projectClient,  fee);
+            PdfInvoice.getInstance().createPdfDocument(projectName, projectClient, fee);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,6 +97,11 @@ public class Controller {
 
     }
 
+
+    public void createDesignInvoice(String projectName, String projectClient, double fee) {
+        PdfInvoice.getInstance().sendDesignInvoice(projectName, projectClient, fee);
+
+    }
 
 
 
