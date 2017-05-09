@@ -12,10 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 /**
@@ -30,11 +27,12 @@ public class ClientMessages {
         this.mainMediator = mainMediator;
     }
 
-    public void start(Stage stage) {
+    public void start(Stage stage)
+    {
         BorderPane pane = new BorderPane();
         pane.setTop(homeButtonContainer());
         pane.setCenter(MessagesPane());
-        pane.setBottom(navButtonContainer());
+        pane.setBottom(createBottomPane());
         Scene scene = new Scene(pane, Consts.APP_WIDTH, Consts.APP_HEIGHT);
 
         scene.getStylesheets().add("/stylesheet.css");
@@ -46,15 +44,16 @@ public class ClientMessages {
     private Pane MessagesPane() {
         BorderPane pane = new BorderPane();
         pane.setRight(createRightPane());
+        pane.setLeft(createLeftPane());
         return pane;
     }
 
-
-    private VBox createRightPane() {
+    private VBox createLeftPane()
+    {
         VBox vBox = new VBox();
         vBox.setMinWidth(Consts.PANE_WIDTH);
 
-        Label label = new Label("Compose ChatMessage:");
+        Label label = new Label("Incoming Chat Message:");
 
         TextArea textArea = new TextArea();
         textArea.setMaxWidth(200);
@@ -76,6 +75,43 @@ public class ClientMessages {
         return vBox;
     }
 
+    private VBox createRightPane() {
+        VBox vBox = new VBox();
+        vBox.setMinWidth(Consts.PANE_WIDTH);
+
+        Label label = new Label("Compose Chat Message:");
+
+        TextArea textArea = new TextArea();
+        textArea.setMaxWidth(200);
+        textArea.setPrefHeight(200);
+        textArea.setWrapText(true);
+
+        Button sendButton = new Button("Send");
+
+
+        sendButton.setOnAction(event -> {
+
+            String input = textArea.getText();
+
+            // create ChatMessage object with TextArea input as its message
+            ChatMessage message = new ChatMessage(input);
+
+            // save the message in MongoDB
+            DBController.getInstance().saveMessage(message);
+
+        });
+
+
+
+        VBox.setMargin(label, new Insets(30,0,0,40));
+        VBox.setMargin(textArea, new Insets(0,0,0,40));
+        VBox.setMargin(sendButton, new Insets(0,0,0,40));
+
+
+        vBox.getChildren().addAll(label, textArea, sendButton);
+
+        return vBox;
+    }
 
     public HBox homeButtonContainer() {
         Button buttonHome = new Button("Home");
@@ -110,7 +146,8 @@ public class ClientMessages {
         return hb2;
     }
 
-    public HBox navButtonContainer() {
+    private AnchorPane createBottomPane() {
+
         Button buttonCancel = new Button("Cancel");
         Button buttonContinue = new Button("Continue");
 
@@ -129,13 +166,18 @@ public class ClientMessages {
                 e.printStackTrace();
             }
         });
+        // layout
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getStyleClass().add("anchorpane_color");
+        AnchorPane.setTopAnchor(buttonCancel, 10.0);
+        AnchorPane.setBottomAnchor(buttonCancel, 10.0);
+        AnchorPane.setRightAnchor(buttonCancel, 150.0);
+        AnchorPane.setBottomAnchor(buttonContinue, 10.0);
+        AnchorPane.setRightAnchor(buttonContinue, 10.0);
 
-        HBox hb = new HBox(buttonCancel, buttonContinue);
-        hb.setSpacing(10);
-        hb.setPadding(new Insets(10));
-        hb.setAlignment(Pos.TOP_RIGHT);
+        anchorPane.getChildren().addAll(buttonCancel, buttonContinue);
 
-        return hb;
+        return anchorPane;
     }
 
 }
