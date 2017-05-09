@@ -6,10 +6,19 @@ import ie.cit.architect.protracker.controller.DBController;
 import ie.cit.architect.protracker.helpers.Consts;
 import ie.cit.architect.protracker.model.Project;
 import ie.cit.architect.protracker.persistors.MongoDBPersistor;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.*;
 import javafx.scene.control.Dialog;
@@ -22,17 +31,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
  * Created by brian on 27/02/17.
  */
 public class ManageProjectScene {
+
 
 
     private String projectName, selectedProjectName, selectedProjectClient;
@@ -52,6 +64,7 @@ public class ManageProjectScene {
     private Label labelDate;
     private String editDialogInput;
     private HBox hBoxProject;
+    private Stage window;
 
 
     private Mediator mediator;
@@ -65,6 +78,8 @@ public class ManageProjectScene {
 
     public void start(Stage stage) {
 
+        window = stage;
+
         BorderPane borderPane = new BorderPane();
         borderPane.setLeft(createLeftPane());
         borderPane.setCenter(createMiddlePane());
@@ -77,9 +92,9 @@ public class ManageProjectScene {
                 sceneWidth, Consts.APP_HEIGHT);
 
         scene.getStylesheets().add("/stylesheet.css");
-        stage.setScene(scene);
-        stage.setTitle(Consts.APPLICATION_TITLE + " Manage project");
-        stage.show();
+        window.setScene(scene);
+        window.setTitle(Consts.APPLICATION_TITLE + " Manage project");
+        window.show();
     }
 
 
@@ -98,7 +113,7 @@ public class ManageProjectScene {
 
 
         Button buttonViewStage = new Button("View Stage");
-        buttonViewStage.setOnAction(event -> mediator.changeToViewTimelineScene());
+        buttonViewStage.setOnAction(event -> createTimelineScene());
 
 
         buttonRename = new Button("Rename");
@@ -107,8 +122,8 @@ public class ManageProjectScene {
 
         buttonDelete = new Button("Delete");
         buttonDelete.setOnAction(event -> {
-                deleteProject();
-                removeControlsFromScrollPane();
+            deleteProject();
+            removeControlsFromScrollPane();
         });
 
         ObservableList<Button> buttonList =
@@ -193,18 +208,26 @@ public class ManageProjectScene {
 
     }
 
+    private String getProjectName() {
 
-
-    private Project selectedProject() {
         for(CheckBox checkBox : checkBoxList) {
             checkBox.setOnAction(event -> {
                 projectName =  checkBox.getText();
             });
         }
 
+        return projectName;
+
+    }
+
+
+
+    private Project selectedProject() {
+
+        String name = getProjectName();
 
         // read the checkbox selected project from the db
-        Project project = DBController.getInstance().readProjectDetails(projectName);
+        Project project = DBController.getInstance().readProjectDetails(name);
 
         selectedProjectName = project.getName();
         selectedProjectClient = project.getClientName();
@@ -388,4 +411,141 @@ public class ManageProjectScene {
         }
 
     }
+
+
+
+
+    //*** New Scene ***//
+
+    private void createTimelineScene() {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setBottom(createBottomPaneTimLine());
+        borderPane.setCenter(createBarChart());
+        borderPane.setLeft(createLeftBillingPane());
+        borderPane.getStyleClass().add("border_pane");
+
+
+        Scene scene = new Scene(borderPane, 1000, 500);
+        scene.getStylesheets().add("/stylesheet.css");
+        window.setScene(scene);
+        window.setTitle(Consts.APPLICATION_TITLE + " View Stage");
+        window.show();
+    }
+
+    private VBox createLeftBillingPane() {
+        VBox vBox = new VBox();
+        Button buttonDesign = new Button("Send Design Invoice");
+        Button buttonPlanning = new Button("Send Planning Invoice");
+        Button buttonTender = new Button("Send Tender Invoice");
+        Button buttonConstruction = new Button("Send Construction Invoice");
+        VBox.setMargin(buttonDesign, new Insets(100, 37.5, 0, 37.5));
+        VBox.setMargin(buttonPlanning, new Insets(30, 37.5, 0, 37.5));
+        VBox.setMargin(buttonTender, new Insets(30, 37.5, 0, 37.5));
+        VBox.setMargin(buttonConstruction, new Insets(30, 37.5, 0, 37.5));
+        vBox.getChildren().addAll(buttonDesign, buttonPlanning, buttonTender, buttonConstruction);
+        return vBox;
+    }
+
+
+    private Group createBarChart() {
+
+        // define the X Axis
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setTickLabelRotation(90);
+        xAxis.setCategories(FXCollections.observableArrayList(
+                Arrays.asList(Consts.DESIGN, Consts.PLANNING, Consts.TENDER, Consts.CONSTRUCTION)));
+
+
+        // define the Y Axis
+        NumberAxis yAxis = new NumberAxis(0, 50000, 10000);
+        yAxis.setLabel("Fee");
+
+
+        String name = getProjectName();
+
+        //** get
+        Project project = DBController.getInstance().readProjectDetails(name);
+        String projectName = project.getName();
+        double fee = project.getFee();
+
+        // create the Bar chart
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle("Total fee of €" + fee + " for " +  projectName);
+
+        //Prepare XYChart.Series
+        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+        XYChart.Series<String, Number> series2 = new XYChart.Series<>();
+        XYChart.Series<String, Number> series3 = new XYChart.Series<>();
+        XYChart.Series<String, Number> series4 = new XYChart.Series<>();
+
+        series1.setName(Consts.DESIGN);
+        series2.setName(Consts.PLANNING);
+        series3.setName(Consts.TENDER);
+        series4.setName(Consts.CONSTRUCTION);
+
+
+        double yValueDesign = fee * 0.5;
+        double yValuePlanning = fee * 0.2;
+        double yValueTender = fee * 0.1;
+        double yValueConstruction = fee * 0.4;
+
+
+
+        // Timeline Animation of the project progress, which is displayed as a percentage on the Y-Axis.
+        // The animation is run only once - when the user enters the scene.
+        Timeline tl = new Timeline();
+        tl.getKeyFrames().add(new KeyFrame(Duration.millis(500),
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        // set the XYChart.Series objects data
+                        series1.getData().add(new XYChart.Data<>(Consts.DESIGN, yValueDesign));
+
+                        series2.getData().add(new XYChart.Data<>(Consts.PLANNING, yValuePlanning));
+
+                        series3.getData().add(new XYChart.Data<>(Consts.TENDER, yValueTender));
+
+                        series4.getData().add(new XYChart.Data<>(Consts.CONSTRUCTION, yValueConstruction));
+                    }
+                }));
+
+        tl.play();
+
+        barChart.getData().addAll(series1, series2, series3, series4);
+
+        //Creating a Group object
+        Group groupBarChart = new Group(barChart);
+
+        return groupBarChart;
+    }
+
+
+    private AnchorPane createBottomPaneTimLine() {
+
+        Button buttonContinue = new Button("Continue");
+        buttonContinue.setOnAction(event -> {
+            mediator.changeToArchitectMenuScene();
+        });
+
+        Button buttonCancel = new Button("Cancel");
+        buttonCancel.setOnAction(event -> mediator.changeToManageProjectScene());
+
+        // layout
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getStyleClass().add("anchorpane_color");
+        AnchorPane.setTopAnchor(buttonCancel, 10.0);
+        AnchorPane.setBottomAnchor(buttonCancel, 10.0);
+        AnchorPane.setRightAnchor(buttonCancel, 150.0);
+        AnchorPane.setBottomAnchor(buttonContinue, 10.0);
+        AnchorPane.setRightAnchor(buttonContinue, 10.0);
+
+        anchorPane.getChildren().addAll(buttonCancel, buttonContinue);
+
+        return anchorPane;
+    }
+
+
+
+
+
 }

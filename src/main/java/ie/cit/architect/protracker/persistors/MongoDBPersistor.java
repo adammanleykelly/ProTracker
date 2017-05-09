@@ -102,7 +102,8 @@ public class MongoDBPersistor implements IPersistor {
     }
 
 
-    // for unit testing
+    // for unit testing - the collection passed in the parameters
+    // refers to the Mongo database on the VPS
     @Override
     public Project readProject(MongoCollection collection) {
 
@@ -124,10 +125,10 @@ public class MongoDBPersistor implements IPersistor {
 
 
 
+
     // search DB for a record based on a given string value
     @Override
     public Project readProject(String projectName) {
-
 
         Project project = null;
 
@@ -150,7 +151,6 @@ public class MongoDBPersistor implements IPersistor {
             cursor.close();
         }
         return project;
-
 
     }
 
