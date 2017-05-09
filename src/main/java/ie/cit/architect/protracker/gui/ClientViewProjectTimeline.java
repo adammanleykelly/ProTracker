@@ -70,13 +70,24 @@ public class ClientViewProjectTimeline
 
         return pane;
     }
-
+    //Variable for changing length of completed portion of timeline
+    String stage = "Construction";
     //Adjustable path for shape per point on timeline
     private Path generateStraightPath()
     {
+
         final Path path = new Path();
         path.getElements().add(new MoveTo(20,200));
-        path.getElements().add(new LineTo(600,200));
+        if(stage=="Design")
+        {path.getElements().add(new LineTo(200,200));}
+        else if(stage =="Planning")
+        {path.getElements().add(new LineTo(400,200));}
+        else if(stage =="Tender")
+        {path.getElements().add(new LineTo(500,200));}
+        else if(stage =="Construction")
+        {path.getElements().add(new LineTo(600,200));}
+        else if(stage =="Completion")
+        {path.getElements().add(new LineTo(700,200));}
         path.setOpacity(1.0);
         return path;
     }
