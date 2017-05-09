@@ -7,6 +7,9 @@
 
 }
 
+#whitebackground {
+    -fx-background-color: white;
+}
 
 .button{
     -fx-background-color:

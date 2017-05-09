@@ -59,6 +59,7 @@ public class ClientContact
         vb.setSpacing(5);
         vb.setPadding(new Insets(1));
         vb.setAlignment(Pos.CENTER_LEFT);
+        vb.setId("whitebackground");
 
         //Opening Hours Info
         Label openHours = new Label("Opening Hours");
@@ -74,6 +75,7 @@ public class ClientContact
         vbO.setSpacing(5);
         vbO.setPadding(new Insets(1));
         vbO.setAlignment(Pos.CENTER_LEFT);
+        vbO.setId("whitebackground");
 
         //Map info
 
@@ -178,7 +180,7 @@ public class ClientContact
 
 
 
-    class Browser extends StackPane {
+    public class Browser extends StackPane {
 
 
         final WebView browser = new WebView();
@@ -192,10 +194,7 @@ public class ClientContact
             webEngine.load(urlGoogleMaps.toExternalForm());
             webEngine.setJavaScriptEnabled(true);
 
-
-
             getChildren().add(browser);
-
         }
     }
 }

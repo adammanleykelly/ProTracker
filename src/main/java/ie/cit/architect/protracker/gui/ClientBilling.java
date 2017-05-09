@@ -12,6 +12,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+
+import java.net.URL;
 
 /**
  * Created by Adam on 05/03/2017.
@@ -55,16 +59,23 @@ public class ClientBilling
         vb.setSpacing(5);
         vb.setPadding(new Insets(10));
         vb.setAlignment(Pos.TOP_LEFT);
+        // Create our browser which contains the Google Map
 
-        //PdfInvoice Details
-        Label invoice = new Label("PdfInvoice Preview");
-        invoice.setFont(new Font("Arial", 30));
-        VBox vbIn = new VBox(invoice);
-        vbIn.setSpacing(15);
-        vbIn.setPadding(new Insets(1));
-        vbIn.setAlignment(Pos.TOP_RIGHT);
+        ClientBilling.Browser browser = new ClientBilling.Browser();
 
-        HBox hb1 = new HBox(vb, vbIn);
+        //we need a StackPane to customise our browser's size
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().add(browser);
+        stackPane.setPrefHeight(300);
+        stackPane.setPrefWidth(400);
+
+        VBox vbPdf = new VBox(stackPane);
+        vbPdf.setSpacing(15);
+        vbPdf.setPadding(new Insets(1));
+        vbPdf.setAlignment(Pos.TOP_RIGHT);
+
+
+        HBox hb1 = new HBox(vb, vbPdf);
         hb1.setSpacing(150);
         hb1.setPadding(new Insets(1));
         hb1.setAlignment(Pos.CENTER);
@@ -234,5 +245,21 @@ public class ClientBilling
         anchorPane.getChildren().addAll(buttonCancel, buttonContinue, buttonChat, buttonSaveInvoice);
 
         return anchorPane;
+    }
+
+    public class Browser extends StackPane {
+
+
+        final WebView browser = new WebView();
+        final WebEngine webEngine = browser.getEngine();
+
+        public Browser() {
+
+            getStyleClass().add("browser");
+
+            final URL urlPdf = getClass().getResource("/pdf.html");
+            webEngine.load(urlPdf.toExternalForm());
+            getChildren().add(browser);
+        }
     }
 }
