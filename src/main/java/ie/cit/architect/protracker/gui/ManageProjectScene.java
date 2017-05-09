@@ -52,15 +52,10 @@ public class ManageProjectScene {
     private static final String FILE_SEP = File.separator;
     private static final String DOUBLE_FILE_SEP = FILE_SEP + FILE_SEP;
     private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + FILE_SEP + "Desktop" + FILE_SEP;
-    private static final String CURR_DIR = "src/main/resources";
-    private static final String TXT_FILE_DESC = "txt files (*.txt)";
-    private static final String PDF_FILE_DESC = "PdfInvoice files (*.PdfInvoice)";
-    private static final String TXT_FILE_EXT = "*.txt";
-    private static final String PDF_FILE_EXTENSION = "*.PdfInvoice";
     private VBox vBoxMiddlePane;
     private ObservableList<CheckBox> checkBoxList;
     private ObservableList<Label> labelList;
-    private Button buttonDelete, buttonRename;
+    private Button buttonDelete, buttonRename, buttonDesign;
     private Label labelDate;
     private String editDialogInput;
     private HBox hBoxProject;
@@ -207,6 +202,7 @@ public class ManageProjectScene {
         getProjectByName();
 
     }
+
 
     private String getProjectName() {
 
@@ -417,6 +413,14 @@ public class ManageProjectScene {
 
     //*** New Scene ***//
 
+    private String projName;
+    private String projClientName;
+    private double projFee;
+    private double yValueDesignFee;
+    private double yValuePlanningFee;
+    private double yValueTenderFee;
+    private double yValueConstructionFee;
+
     private void createTimelineScene() {
         BorderPane borderPane = new BorderPane();
         borderPane.setBottom(createBottomPaneTimLine());
@@ -434,10 +438,16 @@ public class ManageProjectScene {
 
     private VBox createLeftBillingPane() {
         VBox vBox = new VBox();
-        Button buttonDesign = new Button("Send Design Invoice");
+        buttonDesign = new Button("Send Design Invoice");
         Button buttonPlanning = new Button("Send Planning Invoice");
         Button buttonTender = new Button("Send Tender Invoice");
         Button buttonConstruction = new Button("Send Construction Invoice");
+
+        buttonDesign.setOnAction(event -> createInvoice(projName, projClientName, yValueDesignFee));
+        buttonPlanning.setOnAction(event -> createInvoice(projName, projClientName, yValuePlanningFee));
+        buttonTender.setOnAction(event -> createInvoice(projName, projClientName, yValueTenderFee));
+        buttonConstruction.setOnAction(event -> createInvoice(projName, projClientName, yValueConstructionFee));
+
         VBox.setMargin(buttonDesign, new Insets(100, 37.5, 0, 37.5));
         VBox.setMargin(buttonPlanning, new Insets(30, 37.5, 0, 37.5));
         VBox.setMargin(buttonTender, new Insets(30, 37.5, 0, 37.5));
@@ -445,6 +455,8 @@ public class ManageProjectScene {
         vBox.getChildren().addAll(buttonDesign, buttonPlanning, buttonTender, buttonConstruction);
         return vBox;
     }
+
+
 
 
     private Group createBarChart() {
@@ -455,22 +467,33 @@ public class ManageProjectScene {
         xAxis.setCategories(FXCollections.observableArrayList(
                 Arrays.asList(Consts.DESIGN, Consts.PLANNING, Consts.TENDER, Consts.CONSTRUCTION)));
 
+        int lowerBound = 0;
+        int upperBound = 50000;
+        int unitTick = 10000;
+
 
         // define the Y Axis
-        NumberAxis yAxis = new NumberAxis(0, 50000, 10000);
+        NumberAxis yAxis = new NumberAxis(lowerBound, upperBound, unitTick);
         yAxis.setLabel("Fee");
 
 
         String name = getProjectName();
 
-        //** get
+        //** find the project in the database using the project name
         Project project = DBController.getInstance().readProjectDetails(name);
-        String projectName = project.getName();
-        double fee = project.getFee();
+        projName = project.getName();
+
+        // this 'find' will also return the full mongo document associated with the project name
+        projFee = project.getFee();
+        projClientName = project.getClientName();
+
+
+
 
         // create the Bar chart
         BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
-        barChart.setTitle("Total fee of €" + fee + " for " +  projectName);
+        barChart.setTitle("Project: " + projectName + " | Fee: " + projFee + " | Client: " +  projClientName);
+
 
         //Prepare XYChart.Series
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
@@ -484,10 +507,14 @@ public class ManageProjectScene {
         series4.setName(Consts.CONSTRUCTION);
 
 
-        double yValueDesign = fee * 0.5;
-        double yValuePlanning = fee * 0.2;
-        double yValueTender = fee * 0.1;
-        double yValueConstruction = fee * 0.4;
+        yValueDesignFee = projFee * 0.5;
+        yValuePlanningFee = projFee * 0.2;
+        yValueTenderFee = projFee * 0.1;
+        yValueConstructionFee = projFee * 0.4;
+
+
+
+
 
 
 
@@ -499,13 +526,13 @@ public class ManageProjectScene {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         // set the XYChart.Series objects data
-                        series1.getData().add(new XYChart.Data<>(Consts.DESIGN, yValueDesign));
+                        series1.getData().add(new XYChart.Data<>(Consts.DESIGN, yValueDesignFee));
 
-                        series2.getData().add(new XYChart.Data<>(Consts.PLANNING, yValuePlanning));
+                        series2.getData().add(new XYChart.Data<>(Consts.PLANNING, yValuePlanningFee));
 
-                        series3.getData().add(new XYChart.Data<>(Consts.TENDER, yValueTender));
+                        series3.getData().add(new XYChart.Data<>(Consts.TENDER, yValueTenderFee));
 
-                        series4.getData().add(new XYChart.Data<>(Consts.CONSTRUCTION, yValueConstruction));
+                        series4.getData().add(new XYChart.Data<>(Consts.CONSTRUCTION, yValueConstructionFee));
                     }
                 }));
 
@@ -517,6 +544,13 @@ public class ManageProjectScene {
         Group groupBarChart = new Group(barChart);
 
         return groupBarChart;
+    }
+
+
+
+    private void createInvoice(String name, String client, double fee) {
+
+        Controller.getInstance().createDesignInvoice(name, client, fee);
     }
 
 

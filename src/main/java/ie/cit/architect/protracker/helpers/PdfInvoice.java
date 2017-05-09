@@ -52,6 +52,15 @@ public class PdfInvoice {
     }
 
 
+    public void sendDesignInvoice(String projectName, String clientName, double fee) {
+        try {
+            createPdfDocument(projectName, clientName, fee);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void createPdfDocument(String projectName, String clientName, double fee) throws IOException {
 
         File file = new File(PATH_TO_DESKTOP);
