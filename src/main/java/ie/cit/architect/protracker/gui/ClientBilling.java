@@ -2,22 +2,32 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.helpers.PdfInvoice;
+import ie.cit.architect.protracker.controller.Controller;
+import ie.cit.architect.protracker.controller.DBController;
+import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.model.Project;
+import ie.cit.architect.protracker.persistors.MongoDBPersistor;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import java.io.IOException;
+
+import java.net.URL;
 
 /**
  * Created by Adam on 05/03/2017.
+ * Pdf Preview via PDF.js
  */
 public class ClientBilling
 {
@@ -33,7 +43,7 @@ public class ClientBilling
         BorderPane pane = new BorderPane();
         pane.setTop(homeButtonContainer());
         pane.setCenter(createClientBilling());
-        pane.setBottom(navButtonContainer());
+        pane.setBottom(createBottomPane());
 
         Scene scene = new Scene(pane, Consts.APP_WIDTH, Consts.APP_HEIGHT);
         scene.getStylesheets().add("/stylesheet.css");
@@ -58,16 +68,23 @@ public class ClientBilling
         vb.setSpacing(5);
         vb.setPadding(new Insets(10));
         vb.setAlignment(Pos.TOP_LEFT);
+        // Create our browser which contains the Google Map
 
-        //PdfInvoice Details
-        Label invoice = new Label("PdfInvoice Preview");
-        invoice.setFont(new Font("Arial", 30));
-        VBox vbIn = new VBox(invoice);
-        vbIn.setSpacing(15);
-        vbIn.setPadding(new Insets(1));
-        vbIn.setAlignment(Pos.TOP_RIGHT);
+        ClientBilling.Browser browser = new ClientBilling.Browser();
 
-        HBox hb1 = new HBox(vb, vbIn);
+        //we need a StackPane to customise our browser's size
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().add(browser);
+        stackPane.setPrefHeight(300);
+        stackPane.setPrefWidth(400);
+
+        VBox vbPdf = new VBox(stackPane);
+        vbPdf.setSpacing(15);
+        vbPdf.setPadding(new Insets(1));
+        vbPdf.setAlignment(Pos.TOP_RIGHT);
+
+
+        HBox hb1 = new HBox(vb, vbPdf);
         hb1.setSpacing(150);
         hb1.setPadding(new Insets(1));
         hb1.setAlignment(Pos.CENTER);
@@ -112,34 +129,13 @@ public class ClientBilling
         return hb2;
     }
 
-    public HBox navButtonContainer()
-    {
+    private AnchorPane createBottomPane() {
+
         Button buttonCancel = new Button("Cancel");
-        Button buttonContinue= new Button("Continue");
+        Button buttonContinue = new Button("Continue");
         Button buttonChat = new Button("Chat");
         Button buttonSaveInvoice = new Button("Save PdfInvoice");
 
-        buttonChat.setOnAction(event -> {
-            try {
-                mainMediator.changeToClientMessages();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
-//        buttonSaveInvoice.setOnAction(event -> {
-//            try {
-//                try {
-//                    PdfInvoice.getInstance().createPdfDocument();
-//                    MessageBox.show("PdfInvoice Saved to Desktop", "Saved");
-//                }catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        });
 
         buttonCancel.setOnAction(event -> {
             try {
@@ -156,22 +152,89 @@ public class ClientBilling
                 e.printStackTrace();
             }
         });
+        buttonChat.setOnAction(event -> {
+            try {
+                mainMediator.changeToClientMessages();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+/////
 
-        HBox hb2 = new HBox(buttonChat, buttonSaveInvoice);
-        hb2.setSpacing(10);
-        hb2.setPadding(new Insets(10));
-        hb2.setAlignment(Pos.TOP_RIGHT);
+/////
+       /* buttonSaveInvoice.setOnAction(event -> {
+            try {
+                try {
+                    PdfInvoice.getInstance().createPdfDocument();
+                    MessageBox.show("PdfInvoice Saved to Desktop", "Saved");
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-        HBox hb = new HBox(buttonCancel, buttonContinue);
-        hb.setSpacing(10);
-        hb.setPadding(new Insets(10));
-        hb.setAlignment(Pos.TOP_RIGHT);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });*/
+        // layout
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getStyleClass().add("anchorpane_color");
+        AnchorPane.setTopAnchor(buttonCancel, 10.0);
+        AnchorPane.setBottomAnchor(buttonCancel, 10.0);
+        AnchorPane.setRightAnchor(buttonCancel, 150.0);
 
-        HBox hb3 = new HBox(hb2, hb);
-        hb3.setSpacing(10);
-        hb3.setPadding(new Insets(10));
-        hb3.setAlignment(Pos.TOP_RIGHT);
+        AnchorPane.setBottomAnchor(buttonContinue, 10.0);
+        AnchorPane.setRightAnchor(buttonContinue, 10.0);
 
-        return hb3;
+        AnchorPane.setBottomAnchor(buttonChat, 10.0);
+        AnchorPane.setRightAnchor(buttonChat, 280.0);
+
+        AnchorPane.setBottomAnchor(buttonSaveInvoice, 10.0);
+        AnchorPane.setRightAnchor(buttonSaveInvoice, 410.0);
+
+        anchorPane.getChildren().addAll(buttonCancel, buttonContinue, buttonChat, buttonSaveInvoice);
+
+        return anchorPane;
+    }
+
+    /*private String getProject()
+    {
+        for(CheckBox checkBox : checkBoxList) {
+            checkBox.setOnAction(event -> {
+                projectName =  checkBox.getText();
+            });
+        }
+
+        return projectName;
+    }
+
+    String projName;
+    String projClientName;
+    double projFee;
+
+    String name = getProjectName();
+
+    //** find the project in the database using the project name
+    Project project = DBController.getInstance().readProjectDetails(name);
+    projName = project.getName();
+
+    // this 'find' will also return the full mongo document associated with the project name
+    projFee = project.getFee();
+    projClientName = project.getClientName();
+    //
+*/
+    //Pdf Viewer via pdf.js
+    public class Browser extends StackPane {
+
+        final WebView browser = new WebView();
+        final WebEngine webEngine = browser.getEngine();
+
+        public Browser() {
+
+            getStyleClass().add("browser");
+
+            final URL urlPdf = getClass().getResource("/pdf.html");
+            webEngine.load(urlPdf.toExternalForm());
+            getChildren().add(browser);
+        }
     }
 }

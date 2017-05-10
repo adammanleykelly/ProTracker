@@ -54,6 +54,7 @@ public class HomeScene {
         ImageView iview1 = new ImageView(logo);
 
         Label labelSubTitle = new Label("Welcome");
+        //labelSubTitle.setId("Welcome");
         labelSubTitle.getStyleClass().add("label_subtitle");
 
 

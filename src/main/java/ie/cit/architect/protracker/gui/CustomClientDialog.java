@@ -38,7 +38,7 @@ public class CustomClientDialog
 
         // Create the custom dialog.
         dialog = new Dialog<>();
-        dialog.setTitle("Login ClientUser");
+        dialog.setTitle("Login Client");
         dialog.setHeaderText("Please Sign In");
 
         // Set the icon (must be included in the project).
