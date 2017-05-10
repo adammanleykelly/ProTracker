@@ -30,7 +30,7 @@ public class Fee {
     }
 
     public void setVat() {
-        this.vat = 22.5;
+        this.vat = 23;
     }
 
     public double calculateFee() {

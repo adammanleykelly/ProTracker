@@ -13,7 +13,6 @@ import javafx.util.Pair;
 
 import java.util.Optional;
 
-//import ie.cit.architect.protracker.controller.Controller;
 
 /**
  * Created by brian on 3/2/2017.
@@ -29,9 +28,40 @@ public class CustomArchitectDialog
     private String emailTextField;
 
 
-
     public CustomArchitectDialog(Mediator mediator) {
         this.mediator = mediator;
+    }
+
+
+    // Following the MVC Pattern - we are delegating creation of objects to the controller.
+    // The Controller create a User with values passed into it from this View class.
+    public void addUserToDB() {
+
+        DBController.getInstance().addUser(userEmail, userPass); // add user to the employee ArrayList
+
+        DBController.getInstance().saveEmployeeUser(); // write this list to the database
+    }
+
+    // If email and password do not match employee credentials - display error message
+    // and show the sign in dialog again.
+    // Otherwise open the Architect Menu Scene
+    private void validateEmployeeCredentials() {
+
+        Platform.runLater(() -> {
+
+            if (!Controller.getInstance().isEmployeeUserEmailValid(emailTextField)) {
+                createEmailErrorDialog();
+                mediator.changeToArchitectCustomDialog();
+            }
+            else if(!Controller.getInstance().isUserPasswordValid(passwordTextField)) {
+                createPasswordErrorDialog();
+                mediator.changeToArchitectCustomDialog();
+            }
+            else {
+                Platform.runLater(() -> addUserToDB());
+                mediator.changeToArchitectMenuScene();
+            }
+        });
     }
 
 
@@ -121,30 +151,10 @@ public class CustomArchitectDialog
 
     }
 
-    // If email and password do not match employee credentials - display error message
-    // and show the sign in dialog again.
-    // Otherwise open the Architect Menu Scene
-    private void validateEmployeeCredentials() {
 
 
-        Platform.runLater(() -> {
 
-            if (!Controller.getInstance().isEmployeeUserEmailValid(emailTextField)) {
-                createEmailErrorDialog();
-                mediator.changeToArchitectCustomDialog();
-            }
-            else if(!Controller.getInstance().isUserPasswordValid(passwordTextField)) {
-                createPasswordErrorDialog();
-                mediator.changeToArchitectCustomDialog();
-            }
-            else {
-                Platform.runLater(() -> addUserToDB());
-                mediator.changeToArchitectMenuScene();
-            }
 
-        });
-
-    }
 
 
     public Dialog createEmailErrorDialog() {
@@ -167,17 +177,8 @@ public class CustomArchitectDialog
     }
 
 
-    // Following the MVC Pattern - we are delegating creation of objects to the controller.
-    // The Controller create a User with values passed into it from this View class.
-    public void addUserToDB() {
 
-        DBController.getInstance().addUser(userEmail, userPass);
-
-        DBController.getInstance().saveEmployeeUser();
-
-    }
 }
-
 
 
 

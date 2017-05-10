@@ -16,7 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
-
 public class HomeScene {
 
     private Mediator mediator;
@@ -26,20 +25,12 @@ public class HomeScene {
         this.mediator = mediator;
     }
 
-    private Button buttonSignInArchitect, buttonMySQL, buttonMongoDB;
-    private Button buttonSignInClient;
-    private CustomArchitectDialog customArchitectDialog;
-
 
     public void start(Stage stage) throws Exception {
 
         DBController.getInstance().setPersistenceMode(PersistenceMode.MONGODB);
 
-        // check the Operating System
-        System.out.println(System.getProperty("os.name"));
-
-        Scene scene = new Scene(
-                createHomeMenu(), Consts.APP_WIDTH, Consts.APP_HEIGHT);
+        Scene scene = new Scene(createHomeMenu(), Consts.APP_WIDTH, Consts.APP_HEIGHT);
         scene.getStylesheets().add("/stylesheet.css");
         stage.setScene(scene);
         stage.setTitle(Consts.APPLICATION_TITLE);
@@ -48,6 +39,11 @@ public class HomeScene {
 
 
     private GridPane createHomeMenu() {
+
+        Button buttonSignInClient = new Button("Sign in Client");
+        Button buttonSignInArchitect = new Button("Sign in Architect");
+        buttonSignInClient.setOnAction(event -> mediator.changeToClientCustomDialog());
+        buttonSignInArchitect.setOnAction(event -> mediator.changeToArchitectCustomDialog());
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -61,22 +57,13 @@ public class HomeScene {
         //labelSubTitle.setId("Welcome");
         labelSubTitle.getStyleClass().add("label_subtitle");
 
-        buttonSignInClient = new Button("Sign in Client");
-        buttonSignInArchitect = new Button("Sign in Architect");
+
+
         buttonSignInClient.setMinWidth(150);
         buttonSignInArchitect.setMinWidth(150);
 
-//        buttonMySQL = new Button("MySQL");
-//        buttonMySQL.setOnAction(event ->
-//                DBController.getInstance().setPersistenceMode(PersistenceMode.MYSQL));
-//
-//        buttonMongoDB = new Button("MongoDB");
-//
-//        Platform.runLater(() -> buttonMongoDB.setOnAction(event ->
-//                DBController.getInstance().setPersistenceMode(PersistenceMode.MONGODB)));
 
-        buttonSignInClient.setOnAction(event -> mediator.changeToClientCustomDialog());
-        buttonSignInArchitect.setOnAction(event -> mediator.changeToArchitectCustomDialog());
+
 
 
         gridPane.add(iview1, 0, 1);

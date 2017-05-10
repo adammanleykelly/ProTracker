@@ -8,7 +8,7 @@ import java.util.Locale;
 /**
  * Created by brian on 26/04/17.
  */
-public class FormatDate {
+public class DateHelper {
 
     public static String formatDate(Date date) {
 

@@ -14,6 +14,7 @@ import static ie.cit.architect.protracker.controller.PersistenceMode.MYSQL;
  */
 public class DBController {
 
+    // instance variables
     private static DBController instance;
     private PersistenceMode persistenceMode;
     private IPersistor persistor;
@@ -24,6 +25,8 @@ public class DBController {
     private ChatMessage chatMessage;
 
 
+    // private controller - the DBController is only instantiated through the singleton below
+    // each instance variable references a newly created object
     private DBController() {
         this.employeeList = new EmployeeList();
         this.clientList = new ClientList();
@@ -32,13 +35,33 @@ public class DBController {
         this.chatMessage = new ChatMessage();
     }
 
-
+    // singleton
     public static DBController getInstance() {
         if (instance == null) {
             instance = new DBController();
         }
         return instance;
     }
+
+
+    public void addUser(String email, String password) {
+
+        // Calling the Controller classes createEmployeeUser(email, password) method, which the IUser object references.
+        IUser employeeUser = Controller.getInstance().createEmployeeUser(email, password);
+
+        // Then we add this object to the ArrayList employeeList,
+        // using the add method in the EmployeeList class
+        this.employeeList.add(employeeUser);
+    }
+
+
+    // The the ArrayList is then saved to the database, through the IPersistor interface.
+    // This interface has a contract with the MongoDBPersistor class
+    public void saveEmployeeUser() {
+        this.persistor.writeEmployeeUsers(this.employeeList);
+    }
+
+
 
     public void setPersistenceMode(PersistenceMode mode) {
         if(mode.equals(MYSQL)) {
@@ -55,13 +78,7 @@ public class DBController {
 
 
 
-    public void addUser(String email, String password) {
 
-        IUser employeeUser =
-                Controller.getInstance().createEmployeeUser(email, password);
-
-        this.employeeList.add(employeeUser);
-    }
 
 
     public ClientUser addUser(ClientUser user) {
@@ -69,9 +86,7 @@ public class DBController {
         return user;
     }
 
-    public void saveEmployeeUser() {
-        this.persistor.writeEmployeeUsers(this.employeeList);
-    }
+
 
     public void saveClientUser() {
         this.persistor.writeClientUsers(this.clientList);
@@ -138,4 +153,3 @@ public class DBController {
     }
 
 }
-
