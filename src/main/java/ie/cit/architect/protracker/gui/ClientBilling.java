@@ -2,6 +2,7 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.helpers.PdfInvoice;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import java.io.IOException;
 
 import java.net.URL;
 
@@ -120,68 +122,6 @@ public class ClientBilling
         return hb2;
     }
 
-  /*  public HBox navButtonContainer()
-    {
-        Button buttonCancel = new Button("Cancel");
-        Button buttonContinue= new Button("Continue");
-        Button buttonChat = new Button("Chat");
-        Button buttonSaveInvoice = new Button("Save PdfInvoice");
-
-        buttonChat.setOnAction(event -> {
-            try {
-                mainMediator.changeToClientMessages();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
-//        buttonSaveInvoice.setOnAction(event -> {
-//            try {
-//                try {
-//                    PdfInvoice.getInstance().createPdfDocument();
-//                    MessageBox.show("PdfInvoice Saved to Desktop", "Saved");
-//                }catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        });
-
-        buttonCancel.setOnAction(event -> {
-            try {
-                mainMediator.changeToClientMenuScene();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
-        buttonContinue.setOnAction(event -> {
-            try {
-                mainMediator.changeToClientMenuScene();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
-        HBox hb2 = new HBox(buttonChat, buttonSaveInvoice);
-        hb2.setSpacing(10);
-        hb2.setPadding(new Insets(10));
-        hb2.setAlignment(Pos.TOP_RIGHT);
-
-        HBox hb = new HBox(buttonCancel, buttonContinue);
-        hb.setSpacing(10);
-        hb.setPadding(new Insets(10));
-        hb.setAlignment(Pos.TOP_RIGHT);
-
-        HBox hb3 = new HBox(hb2, hb);
-        hb3.setSpacing(10);
-        hb3.setPadding(new Insets(10));
-        hb3.setAlignment(Pos.TOP_RIGHT);
-
-        return hb3;
-    }*/
     private AnchorPane createBottomPane() {
 
         Button buttonCancel = new Button("Cancel");
@@ -213,19 +153,19 @@ public class ClientBilling
             }
         });
 
-//        buttonSaveInvoice.setOnAction(event -> {
-//            try {
-//                try {
-//                    PdfInvoice.getInstance().createPdfDocument();
-//                    MessageBox.show("PdfInvoice Saved to Desktop", "Saved");
-//                }catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        });
+       /* buttonSaveInvoice.setOnAction(event -> {
+            try {
+                try {
+                    PdfInvoice.getInstance().createPdfDocument();
+                    MessageBox.show("PdfInvoice Saved to Desktop", "Saved");
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });*/
         // layout
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.getStyleClass().add("anchorpane_color");
@@ -246,9 +186,8 @@ public class ClientBilling
 
         return anchorPane;
     }
-
+    //Pdf Viewer via pdf.js
     public class Browser extends StackPane {
-
 
         final WebView browser = new WebView();
         final WebEngine webEngine = browser.getEngine();
