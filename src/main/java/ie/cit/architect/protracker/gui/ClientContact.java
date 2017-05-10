@@ -36,7 +36,7 @@ public class ClientContact
         BorderPane pane = new BorderPane();
         pane.setTop(homeButtonContainer());
         pane.setCenter(createContactPage());
-        pane.setBottom(navButtonContainer());
+        pane.setBottom(createBottomPane());
         Scene scene = new Scene(pane, Consts.APP_WIDTH, Consts.APP_HEIGHT);
         scene.getStylesheets().add("/stylesheet.css");
         stage.setScene(scene);
@@ -59,6 +59,7 @@ public class ClientContact
         vb.setSpacing(5);
         vb.setPadding(new Insets(1));
         vb.setAlignment(Pos.CENTER_LEFT);
+        vb.setId("whitebackground");
 
         //Opening Hours Info
         Label openHours = new Label("Opening Hours");
@@ -74,6 +75,7 @@ public class ClientContact
         vbO.setSpacing(5);
         vbO.setPadding(new Insets(1));
         vbO.setAlignment(Pos.CENTER_LEFT);
+        vbO.setId("whitebackground");
 
         //Map info
 
@@ -142,11 +144,10 @@ public class ClientContact
         return hb2;
     }
 
-    public HBox navButtonContainer()
-    {
-        Button buttonStage = new Button("Back To Timeline");
+    private AnchorPane createBottomPane() {
+
         Button buttonCancel = new Button("Cancel");
-        Button buttonContinue= new Button("Continue");
+        Button buttonContinue = new Button("Continue");
 
         buttonCancel.setOnAction(event -> {
             try {
@@ -163,18 +164,23 @@ public class ClientContact
                 e.printStackTrace();
             }
         });
+        // layout
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getStyleClass().add("anchorpane_color");
+        AnchorPane.setTopAnchor(buttonCancel, 10.0);
+        AnchorPane.setBottomAnchor(buttonCancel, 10.0);
+        AnchorPane.setRightAnchor(buttonCancel, 150.0);
+        AnchorPane.setBottomAnchor(buttonContinue, 10.0);
+        AnchorPane.setRightAnchor(buttonContinue, 10.0);
 
+        anchorPane.getChildren().addAll(buttonCancel, buttonContinue);
 
-        HBox hb = new HBox(buttonCancel, buttonContinue);
-        hb.setSpacing(10);
-        hb.setPadding(new Insets(10));
-        hb.setAlignment(Pos.TOP_RIGHT);
-
-        return hb;
+        return anchorPane;
     }
 
 
-    class Browser extends StackPane {
+
+    public class Browser extends StackPane {
 
 
         final WebView browser = new WebView();
@@ -188,10 +194,7 @@ public class ClientContact
             webEngine.load(urlGoogleMaps.toExternalForm());
             webEngine.setJavaScriptEnabled(true);
 
-
-
             getChildren().add(browser);
-
         }
     }
 }
