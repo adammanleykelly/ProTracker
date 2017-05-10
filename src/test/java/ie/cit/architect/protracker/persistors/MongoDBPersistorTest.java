@@ -10,11 +10,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.mongodb.client.model.Filters.eq;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -22,43 +22,29 @@ import static org.hamcrest.core.IsNot.not;
  */
 public class MongoDBPersistorTest {
 
+    private MongoDBPersistor mongoDBPersistor;
     private MongoCollection collectionEmployees, collectionClientsTest, collectionProjects;
     private MongoDatabase database;
-
-    private static String DB_MONGO_PASS = "topdog12";
-    private static String DB_MONGO_USER = "developmentuser";
-    private static String DB_MONGO_IP = "ec2-54-202-69-181.us-west-2.compute.amazonaws.com";
     private static String DB_NAME = "protrackerdev";
 
-
-    private MongoDBPersistor mongoDBPersistor;
-//    private IUser user;
 
 
     @Before
     public void setUp() throws Exception {
 
+        // reference to our MongoDBPersistor class
         mongoDBPersistor = new MongoDBPersistor();
+
         try {
-
-
-            // local database
+            // Local database connection
+            // Tests run on my laptops local host.
+            // Tests also run on my VPS which has a Jenkins Continious Integration setup.
             MongoClient mongoClientConn = new MongoClient("localhost", 27017);
             database = mongoClientConn.getDatabase("mongotest");
-
-
-//            // remote database
-//            String mongoURI = "mongodb://" + DB_MONGO_USER + ":" + DB_MONGO_PASS + "@" +
-//                    DB_MONGO_IP + "/" + DB_NAME;
-//
-//            MongoClient mongoClientConn = new MongoClient(new MongoClientURI(mongoURI));
-
             database = mongoClientConn.getDatabase(DB_NAME);
 
             collectionEmployees = database.getCollection("employees");
-
             collectionClientsTest = database.getCollection("clients");
-
             collectionProjects = database.getCollection("projects");
 
         } catch (MongoException e) {
@@ -94,11 +80,15 @@ public class MongoDBPersistorTest {
 
         // Given
         EmployeeUser user1 = new EmployeeUser("fake@email.com", "passwd");
-        // ... add more users
+        // ... create more users
         EmployeeList employeeList = new EmployeeList();
         employeeList.add(user1);
+        // ... add more users to the list
 
-        // When
+        /**
+         * Testing the write user method
+         * @see MongoDBPersistor#writeEmployeeUsers(EmployeeList)
+         */
         mongoDBPersistor.writeEmployeeUsers(employeeList);
 
 

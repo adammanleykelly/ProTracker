@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by brian on 06/05/17.
  */
-public class FormatDateTest {
+public class DateHelperTest {
 
     private static int YEAR_TWENTY_SEVENTEEN = 2017;
     private static int MONTH_MAY = 5-1;
@@ -30,7 +30,7 @@ public class FormatDateTest {
         cal.set(YEAR_TWENTY_SEVENTEEN, MONTH_MAY, DAY_FIRST);
         Date date = cal.getTime();
 
-        String expected = FormatDate.formatDate(date);
+        String expected = DateHelper.formatDate(date);
         String actual = "01/05/2017";
 
         assertEquals(expected, actual);

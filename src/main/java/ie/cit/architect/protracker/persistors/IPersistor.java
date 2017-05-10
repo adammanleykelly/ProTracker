@@ -10,6 +10,8 @@ import java.util.ArrayList;
  */
 public interface IPersistor {
 
+    // methods implemented by MongoDBPersistor class
+
     void writeEmployeeUsers(EmployeeList users);
 
     void writeClientUsers(ClientList users);
@@ -25,7 +27,6 @@ public interface IPersistor {
     Project updateProjectName(String currentProjectName, String upDatedProjectName);
 
     Project updateProjectFee(double currentFee, double updatedFee);
-
 
     void writeMessages(ChatMessage chatMessages);
 

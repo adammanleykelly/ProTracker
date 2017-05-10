@@ -14,55 +14,33 @@ public class EmployeeUser implements IUser{
     private String password;
     private String emailAddress;
 
-
-    public EmployeeUser() {
-    }
-
-
-    public EmployeeUser(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
+    public EmployeeUser() { }
 
     public EmployeeUser(String emailAddress, String password) {
         this.emailAddress = emailAddress;
         this.password = password;
     }
 
-
-
     @Override
     public String getName() {
         return name;
     }
-
 
     @Override
     public void setName(String name) {
         this.name = name;
     }
 
-
     @Override
     public String getPassword() {
         return password;
     }
-
 
     @Override
     public String getEmailAddress() {
         return emailAddress;
     }
 
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public boolean isEmailValid(String eMail) {
         if(eMail != null) {
@@ -72,7 +50,6 @@ public class EmployeeUser implements IUser{
         }
         return false;
     }
-
 
     public boolean isNameValid() {
         if (getName().matches(Consts.VALID_NAME)) {

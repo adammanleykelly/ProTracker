@@ -27,6 +27,4 @@ public class ProjectList implements Serializable {
     }
 
 
-
-
 }

@@ -105,7 +105,7 @@ public class PdfInvoice {
         ArrayList<String> details =
                 new ArrayList<>(Arrays.asList(
                         project.getClientName(),
-                        FormatDate.formatDate(project.getDate()),
+                        DateHelper.formatDate(project.getDate()),
                         project.getName(),
                         String.valueOf(project.getFee()),
                         String.valueOf(project.getVat()),
@@ -140,10 +140,5 @@ public class PdfInvoice {
 
         document.close();
     }
-
-
-
-
-
 
 }

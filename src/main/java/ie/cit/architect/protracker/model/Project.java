@@ -15,7 +15,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Project implements IProject{
 
     private int projectId;
-    private static int count = 0;
     private static AtomicInteger next_id = new AtomicInteger(0);
     private String name;
     private Date date;
@@ -30,12 +29,15 @@ public class Project implements IProject{
 
     public Project() {}
 
+    public Project(String name) {
+        this.name = name;
+    }
+
     public Project(int projectId, String name, Date date) {
         this.projectId = Project.next_id.incrementAndGet();
         this.name = name;
         this.date = date;
     }
-
 
     public Project(String name, String clientName, double fee) {
         this.name = name;
@@ -44,9 +46,7 @@ public class Project implements IProject{
         setVat();
         setTotal();
         setDate();
-
     }
-
 
     public Project(String name, String author, String location, String clientName, double fee) {
         this.projectId = Project.next_id.incrementAndGet();
@@ -56,18 +56,6 @@ public class Project implements IProject{
         this.location = location;
         this.clientName = clientName;
         this.fee = fee;
-    }
-
-    public Project(String name) {
-        this.name = name;
-    }
-
-    public ArrayList<Project> getProjectNames() {
-        return projectNames;
-    }
-
-    public void setProjectNames(ArrayList<Project> projectNames) {
-        this.projectNames = projectNames;
     }
 
 

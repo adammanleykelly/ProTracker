@@ -30,41 +30,44 @@ public class MongoDBPersistor implements IPersistor {
     public MongoDBPersistor() {
 
         try {
-
             // Comment / Un-comment either of the below Objects for localhost / AWS MongoDB
 
             // local database
-            MongoClient mongoClientConn = MongoLocalConnector.databaseConnectionLocal();
+//            MongoClient mongoClientConn = MongoLocalConnector.databaseConnectionLocal();
 
             // remote database
-//            MongoClient mongoClientConn = MongoRemoteConnector.databaseConnectionRemote()
+            MongoClient mongoClientConn = MongoRemoteConnector.databaseConnectionRemote();
 
 
-            //Get Database
-            // if database doesn't exist, mongoDB will create it for you
+            //Get Database - if database doesn't exist, MongoDB will create it for us
             database = mongoClientConn.getDatabase(DB_NAME);
-
 
             //Get Collection / Table from 'protracker'
             //if collection doesn't exist, mongoDB will create it for you
             collectionEmployees = database.getCollection("employees");
-
             collectionClients = database.getCollection("clients");
-
-
-            // create another table
             collectionProjects = database.getCollection("projects");
-
-            // create another table
             collectionMessages = database.getCollection("messages");
-
-
-
         } catch (MongoException e) {
             e.printStackTrace();
         }
     }
 
+
+    @Override
+    public void writeEmployeeUsers(EmployeeList employeeUsers) {
+        Document document = new Document();
+        try {
+            for (IUser currUser : employeeUsers.getEmployeeUsers()) {
+                document.put("email", currUser.getEmailAddress());
+                document.put("password", currUser.getPassword());
+            }
+            collectionEmployees.insertOne(document);
+
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @Override
@@ -156,20 +159,7 @@ public class MongoDBPersistor implements IPersistor {
 
 
 
-    @Override
-    public void writeEmployeeUsers(EmployeeList employeeUsers) {
-        Document document = new Document();
-        try {
-            for (IUser currUser : employeeUsers.getEmployeeUsers()) {
-                document.put("email", currUser.getEmailAddress());
-                document.put("password", currUser.getPassword());
-            }
-            collectionEmployees.insertOne(document);
 
-        } catch (MongoException e) {
-            e.printStackTrace();
-        }
-    }
 
 
     @Override

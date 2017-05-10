@@ -481,8 +481,8 @@ public class ManageProjectScene {
 
         //** find the project in the database using the project name
         Project project = DBController.getInstance().readProjectDetails(name);
-        projName = project.getName();
 
+        projName = project.getName();
         // this 'find' will also return the full mongo document associated with the project name
         projFee = project.getFee();
         projClientName = project.getClientName();
@@ -507,10 +507,10 @@ public class ManageProjectScene {
         series4.setName(Consts.CONSTRUCTION);
 
 
-        yValueDesignFee = projFee * 0.5;
+        yValueDesignFee = projFee * 0.4;
         yValuePlanningFee = projFee * 0.2;
         yValueTenderFee = projFee * 0.1;
-        yValueConstructionFee = projFee * 0.4;
+        yValueConstructionFee = projFee * 0.3;
 
 
 

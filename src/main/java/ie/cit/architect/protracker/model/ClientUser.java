@@ -10,13 +10,7 @@ public class ClientUser implements IUser{
     private String emailAddress;
 
 
-    public ClientUser() {
-    }
-
-
-    public ClientUser(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
+    public ClientUser() { }
 
 
     public ClientUser(String emailAddress, String password) {
@@ -24,9 +18,6 @@ public class ClientUser implements IUser{
         this.emailAddress = emailAddress;
         this.password = password;
     }
-
-
-
 
     @Override
     public String getName() {

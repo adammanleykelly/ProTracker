@@ -1,62 +1,27 @@
 package ie.cit.architect.protracker.App;
 
-import ie.cit.architect.protracker.controller.DBController;
+import com.sun.javafx.application.LauncherImpl;
+import ie.cit.architect.protracker.Preloader.preloader;
 import ie.cit.architect.protracker.gui.*;
 import javafx.application.Application;
-import javafx.application.Platform;
+import javafx.application.Preloader;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-//import ie.cit.architect.protracker.Preloader.preloader;
-
 public class Mediator extends Application {
 
-    private HomeScene homeMenuScene;
-    private ArchitectMenuScene architectMenuScene;
-    private ClientMenuScene clientMenuScene;
-    private CreateNewProjectScene createNewProjectScene;
-    private ViewMessagesScene viewMessagesScene;
-    private ManageProjectScene manageProjectScene;
-    private NavigationPane navigationPane;
-    private CustomArchitectDialog customArchitectDialog;
-    private CustomClientDialog customClientDialog;
-    private ClientViewProjectTimeline clientViewProjectTimeline;
-    private ClientMessages clientMessages;
-    private ClientProjectStage clientProjectStage;
-    private ClientBilling clientBilling;
-    private ClientContact clientContact;
-
-
-
+    // instance variables which reference the each scene in the app
+    private HomeScene homeMenuScene;                private ArchitectMenuScene architectMenuScene;
+    private ClientMenuScene clientMenuScene;        private CreateNewProjectScene createNewProjectScene;
+    private ViewMessagesScene viewMessagesScene;    private ManageProjectScene manageProjectScene;
+    private NavigationPane navigationPane;          private CustomArchitectDialog customArchitectDialog;
+    private CustomClientDialog customClientDialog;  private ClientViewProjectTimeline clientViewProjectTimeline;
+    private ClientMessages clientMessages;          private ClientProjectStage clientProjectStage;
+    private ClientBilling clientBilling;            private ClientContact clientContact;
     private Stage primaryStage;
 
-
-//    private static final int COUNT_LIMIT = 25000;
-//    private static int stepCount = 1;
-
-
-//    public static String STEP() {
-//        return stepCount++ + ". ";
-//    }
-//
-//    public static void main(String[] args) {
-//        LauncherImpl.launchApplication(Mediator.class, preloader.class, args);
-//    }
-//
-//    @Override
-//    public void init() throws Exception {
-//        System.out.println(Mediator.STEP() + "MyApplication#init (doing some heavy lifting), thread: " + Thread.currentThread().getName());
-//
-//        // Perform some heavy lifting (i.e. database start, check for application updates, etc. )
-//        for (int i = 0; i < COUNT_LIMIT; i++)
-//        {
-//            double progress = (100 * i) / COUNT_LIMIT;
-//            LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(progress));
-//        }
-//    }
-
-
     //  Swapping scenes. Ref: http://stackoverflow.com/a/14168529/5942254
+    // instantiating each scene object, in our constructor
     public Mediator(){
         homeMenuScene = new HomeScene(this);
         architectMenuScene = new ArchitectMenuScene(this);
@@ -73,23 +38,24 @@ public class Mediator extends Application {
         clientBilling = new ClientBilling(this);
         clientContact = new ClientContact (this);
 
-        // TODO:
-        // - add new scenes
+        // To create more scenes:
+        // - add new scenes to this constructor
         // - add methods below for those scenes to be opened
     }
 
+    // When the app first runs, the HomeMenuScene is started.
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
         stage.getIcons().add(new Image(this.getClass().getResource("/icon.png").toString()));
-        homeMenuScene.start(primaryStage); // default
-
-        // Database type (MongoDB / MySQL) selected in the controller
-        Platform.runLater(() -> DBController.getInstance());
+        homeMenuScene.start(primaryStage);
     }
 
 
-    // methods to change scene
+    /** Methods to change scene **/
+    // Each of the apps scenes have a reference to the 'Mediator'.
+    // This gives each scene the ability to start another scene
+
     public void changeToArchitectMenuScene(){
         architectMenuScene.start(primaryStage);
     }
@@ -108,15 +74,6 @@ public class Mediator extends Application {
 
     public void changeToClientCustomDialog() { customClientDialog.signInClientDialog(); }
 
-    public void changeToHomeScene()  {
-        try {
-            homeMenuScene.start(primaryStage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public void changeToClientTimeline() throws Exception { clientViewProjectTimeline.start(primaryStage); }
 
     public void changeToClientMessages() throws Exception { clientMessages.start(primaryStage);}
@@ -126,4 +83,42 @@ public class Mediator extends Application {
     public void changeToClientBilling() throws Exception {clientBilling.start(primaryStage);}
 
     public void changeToClientContact() throws Exception {clientContact.start(primaryStage);}
+
+    // landing page
+    public void changeToHomeScene()  {
+        try {
+            homeMenuScene.start(primaryStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /** Preloader **/
+
+    private static final int COUNT_LIMIT = 25000;
+    private static int stepCount = 1;
+
+
+    public static String STEP() {
+        return stepCount++ + ". ";
+    }
+
+    public static void main(String[] args) {
+        LauncherImpl.launchApplication(Mediator.class, preloader.class, args);
+    }
+
+    @Override
+    public void init() throws Exception {
+        System.out.println(Mediator.STEP() +
+                "MyApplication#init (doing some heavy lifting), thread: " + Thread.currentThread().getName());
+
+        // Perform some heavy lifting (i.e. database start, check for application updates, etc. )
+        for (int i = 0; i < COUNT_LIMIT; i++)
+        {
+            double progress = (100 * i) / COUNT_LIMIT;
+            LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(progress));
+        }
+    }
 }
