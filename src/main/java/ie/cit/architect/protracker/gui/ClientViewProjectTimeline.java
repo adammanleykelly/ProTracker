@@ -64,12 +64,16 @@ public class ClientViewProjectTimeline
 
         return pane;
     }
+
+
     //Variable for changing length of completed portion of timeline
-    String stage = "Construction";
+    //String stage = "Construction";
     //Adjustable path for shape per point on timeline
+
     private Path generateStraightPath()
     {
-
+        String stage = ManageProjectScene.getAdjustPath();
+        System.out.println(stage);
         final Path path = new Path();
         path.getElements().add(new MoveTo(20,200));
         if(stage=="Design")

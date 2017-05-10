@@ -3,10 +3,16 @@ package ie.cit.architect.protracker.gui;
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.helpers.Consts;
 import ie.cit.architect.protracker.helpers.PdfInvoice;
+import ie.cit.architect.protracker.controller.Controller;
+import ie.cit.architect.protracker.controller.DBController;
+import ie.cit.architect.protracker.helpers.Consts;
+import ie.cit.architect.protracker.model.Project;
+import ie.cit.architect.protracker.persistors.MongoDBPersistor;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +27,7 @@ import java.net.URL;
 
 /**
  * Created by Adam on 05/03/2017.
+ * Pdf Preview via PDF.js
  */
 public class ClientBilling
 {
@@ -152,7 +159,9 @@ public class ClientBilling
                 e.printStackTrace();
             }
         });
+/////
 
+/////
        /* buttonSaveInvoice.setOnAction(event -> {
             try {
                 try {
@@ -186,6 +195,33 @@ public class ClientBilling
 
         return anchorPane;
     }
+
+    /*private String getProject()
+    {
+        for(CheckBox checkBox : checkBoxList) {
+            checkBox.setOnAction(event -> {
+                projectName =  checkBox.getText();
+            });
+        }
+
+        return projectName;
+    }
+
+    String projName;
+    String projClientName;
+    double projFee;
+
+    String name = getProjectName();
+
+    //** find the project in the database using the project name
+    Project project = DBController.getInstance().readProjectDetails(name);
+    projName = project.getName();
+
+    // this 'find' will also return the full mongo document associated with the project name
+    projFee = project.getFee();
+    projClientName = project.getClientName();
+    //
+*/
     //Pdf Viewer via pdf.js
     public class Browser extends StackPane {
 

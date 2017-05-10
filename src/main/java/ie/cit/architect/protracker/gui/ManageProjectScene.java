@@ -204,7 +204,8 @@ public class ManageProjectScene {
     }
 
 
-    private String getProjectName() {
+    private String getProjectName()
+    {
 
         for(CheckBox checkBox : checkBoxList) {
             checkBox.setOnAction(event -> {
@@ -213,7 +214,6 @@ public class ManageProjectScene {
         }
 
         return projectName;
-
     }
 
 
@@ -412,7 +412,7 @@ public class ManageProjectScene {
 
 
     //*** New Scene ***//
-
+    static String stage;
     private String projName;
     private String projClientName;
     private double projFee;
@@ -436,18 +436,38 @@ public class ManageProjectScene {
         window.show();
     }
 
-    private VBox createLeftBillingPane() {
+    private VBox createLeftBillingPane()
+    {
         VBox vBox = new VBox();
+
         buttonDesign = new Button("Send Design Invoice");
         Button buttonPlanning = new Button("Send Planning Invoice");
         Button buttonTender = new Button("Send Tender Invoice");
         Button buttonConstruction = new Button("Send Construction Invoice");
 
-        buttonDesign.setOnAction(event -> createInvoice(projName, projClientName, yValueDesignFee));
+        buttonDesign.setOnAction(event -> {
+            setAdjustPath("Design");
+            createInvoice(projName, projClientName, yValueDesignFee);
+        });
+
+        buttonPlanning.setOnAction(event -> {
+            setAdjustPath("Planning");
+            createInvoice(projName, projClientName, yValuePlanningFee);
+        });
+        buttonTender.setOnAction(event -> {
+                setAdjustPath("Tender");
+                createInvoice(projName, projClientName, yValueTenderFee);
+        });
+        buttonConstruction.setOnAction(event -> {
+                setAdjustPath("Construction");
+                createInvoice(projName, projClientName, yValueConstructionFee);
+        });
+
+        /*buttonDesign.setOnAction(event -> createInvoice(projName, projClientName, yValueDesignFee));
         buttonPlanning.setOnAction(event -> createInvoice(projName, projClientName, yValuePlanningFee));
         buttonTender.setOnAction(event -> createInvoice(projName, projClientName, yValueTenderFee));
         buttonConstruction.setOnAction(event -> createInvoice(projName, projClientName, yValueConstructionFee));
-
+        */
         VBox.setMargin(buttonDesign, new Insets(100, 37.5, 0, 37.5));
         VBox.setMargin(buttonPlanning, new Insets(30, 37.5, 0, 37.5));
         VBox.setMargin(buttonTender, new Insets(30, 37.5, 0, 37.5));
@@ -456,7 +476,15 @@ public class ManageProjectScene {
         return vBox;
     }
 
+    public void setAdjustPath(String s)
+    {
+        stage = s;
+    }
 
+    public static String getAdjustPath()
+    {
+        return stage;
+    }
 
 
     private Group createBarChart() {
