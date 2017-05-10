@@ -56,15 +56,18 @@ public class ClientBilling
     private Pane createClientBilling()
     {
         //Account Details
+        String projName = ManageProjectScene.getClientProjName();
+        String name = ManageProjectScene.getClientName();
+        double fee = ManageProjectScene.getClientProjFee();
+        //System.out.println(stage);
         Label ainfo = new Label("Account Details");
         ainfo.setFont(new Font("Arial", 30));
-        Label accNum = new Label ("Account Number: +{account number}");
-        Label cName = new Label ("Company Name: +{company name}");
-        Label cAddress = new Label("Company Address: +{company address}");
-        Label clName = new Label("ClientUser Name: + {client name}");
-        Label clAddress = new Label("ClientUser Address: +{client address}");
+        Label cName = new Label ("Client Name: " + projName);
+        Label pName = new Label ("Project Name: " + name);
+        Label cFee = new Label("Fee: "+ fee);
+        Label aName = new Label("Architect Name:}");
 
-        VBox vb = new VBox(ainfo, accNum, cName, cAddress, clName, clAddress);
+        VBox vb = new VBox(ainfo, cName, pName, cFee, aName);
         vb.setSpacing(5);
         vb.setPadding(new Insets(10));
         vb.setAlignment(Pos.TOP_LEFT);

@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.*;
@@ -96,7 +97,6 @@ public class CreateNewProjectScene {
         return borderPane;
     }
 
-
     private VBox createLeftPane() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_left");
@@ -142,7 +142,7 @@ public class CreateNewProjectScene {
                     createDirectories();
         });
 
-        VBox.setMargin(buttonCreate, new Insets(25, 37.5, 0, 80));
+        VBox.setMargin(buttonCreate, new Insets(10, 37.5, 0, 80));
 
 
         // add controls to VBox
@@ -165,7 +165,7 @@ public class CreateNewProjectScene {
             checkBox.getStyleClass().add("checkbox_padding");
             vBox.getChildren().add(checkBox);
         }
-        VBox.setMargin(label, new Insets(30, 0, 10, 0));
+        VBox.setMargin(label, new Insets(20, 0, 0, 0));
 
         return vBox;
     }
@@ -221,13 +221,12 @@ public class CreateNewProjectScene {
         Button buttonInvoice = new Button("Create Invoice");
         buttonInvoice.setOnAction(event -> createInvoice());
 
-
-
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_middle");
         vBox.setMinWidth(Consts.PANE_WIDTH);
-        VBox.setMargin(buttonOpen, new Insets(200, 0, 0, 100));
-        VBox.setMargin(buttonInvoice, new Insets(50, 0, 0, 100));
+        vBox.setPadding(new Insets(1));
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(25);
 
         vBox.getChildren().addAll(buttonOpen, buttonInvoice);
 
