@@ -55,8 +55,18 @@ public class ClientViewProjectTimeline
     {
         Group rootGroup = new Group();
         String projName = ManageProjectScene.getClientProjName();
-        Label Title = new Label("Project Timeline: " + projName );
-        Title.setFont(new Font("Arial", 30));
+        Label Title = new Label();
+        if(projName == null)
+        {
+            Title.setText("Project Timeline: The architect will update this space");
+            Title.setFont(new Font("Arial", 30));
+        }
+        else
+        {
+            Title.setText("Project Timeline: " + projName );
+            Title.setFont(new Font("Arial", 30));
+        }
+
         VBox vb = new VBox(Title,rootGroup);
         applyAnimation(rootGroup);
         vb.setSpacing(90);

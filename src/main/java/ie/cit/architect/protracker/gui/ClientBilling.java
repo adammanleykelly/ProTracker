@@ -50,17 +50,30 @@ public class ClientBilling
         String projName = ManageProjectScene.getClientProjName();
         String name = ManageProjectScene.getClientName();
         double fee = ManageProjectScene.getClientProjFee();
+        Label status = new Label();
+        status.setManaged(false);
+        status.setVisible(false);
+        if(projName ==null && name ==null&& fee == 0.0)
+        {
+            status.setText("The architect will update this space");
+            status.setManaged(true);
+            status.setVisible(true);
+        }
+
+        Label cName = new Label();
         //System.out.println(stage);
         Label ainfo = new Label("Account Details");
         ainfo.setFont(new Font("Arial", 30));
-        Label cName = new Label ("Client Name: " + name);
+
+        cName.setText("Client Name:" + name);
         Label pName = new Label ("Project Name: " + projName);
         Label cFee = new Label("Currernt Fee: "+ fee);
 
-        VBox vb = new VBox(ainfo, cName, pName, cFee);
+        VBox vb = new VBox(ainfo,status, cName, pName, cFee);
         vb.setSpacing(5);
         vb.setPadding(new Insets(10,0,0,10));
         vb.setAlignment(Pos.TOP_LEFT);
+        vb.setId("whitebackground");
         // Create our browser which contains the Google Map
 
         ClientBilling.Browser browser = new ClientBilling.Browser();
@@ -72,12 +85,16 @@ public class ClientBilling
         stackPane.setPrefWidth(500);
 
         VBox vbPdf = new VBox(stackPane);
-        vbPdf.setSpacing(15);
+        vbPdf.setSpacing(10);
         vbPdf.setPadding(new Insets(1));
         vbPdf.setAlignment(Pos.TOP_RIGHT);
 
+        VBox vb2 = new VBox(vb);
+       // vb2.setSpacing(5);
+        //vb2.setPadding(new Insets(10));
+        vb2.setAlignment(Pos.TOP_LEFT);
 
-        HBox hb1 = new HBox(vb, vbPdf);
+        HBox hb1 = new HBox(vb2, vbPdf);
         hb1.setSpacing(90);
         hb1.setPadding(new Insets(1));
         hb1.setAlignment(Pos.CENTER);
