@@ -61,6 +61,7 @@ public class ClientBilling
         }
 
         Label cName = new Label();
+        //System.out.println(stage);
         Label ainfo = new Label("Account Details");
         ainfo.setFont(new Font("Arial", 30));
 
@@ -205,20 +206,42 @@ public class ClientBilling
         return anchorPane;
     }
 
+    /*private String getProject()
+    {
+        for(CheckBox checkBox : checkBoxList) {
+            checkBox.setOnAction(event -> {
+                projectName =  checkBox.getText();
+            });
+        }
 
+        return projectName;
+    }
+
+    String projName;
+    String projClientName;
+    double projFee;
+
+    String name = getProjectName();
+
+    //** find the project in the database using the project name
+    Project project = DBController.getInstance().readProjectDetails(name);
+    projName = project.getName();
+
+    // this 'find' will also return the full mongo document associated with the project name
+    projFee = project.getFee();
+    projClientName = project.getClientName();
+    //
+*/
     //Pdf Viewer via pdf.js
     public class Browser extends StackPane
     {
         final WebView browser = new WebView();
         final WebEngine webEngine = browser.getEngine();
 
+        public Browser() {
 
-        public Browser()
-        {
-            //String projName = ManageProjectScene.getClientProjName();
             getStyleClass().add("browser");
             final URL urlPdf = getClass().getResource("/pdf.html");
-            //webEngine.executeScript("window.var ="+projName+";");
             webEngine.load(urlPdf.toExternalForm());
             getChildren().add(browser);
         }
