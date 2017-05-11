@@ -21,29 +21,23 @@ import static org.hamcrest.core.IsNot.not;
  */
 public class DBControllerTest {
 
-    private MongoCollection collectionUsers, collectionProjects;
+    private MongoCollection collectionEmployees, collectionClientsTest, collectionProjects;
     private MongoDatabase database;
-
-    private static String DB_MONGO_PASS = "topdog12";
-    private static String DB_MONGO_USER = "developmentuser";
-    private static String DB_MONGO_IP = "ec2-54-202-69-181.us-west-2.compute.amazonaws.com";
     private static String DB_NAME = "protrackerdev";
 
     @Before
     public void setUp() throws Exception {
         try {
 
-            // local database
+            // Local database connection
+            // Tests run on my laptops local host.
+            // Tests also run on my VPS which has a Jenkins Continious Integration setup.
             MongoClient mongoClientConn = new MongoClient("localhost", 27017);
             database = mongoClientConn.getDatabase("mongotest");
-
-            // remote database
-//            String mongoURI = "mongodb://" + DB_MONGO_USER + ":" + DB_MONGO_PASS + "@" +
-//                    DB_MONGO_IP + "/" + DB_NAME;
-//            MongoClient mongoClientConn = new MongoClient(new MongoClientURI(mongoURI));
-
             database = mongoClientConn.getDatabase(DB_NAME);
-            collectionUsers = database.getCollection("users");
+
+            collectionEmployees = database.getCollection("employees");
+            collectionClientsTest = database.getCollection("clients");
             collectionProjects = database.getCollection("projects");
         } catch (MongoException e) {
             e.printStackTrace();
@@ -54,7 +48,7 @@ public class DBControllerTest {
     public void updateProjectName() throws Exception {
 
         // Given
-        String currProjectName = "House";
+        String currProjectName = "Eastside";
 
         Project project = new Project(currProjectName);
 
@@ -63,12 +57,12 @@ public class DBControllerTest {
 
         collectionProjects.insertOne(document);
 
-        String newProjectName = "Apartment";
+        String newProjectName = "Westside";
         try {
 
            project = DBController.getInstance().updateProjectName(currProjectName, newProjectName);
 
-           assertThat(project.getName(), is("Apartment"));
+           assertThat(project.getName(), is("Westside"));
 
         }catch (Exception e) {
             e.getMessage();
@@ -95,8 +89,8 @@ public class DBControllerTest {
 
 
         // Then
-        assertThat(updatedProjectName, is("Apartment"));
-        assertThat(updatedProjectName, is(not("House")));
+        assertThat(updatedProjectName, is("Westside"));
+        assertThat(updatedProjectName, is(not("Eastside")));
 
         assertThat(collectionProjects.count(), is(1L));
 

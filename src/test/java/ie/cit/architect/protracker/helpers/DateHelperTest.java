@@ -1,6 +1,5 @@
 package ie.cit.architect.protracker.helpers;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -16,11 +15,6 @@ public class DateHelperTest {
     private static int YEAR_TWENTY_SEVENTEEN = 2017;
     private static int MONTH_MAY = 5-1;
     private static int DAY_FIRST = 01;
-
-    @Before
-    public void setUp() throws Exception {
-
-    }
 
 
     @Test

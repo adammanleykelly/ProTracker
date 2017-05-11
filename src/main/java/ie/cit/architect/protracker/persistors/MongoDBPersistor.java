@@ -42,12 +42,14 @@ public class MongoDBPersistor implements IPersistor {
             //Get Database - if database doesn't exist, MongoDB will create it for us
             database = mongoClientConn.getDatabase(DB_NAME);
 
+
             //Get Collection / Table from 'protracker'
             //if collection doesn't exist, mongoDB will create it for you
             collectionEmployees = database.getCollection("employees");
             collectionClients = database.getCollection("clients");
             collectionProjects = database.getCollection("projects");
             collectionMessages = database.getCollection("messages");
+
         } catch (MongoException e) {
             e.printStackTrace();
         }
@@ -63,7 +65,6 @@ public class MongoDBPersistor implements IPersistor {
                 document.put("password", currUser.getPassword());
             }
             collectionEmployees.insertOne(document);
-
         } catch (MongoException e) {
             e.printStackTrace();
         }
@@ -184,7 +185,6 @@ public class MongoDBPersistor implements IPersistor {
     public void writeProjects(ProjectList projects) {
         try {
             Document document = new Document();
-
             for (IProject currProject : projects.getProjects()) {
 
                 document.put("project_id", currProject.getProjectId());
@@ -196,13 +196,10 @@ public class MongoDBPersistor implements IPersistor {
                 document.put("create_date", currProject.getDate());
 
             }
-
             collectionProjects.insertOne(document);
-
         }catch (MongoException e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -232,7 +229,6 @@ public class MongoDBPersistor implements IPersistor {
         collectionProjects.updateOne(eq("fee_tendered", currentFee),
             new Document("$set", new Document("fee_tendered", updatedFee)));
 
-
         return project;
     }
 
@@ -243,10 +239,8 @@ public class MongoDBPersistor implements IPersistor {
 
         Project project = new Project();
 
-
         collectionProjects.updateOne(eq("name", currentName),
                 new Document("$set", new Document("name", newName)));
-
 
         project.setName(newName);
 
@@ -258,7 +252,6 @@ public class MongoDBPersistor implements IPersistor {
 
     @Override
     public ArrayList<Project> createProjectList() {
-
         // HashSet so we do not store duplicate values
         Set<Project> projectNameHashSet = new HashSet<>();
         ArrayList<Project> projectArrayList;
@@ -269,7 +262,6 @@ public class MongoDBPersistor implements IPersistor {
         try {
             while (cursor.hasNext()) {
                 Document document = cursor.next();
-
                 int projectId = document.getInteger("project_id");
                 String projectName = document.getString("name");
                 Date projectDate = document.getDate("create_date");
@@ -283,22 +275,16 @@ public class MongoDBPersistor implements IPersistor {
         } finally {
             cursor.close();
         }
-
         // adding our HashSet to an ArrayList for sorting
         projectArrayList = sortedProjects(projectNameHashSet);
 
         return projectArrayList;
-
     }
 
 
     private ArrayList<Project> sortedProjects(Set<Project> projectNameHashSet) {
-
         orderedArrayList = new ArrayList();
-
         orderedArrayList.addAll(projectNameHashSet);
-
-
         /**
          * Using our Comparator method to sort the list how we choose.
          * Other sorting method options below
@@ -308,15 +294,12 @@ public class MongoDBPersistor implements IPersistor {
          */
         sortProjectsDateDescending(orderedArrayList);
 
-
         return orderedArrayList;
-
     }
 
 
     private void sortProjectsDateDescending(ArrayList<Project> list) {
         list.sort((p1, p2) -> {
-
             if (p1.getDate().before(p2.getDate())) {
                 return 1;
             } else if (p1.getDate().after(p2.getDate())) {
