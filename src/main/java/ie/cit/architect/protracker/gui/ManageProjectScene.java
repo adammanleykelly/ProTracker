@@ -495,20 +495,6 @@ public class ManageProjectScene {
 
     private Group createBarChart() {
 
-        // define the X Axis
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setTickLabelRotation(90);
-        xAxis.setCategories(FXCollections.observableArrayList(
-                Arrays.asList(Consts.DESIGN, Consts.PLANNING, Consts.TENDER, Consts.CONSTRUCTION)));
-
-        int lowerBound = 0;
-        int upperBound = 50000;
-        int unitTick = 10000;
-
-
-        // define the Y Axis
-        NumberAxis yAxis = new NumberAxis(lowerBound, upperBound, unitTick);
-        yAxis.setLabel("Fee");
 
 
         String name = getProjectName();
@@ -520,6 +506,22 @@ public class ManageProjectScene {
         // this 'find' will also return the full mongo document associated with the project name
         projFee = project.getFee();
         projClientName = project.getClientName();
+
+        // define the X Axis
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setTickLabelRotation(90);
+        xAxis.setCategories(FXCollections.observableArrayList(
+                Arrays.asList(Consts.DESIGN, Consts.PLANNING, Consts.TENDER, Consts.CONSTRUCTION)));
+
+
+        int lowerBound = 0;
+        double upperBound = projFee / 2;
+        int unitTick = 10000;
+
+
+        // define the Y Axis
+        NumberAxis yAxis = new NumberAxis(lowerBound, upperBound, unitTick);
+        yAxis.setLabel("Fee");
 
 
 
