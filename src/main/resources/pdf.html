@@ -7,9 +7,17 @@
         body { height: 100%; margin: 0; padding: 0 }
     </style>
 </head>
-    <body>
-        <script type="text/javascript">
-        window.location.href = "web/viewer.html?file=invoice.pdf"
-        </script>
-    </body>
+<script type="text/javascript">
+    function initialize() {
+       /* window.var;
+        var projName = window.var;
+        var link = "./Desktop/" + projName + "/Invoice.pdf";
+        ////./desktop//invoice.pdf"
+        window.location.href = link;*/
+        window.location.href = "web/viewer.html?file=./src/main/resources/invoice.pdf"
+    }
+</script>
+<body onload="initialize()">
+
+</body>
 </html>
