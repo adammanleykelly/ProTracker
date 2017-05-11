@@ -177,7 +177,6 @@ public class ManageProjectScene {
      * @see MongoDBPersistor#createProjectList()
      */
     private void addProjectsToMiddlePane() {
-
         ArrayList<Project> projectArrayList = DBController.getInstance().selectRecords();
 
         for(Project project : projectArrayList) {
@@ -190,29 +189,20 @@ public class ManageProjectScene {
 
             hBoxProject = new HBox();
             labelDate.getStyleClass().add("label_padding");
-
             checkBox.getStyleClass().add("checkbox_padding");
             hBoxProject.getChildren().addAll(checkBox, labelDate);
-
             vBoxMiddlePane.getChildren().add(hBoxProject);
-
-
         }
-
         getProjectByName();
-
     }
 
 
-    private String getProjectName()
-    {
-
+    private String getProjectName() {
         for(CheckBox checkBox : checkBoxList) {
             checkBox.setOnAction(event -> {
                 projectName =  checkBox.getText();
             });
         }
-
         return projectName;
     }
 
@@ -301,12 +291,9 @@ public class ManageProjectScene {
             editDialogInput = result.get();
         }
 
-
         editProjectName();
 
-
         vBoxMiddlePane.getChildren().clear();
-
         addProjectsToMiddlePane();
     }
 
@@ -508,20 +495,6 @@ public class ManageProjectScene {
 
     private Group createBarChart() {
 
-        // define the X Axis
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setTickLabelRotation(90);
-        xAxis.setCategories(FXCollections.observableArrayList(
-                Arrays.asList(Consts.DESIGN, Consts.PLANNING, Consts.TENDER, Consts.CONSTRUCTION)));
-
-        int lowerBound = 0;
-        int upperBound = 50000;
-        int unitTick = 10000;
-
-
-        // define the Y Axis
-        NumberAxis yAxis = new NumberAxis(lowerBound, upperBound, unitTick);
-        yAxis.setLabel("Fee");
 
 
         String name = getProjectName();
@@ -533,6 +506,22 @@ public class ManageProjectScene {
         // this 'find' will also return the full mongo document associated with the project name
         projFee = project.getFee();
         projClientName = project.getClientName();
+
+        // define the X Axis
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setTickLabelRotation(90);
+        xAxis.setCategories(FXCollections.observableArrayList(
+                Arrays.asList(Consts.DESIGN, Consts.PLANNING, Consts.TENDER, Consts.CONSTRUCTION)));
+
+
+        int lowerBound = 0;
+        double upperBound = projFee / 2;
+        int unitTick = 10000;
+
+
+        // define the Y Axis
+        NumberAxis yAxis = new NumberAxis(lowerBound, upperBound, unitTick);
+        yAxis.setLabel("Fee");
 
 
 

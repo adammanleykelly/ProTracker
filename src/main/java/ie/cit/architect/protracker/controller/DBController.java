@@ -114,13 +114,11 @@ public class DBController {
 
 
     public Project updateProjectName(String currentProjectName, String upDatedProjectName) {
-
         for(IProject project : this.projectList.getProjects()) {
             if(project.getName().equals(currentProjectName)) {
                 project.setName(upDatedProjectName);
             }
         }
-
         return this.persistor.updateProjectName(currentProjectName,  upDatedProjectName);
     }
 
