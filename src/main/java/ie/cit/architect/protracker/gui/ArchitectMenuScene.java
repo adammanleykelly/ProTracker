@@ -62,10 +62,9 @@ public class ArchitectMenuScene {
         Button btn1 = new Button();
         Button btn2 = new Button();
         Button btn3 = new Button();
-        Button btn4 = new Button();
 
-        List<String> buttonText = Arrays.asList("Create New", "Manage Existing", "Billing / PdfInvoice", "View Messages");
-        List<Button> buttonList = Arrays.asList(btn1, btn2, btn3, btn4);
+        List<String> buttonText = Arrays.asList("Create New", "Manage Existing", "View Messages");
+        List<Button> buttonList = Arrays.asList(btn1, btn2, btn3);
 
         for (int i = 0; i < buttonList.size(); i++) {
             buttonList.get(i).getStyleClass().add("client_menu_buttons");
@@ -79,8 +78,6 @@ public class ArchitectMenuScene {
                 } else if (event.getSource().equals(btn2)) {
                     mediator.changeToManageProjectScene();
                 } else if (event.getSource().equals(btn3)) {
-
-                } else if (event.getSource().equals(btn4)) {
                     mediator.changeToViewMessagesScene();
                 }
             });
@@ -97,7 +94,6 @@ public class ArchitectMenuScene {
         gridPane.add(btn1, 0, 1);
         gridPane.add(btn2, 0, 2);
         gridPane.add(btn3, 0, 3);
-        gridPane.add(btn4, 0, 4);
 
         vBox.getChildren().addAll(imageViewLogo, gridPane);
 
@@ -109,7 +105,7 @@ public class ArchitectMenuScene {
 
         AnchorPane anchorPane = new AnchorPane();
 
-        Button buttonHome = new Button("Home");
+        Button buttonHome = new Button("Log Out");
         buttonHome.setOnAction(event -> {
             try {
                 mediator.changeToHomeScene();

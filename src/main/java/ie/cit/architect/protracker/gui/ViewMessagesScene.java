@@ -32,7 +32,7 @@ public class ViewMessagesScene {
 
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(homeButtonContainer());
-        borderPane.setRight(MessagesPane());
+        borderPane.setCenter(MessagesPane());
         borderPane.setBottom(createBottomPane());
 
         Scene scene = new Scene(borderPane, Consts.APP_WIDTH, Consts.APP_HEIGHT);
@@ -124,7 +124,7 @@ public class ViewMessagesScene {
 
         buttonHome.setOnAction(event -> {
             try {
-                mediator.changeToClientMenuScene();
+                mediator.changeToArchitectMenuScene();
             } catch (Exception e) {
                 e.printStackTrace();
             }
