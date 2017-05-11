@@ -29,35 +29,7 @@ public class Mediator extends Application {
     private ClientProjectStage clientProjectStage;
     private ClientBilling clientBilling;
     private ClientContact clientContact;
-
-
-
     private Stage primaryStage;
-
-
-    private static final int COUNT_LIMIT = 25000;
-    private static int stepCount = 1;
-
-
-    public static String STEP() {
-        return stepCount++ + ". ";
-    }
-
-    public static void main(String[] args) {
-        LauncherImpl.launchApplication(Mediator.class, preloader.class, args);
-    }
-
-    @Override
-    public void init() throws Exception {
-        System.out.println(Mediator.STEP() + "MyApplication#init (doing some heavy lifting), thread: " + Thread.currentThread().getName());
-
-        // Perform some heavy lifting (i.e. database start, check for application updates, etc. )
-        for (int i = 0; i < COUNT_LIMIT; i++)
-        {
-            double progress = (100 * i) / COUNT_LIMIT;
-            LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(progress));
-        }
-    }
 
 
     //  Swapping scenes. Ref: http://stackoverflow.com/a/14168529/5942254
@@ -130,4 +102,29 @@ public class Mediator extends Application {
     public void changeToClientBilling() throws Exception {clientBilling.start(primaryStage);}
 
     public void changeToClientContact() throws Exception {clientContact.start(primaryStage);}
+
+
+    private static final int COUNT_LIMIT = 25000;
+    private static int stepCount = 1;
+
+
+    public static String STEP() {
+        return stepCount++ + ". ";
+    }
+
+    public static void main(String[] args) {
+        LauncherImpl.launchApplication(Mediator.class, preloader.class, args);
+    }
+
+    @Override
+    public void init() throws Exception {
+        System.out.println(Mediator.STEP() + "MyApplication#init (doing some heavy lifting), thread: " + Thread.currentThread().getName());
+
+        // Perform some heavy lifting (i.e. database start, check for application updates, etc. )
+        for (int i = 0; i < COUNT_LIMIT; i++)
+        {
+            double progress = (100 * i) / COUNT_LIMIT;
+            LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(progress));
+        }
+    }
 }
