@@ -30,13 +30,10 @@ public class PdfInvoice {
     private static final String SEPARATOR = File.separator;
     private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + SEPARATOR + "Desktop";
     private static final String FILE_NAME = "Invoice";
-   //private static final String LOGO = "/home/brian/workspace/PdfInvoice/src/main/resources/companylogo.png";
     private static final String LOGO = "./src/main/resources/companylogo.png";
     //private static final String pdfPreview = "./src/main/resources/web/";
     private static Date mDate;
-
-
-
+    
     private PdfInvoice() {
     }
 
