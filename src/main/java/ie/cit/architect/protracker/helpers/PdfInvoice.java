@@ -33,7 +33,7 @@ public class PdfInvoice {
     private static final String LOGO = "./src/main/resources/companylogo.png";
     //private static final String pdfPreview = "./src/main/resources/web/";
     private static Date mDate;
-    
+
     private PdfInvoice() {
     }
 

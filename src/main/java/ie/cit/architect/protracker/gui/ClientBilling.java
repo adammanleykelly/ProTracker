@@ -65,7 +65,7 @@ public class ClientBilling
         Label ainfo = new Label("Account Details");
         ainfo.setFont(new Font("Arial", 30));
 
-        cName.setText("Client Name:" + name);
+        cName.setText("Client Name: " + name);
         Label pName = new Label ("Project Name: " + projName);
         Label cFee = new Label("Currernt Fee: "+ fee);
 
