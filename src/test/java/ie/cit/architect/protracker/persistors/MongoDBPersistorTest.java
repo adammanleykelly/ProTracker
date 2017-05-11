@@ -207,8 +207,6 @@ public class MongoDBPersistorTest {
         assertThat(project2.getName(), is(originalName));
 
 
-
-
         /** When **/
         // update the the Projects name in the database, the same as the method in MongoDBPersistor
         collectionProjects.updateOne(eq("name", originalName),
@@ -223,7 +221,6 @@ public class MongoDBPersistorTest {
         /** Then **/
         assertThat(project.getName(), is(updatedName));
         assertThat(project.getName(), is(not(originalName)));
-
 
 
         // cleanup the db by removing the updated entry
