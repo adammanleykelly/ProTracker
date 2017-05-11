@@ -132,7 +132,7 @@ public class ManageProjectScene {
 
         Label labelOperations = new Label("Operations:");
 
-        VBox.setMargin(labelOperations, new Insets(30, 0, 50, 10));
+        VBox.setMargin(labelOperations, new Insets(10, 0, 50, 10));
 
         // add controls to VBox
         vBox.getChildren().addAll(labelOperations, changeFee, buttonViewStage, buttonRename, buttonDelete);
@@ -331,11 +331,11 @@ public class ManageProjectScene {
 
 
         Label label = new Label("Search Projects:");
-        VBox.setMargin(label, new Insets(30, 0, 20, 10));
+        VBox.setMargin(label, new Insets(10, 0, 20, 10));
 
         TextField textField = new TextField();
 
-        VBox.setMargin(textField, new Insets(0, 10, 0, 10));
+        VBox.setMargin(textField, new Insets(10, 10, 0, 10));
 
         vBox.getChildren().addAll(label, textField);
 
@@ -455,14 +455,17 @@ public class ManageProjectScene {
 
         buttonPlanning.setOnAction(event -> {
             setAdjustPath("Planning");
+            setClientProjDetails(projName, projClientName, yValuePlanningFee);
             createInvoice(projName, projClientName, yValuePlanningFee);
         });
         buttonTender.setOnAction(event -> {
                 setAdjustPath("Tender");
+            setClientProjDetails(projName, projClientName, yValueTenderFee);
                 createInvoice(projName, projClientName, yValueTenderFee);
         });
         buttonConstruction.setOnAction(event -> {
                 setAdjustPath("Construction");
+            setClientProjDetails(projName, projClientName, yValueConstructionFee);
                 createInvoice(projName, projClientName, yValueConstructionFee);
         });
 
@@ -490,7 +493,6 @@ public class ManageProjectScene {
         cName = n;
         cFee = f;
     }
-
     public static String getClientProjName()
     {
         return pName;

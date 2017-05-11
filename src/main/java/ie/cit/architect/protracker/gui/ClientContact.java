@@ -180,20 +180,17 @@ public class ClientContact
 
 
 
-    public class Browser extends StackPane {
-
-
+    public class Browser extends StackPane
+    {
         final WebView browser = new WebView();
         final WebEngine webEngine = browser.getEngine();
 
-        public Browser() {
-
+        public Browser()
+        {
             getStyleClass().add("browser");
-
             final URL urlGoogleMaps = getClass().getResource("/GoogleMapsV3.html");
             webEngine.load(urlGoogleMaps.toExternalForm());
             webEngine.setJavaScriptEnabled(true);
-
             getChildren().add(browser);
         }
     }

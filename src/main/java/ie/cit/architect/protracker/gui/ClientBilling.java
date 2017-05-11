@@ -2,17 +2,10 @@ package ie.cit.architect.protracker.gui;
 
 import ie.cit.architect.protracker.App.Mediator;
 import ie.cit.architect.protracker.helpers.Consts;
-import ie.cit.architect.protracker.helpers.PdfInvoice;
-import ie.cit.architect.protracker.controller.Controller;
-import ie.cit.architect.protracker.controller.DBController;
-import ie.cit.architect.protracker.helpers.Consts;
-import ie.cit.architect.protracker.model.Project;
-import ie.cit.architect.protracker.persistors.MongoDBPersistor;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,8 +14,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import java.io.IOException;
-
 import java.net.URL;
 
 /**
@@ -62,14 +53,13 @@ public class ClientBilling
         //System.out.println(stage);
         Label ainfo = new Label("Account Details");
         ainfo.setFont(new Font("Arial", 30));
-        Label cName = new Label ("Client Name: " + projName);
-        Label pName = new Label ("Project Name: " + name);
-        Label cFee = new Label("Fee: "+ fee);
-        Label aName = new Label("Architect Name:}");
+        Label cName = new Label ("Client Name: " + name);
+        Label pName = new Label ("Project Name: " + projName);
+        Label cFee = new Label("Currernt Fee: "+ fee);
 
-        VBox vb = new VBox(ainfo, cName, pName, cFee, aName);
+        VBox vb = new VBox(ainfo, cName, pName, cFee);
         vb.setSpacing(5);
-        vb.setPadding(new Insets(10));
+        vb.setPadding(new Insets(10,0,0,10));
         vb.setAlignment(Pos.TOP_LEFT);
         // Create our browser which contains the Google Map
 
@@ -79,7 +69,7 @@ public class ClientBilling
         StackPane stackPane = new StackPane();
         stackPane.getChildren().add(browser);
         stackPane.setPrefHeight(300);
-        stackPane.setPrefWidth(400);
+        stackPane.setPrefWidth(500);
 
         VBox vbPdf = new VBox(stackPane);
         vbPdf.setSpacing(15);
@@ -88,7 +78,7 @@ public class ClientBilling
 
 
         HBox hb1 = new HBox(vb, vbPdf);
-        hb1.setSpacing(150);
+        hb1.setSpacing(90);
         hb1.setPadding(new Insets(1));
         hb1.setAlignment(Pos.CENTER);
 
@@ -226,15 +216,14 @@ public class ClientBilling
     //
 */
     //Pdf Viewer via pdf.js
-    public class Browser extends StackPane {
-
+    public class Browser extends StackPane
+    {
         final WebView browser = new WebView();
         final WebEngine webEngine = browser.getEngine();
 
         public Browser() {
 
             getStyleClass().add("browser");
-
             final URL urlPdf = getClass().getResource("/pdf.html");
             webEngine.load(urlPdf.toExternalForm());
             getChildren().add(browser);
