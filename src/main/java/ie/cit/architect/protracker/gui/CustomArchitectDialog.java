@@ -161,7 +161,7 @@ public class CustomArchitectDialog
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Email Address Not Recognised!");
         alert.setHeaderText(null);
-        alert.setContentText("Please check your email!");
+        alert.setContentText("<Error Message> use: 'der@email.com'");
         alert.showAndWait();
         return alert;
     }
@@ -171,7 +171,7 @@ public class CustomArchitectDialog
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Password Not Recognised!");
         alert.setHeaderText(null);
-        alert.setContentText("Please check your password!");
+        alert.setContentText("<Error Message> use: 'pass'");
         alert.showAndWait();
         return alert;
     }
