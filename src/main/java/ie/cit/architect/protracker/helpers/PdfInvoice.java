@@ -32,7 +32,7 @@ public class PdfInvoice {
     private static final String FILE_NAME = "Invoice";
    //private static final String LOGO = "/home/brian/workspace/PdfInvoice/src/main/resources/companylogo.png";
     private static final String LOGO = "./src/main/resources/companylogo.png";
-    private static final String pdfPreview = "./src/main/resources/web/";
+    //private static final String pdfPreview = "./src/main/resources/web/";
     private static Date mDate;
 
 
@@ -73,15 +73,21 @@ public class PdfInvoice {
         PdfWriter writer = new PdfWriter(
                 PATH_TO_DESKTOP + SEPARATOR + projectName + SEPARATOR + FILE_NAME );
 
+        PdfWriter writer2 = new PdfWriter(
+                "./src/main/resources/invoice.pdf");
+
         PdfDocument pdf = new PdfDocument(writer);
+        PdfDocument pdf2 = new PdfDocument(writer2);
 
         Document document = new Document(pdf);
+        Document document2 = new Document(pdf2);
 
         Image logo = new Image(ImageDataFactory.create(LOGO));
 
         logo.scaleToFit(208f, 115f);
 
         document.add(logo);
+        document2.add(logo);
 
 
         Style title = new Style();
@@ -97,6 +103,7 @@ public class PdfInvoice {
         paragraphTitle.setUnderline();
         paragraphTitle.setFixedLeading(100);
         document.add(paragraphTitle);
+        document2.add(paragraphTitle);
 
         String vatNum = "000000000";
 
@@ -138,6 +145,7 @@ public class PdfInvoice {
             paragraphList.get(i).add(details.get(i));
 
             document.add(paragraphList.get(i));
+            document2.add(paragraphList.get(i));
         }
 
 
@@ -145,3 +153,4 @@ public class PdfInvoice {
     }
 
 }
+/**/

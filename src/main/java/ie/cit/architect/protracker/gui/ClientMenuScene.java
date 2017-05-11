@@ -35,7 +35,7 @@ public class ClientMenuScene
         Scene scene = new Scene(pane, Consts.APP_WIDTH, Consts.APP_HEIGHT);
         scene.getStylesheets().add("/stylesheet.css");
         stage.setScene(scene);
-        stage.setTitle(Consts.APPLICATION_TITLE + "ClientUser Menu");
+        stage.setTitle(Consts.APPLICATION_TITLE + " Client Menu");
         stage.show();
     }
 
