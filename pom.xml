@@ -44,33 +44,64 @@
             <version>3.4.1</version>
         </dependency>
 
-        <!-- iText 7-->
-        <!-- always needed -->
         <dependency>
             <groupId>com.itextpdf</groupId>
-            <artifactId>kernel</artifactId>
-            <version>7.0.2</version>
+            <artifactId>barcodes</artifactId>
+            <version>7.0.0</version>
+            <!-- barcodes depends on kernel -->
         </dependency>
 
-        <!-- always needed -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>font-asian</artifactId>
+            <version>7.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>forms</artifactId>
+            <version>7.0.0</version>
+            <!-- forms depends on kernel and layout -->
+        </dependency>
+
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>hyph</artifactId>
+            <version>7.0.0</version>
+        </dependency>
+
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>io</artifactId>
-            <version>7.0.2</version>
+            <version>7.0.0</version>
         </dependency>
 
-        <!-- always needed -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>kernel</artifactId>
+            <version>7.0.0</version>
+            <!-- kernel depends on io -->
+        </dependency>
+
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>layout</artifactId>
-            <version>7.0.2</version>
+            <version>7.0.0</version>
+            <!-- layout depends on kernel -->
         </dependency>
 
-        <!-- only needed for PDF/A -->
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>pdfa</artifactId>
-            <version>7.0.2</version>
+            <version>7.0.0</version>
+            <!-- pdfa depends on kernel -->
+        </dependency>
+
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>sign</artifactId>
+            <version>7.0.0</version>
+            <!-- sign depends on kernel, layout and forms -->
         </dependency>
 
         <!-- resolves this error: 'Failed to load class "org.slf4j.impl.StaticLoggerBinder".'
