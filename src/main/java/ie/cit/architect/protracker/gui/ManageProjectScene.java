@@ -84,7 +84,7 @@ public class ManageProjectScene {
         int sceneWidth = 1000;
         Scene scene = new Scene(
                 borderPane,
-                sceneWidth, Consts.APP_HEIGHT);
+                Consts.APP_WIDTH, Consts.APP_HEIGHT);
 
         scene.getStylesheets().add("/stylesheet.css");
         window.setScene(scene);
@@ -95,8 +95,8 @@ public class ManageProjectScene {
 
     private VBox createRightPane() {
         VBox vBox = new VBox();
-        vBox.getStyleClass().add("hbox_left");
-        vBox.setMinWidth(Consts.PANE_WIDTH);
+        //vBox.getStyleClass().add("hbox_left");
+
 
         Button changeFee = new Button("Change Fee");
         changeFee.setOnAction(event -> {
@@ -132,11 +132,10 @@ public class ManageProjectScene {
 
         Label labelOperations = new Label("Operations:");
 
-        VBox.setMargin(labelOperations, new Insets(30, 0, 50, 10));
+        VBox.setMargin(labelOperations, new Insets(10, 0, 50, 10));
 
         // add controls to VBox
         vBox.getChildren().addAll(labelOperations, changeFee, buttonViewStage, buttonRename, buttonDelete);
-
         return vBox;
     }
 
@@ -153,6 +152,7 @@ public class ManageProjectScene {
         Label labelDateModified = new Label("Date Modified");
         HBox.setMargin(labelName, new Insets(10, 0, 0, 35));
         HBox.setMargin(labelDateModified, new Insets(10, 0, 0, 135));
+
         HBox hBox = new HBox();
         hBox.getChildren().addAll(labelName, labelDateModified);
         VBox vBox = new VBox();
@@ -315,16 +315,14 @@ public class ManageProjectScene {
     private VBox createLeftPane() {
         VBox vBox = new VBox();
         vBox.getStyleClass().add("hbox_right");
-        vBox.setMinWidth(225);
+
 
         Label label = new Label("Search Projects:");
-        VBox.setMargin(label, new Insets(30, 0, 20, 10));
-
+        VBox.setMargin(label, new Insets(10, 0, 20, 10));
 
         TextField textField = new TextField();
 
-        VBox.setMargin(textField, new Insets(0, 37.5, 0, 37.5));
-
+        VBox.setMargin(textField, new Insets(10, 10, 0, 10));
 
         vBox.getChildren().addAll(label, textField);
 
@@ -400,6 +398,9 @@ public class ManageProjectScene {
 
     //*** New Scene ***//
     static String stage;
+    static String pName;
+    static String cName;
+    static double cFee;
     private String projName;
     private String projClientName;
     private double projFee;
@@ -416,7 +417,7 @@ public class ManageProjectScene {
         borderPane.getStyleClass().add("border_pane");
 
 
-        Scene scene = new Scene(borderPane, 1000, 500);
+        Scene scene = new Scene(borderPane,  Consts.APP_WIDTH, Consts.APP_HEIGHT);
         scene.getStylesheets().add("/stylesheet.css");
         window.setScene(scene);
         window.setTitle(Consts.APPLICATION_TITLE + " View Stage");
@@ -426,6 +427,7 @@ public class ManageProjectScene {
     private VBox createLeftBillingPane()
     {
         VBox vBox = new VBox();
+       
 
         buttonDesign = new Button("Send Design Invoice");
         Button buttonPlanning = new Button("Send Planning Invoice");
@@ -434,27 +436,26 @@ public class ManageProjectScene {
 
         buttonDesign.setOnAction(event -> {
             setAdjustPath("Design");
+            setClientProjDetails(projName, projClientName, yValueDesignFee);
             createInvoice(projName, projClientName, yValueDesignFee);
         });
 
         buttonPlanning.setOnAction(event -> {
             setAdjustPath("Planning");
+            setClientProjDetails(projName, projClientName, yValuePlanningFee);
             createInvoice(projName, projClientName, yValuePlanningFee);
         });
         buttonTender.setOnAction(event -> {
                 setAdjustPath("Tender");
+            setClientProjDetails(projName, projClientName, yValueTenderFee);
                 createInvoice(projName, projClientName, yValueTenderFee);
         });
         buttonConstruction.setOnAction(event -> {
                 setAdjustPath("Construction");
+            setClientProjDetails(projName, projClientName, yValueConstructionFee);
                 createInvoice(projName, projClientName, yValueConstructionFee);
         });
 
-        /*buttonDesign.setOnAction(event -> createInvoice(projName, projClientName, yValueDesignFee));
-        buttonPlanning.setOnAction(event -> createInvoice(projName, projClientName, yValuePlanningFee));
-        buttonTender.setOnAction(event -> createInvoice(projName, projClientName, yValueTenderFee));
-        buttonConstruction.setOnAction(event -> createInvoice(projName, projClientName, yValueConstructionFee));
-        */
         VBox.setMargin(buttonDesign, new Insets(100, 37.5, 0, 37.5));
         VBox.setMargin(buttonPlanning, new Insets(30, 37.5, 0, 37.5));
         VBox.setMargin(buttonTender, new Insets(30, 37.5, 0, 37.5));
@@ -473,6 +474,24 @@ public class ManageProjectScene {
         return stage;
     }
 
+    public void setClientProjDetails(String p, String n, double f)
+    {
+        pName = p;
+        cName = n;
+        cFee = f;
+    }
+    public static String getClientProjName()
+    {
+        return pName;
+    }
+    public static String getClientName()
+    {
+        return cName;
+    }
+    public static Double getClientProjFee()
+    {
+        return cFee;
+    }
 
     private Group createBarChart() {
 

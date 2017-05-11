@@ -32,6 +32,7 @@ public class PdfInvoice {
     private static final String FILE_NAME = "Invoice";
    //private static final String LOGO = "/home/brian/workspace/PdfInvoice/src/main/resources/companylogo.png";
     private static final String LOGO = "./src/main/resources/companylogo.png";
+    private static final String pdfPreview = "./src/main/resources/web/";
     private static Date mDate;
 
 
@@ -70,7 +71,7 @@ public class PdfInvoice {
 
 
         PdfWriter writer = new PdfWriter(
-                PATH_TO_DESKTOP + SEPARATOR + projectName + SEPARATOR + FILE_NAME);
+                PATH_TO_DESKTOP + SEPARATOR + projectName + SEPARATOR + FILE_NAME );
 
         PdfDocument pdf = new PdfDocument(writer);
 

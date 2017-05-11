@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.util.List;
 import javafx.animation.PathTransition;
@@ -53,10 +54,13 @@ public class ClientViewProjectTimeline
     private Pane createProjectTimeline()
     {
         Group rootGroup = new Group();
-        VBox vb = new VBox(rootGroup);
+        String projName = ManageProjectScene.getClientProjName();
+        Label Title = new Label("Project Timeline: " + projName );
+        Title.setFont(new Font("Arial", 30));
+        VBox vb = new VBox(Title,rootGroup);
         applyAnimation(rootGroup);
-        vb.setSpacing(15);
-        vb.setPadding(new Insets(1,1,60,1));
+        vb.setSpacing(90);
+        vb.setPadding(new Insets(1,1,180,1));
         vb.setAlignment(Pos.CENTER);
 
         BorderPane pane = new BorderPane();
@@ -73,7 +77,6 @@ public class ClientViewProjectTimeline
     private Path generateStraightPath()
     {
         String stage = ManageProjectScene.getAdjustPath();
-        System.out.println(stage);
         final Path path = new Path();
         path.getElements().add(new MoveTo(20,200));
         if(stage=="Design")
