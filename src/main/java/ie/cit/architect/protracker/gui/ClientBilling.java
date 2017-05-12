@@ -19,6 +19,8 @@ import java.net.URL;
 /**
  * Created by Adam on 05/03/2017.
  * Pdf Preview via PDF.js
+ *
+ * Please Note: the PDF viewer displays correctly on my Windows PC, but is not displaying on a Linux PC - adammanleykelly
  */
 public class ClientBilling
 {

@@ -1,20 +1,20 @@
 package ie.cit.architect.protracker.helpers;
 
 import com.itextpdf.io.font.FontConstants;
-import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.Style;
-import com.itextpdf.layout.element.*;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Tab;
+import com.itextpdf.layout.element.TabStop;
+import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TabAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import ie.cit.architect.protracker.controller.Controller;
 import ie.cit.architect.protracker.model.IProject;
-
-
 
 import java.io.File;
 import java.io.IOException;
@@ -29,8 +29,10 @@ public class PdfInvoice {
 
     private static final String SEPARATOR = File.separator;
     private static final String PATH_TO_DESKTOP = System.getProperty("user.home") + SEPARATOR + "Desktop";
-    private static final String FILE_NAME = "Invoice";
-    private static final String LOGO = "./src/main/resources/companylogo.png";
+    private static final String FILE_NAME = "Invoice.pdf";
+
+
+//    private static final String LOGO = "./src/main/resources/companylogo.png";
     //private static final String pdfPreview = "./src/main/resources/web/";
     private static Date mDate;
 
@@ -68,7 +70,7 @@ public class PdfInvoice {
 
 
         PdfWriter writer = new PdfWriter(
-                PATH_TO_DESKTOP + SEPARATOR + projectName + SEPARATOR + FILE_NAME +".pdf");
+                PATH_TO_DESKTOP + SEPARATOR + projectName + SEPARATOR + FILE_NAME);
 
 
         PdfDocument pdf = new PdfDocument(writer);
@@ -77,11 +79,11 @@ public class PdfInvoice {
         Document document = new Document(pdf);
 
 
-        Image logo = new Image(ImageDataFactory.create(LOGO));
+//        Image logo = new Image(ImageDataFactory.create(LOGO));
 
-        logo.scaleToFit(208f, 115f);
-
-        document.add(logo);
+//        logo.scaleToFit(208f, 115f);
+//
+//        document.add(logo);
 
 
 
