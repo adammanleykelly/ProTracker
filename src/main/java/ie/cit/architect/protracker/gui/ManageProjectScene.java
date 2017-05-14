@@ -81,10 +81,9 @@ public class ManageProjectScene {
         borderPane.setRight(createRightPane());
         borderPane.setBottom(createBottomPane());
 
-        int sceneWidth = 1000;
         Scene scene = new Scene(
                 borderPane,
-                Consts.APP_WIDTH, Consts.APP_HEIGHT);
+                Consts.APP_WIDTH + 50, Consts.APP_HEIGHT);
 
         scene.getStylesheets().add("/stylesheet.css");
         window.setScene(scene);
@@ -516,7 +515,7 @@ public class ManageProjectScene {
 
         int lowerBound = 0;
         double upperBound = projFee / 2;
-        int unitTick = 10000;
+        double unitTick = projFee / 10;
 
 
         // define the Y Axis
